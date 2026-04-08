@@ -1,0 +1,34 @@
+Tutaj wypisze najwazniejsze rzeczy, ktorych trzymamy sie w naszym projekcie
+
+1.Na poczatku pliku .h udokumentujcie w taki sposob:
+/** \author Autor
+ *
+ * \file nazwa_pliku.h
+ *
+ * \brief krótki opis
+ */
+byśmy wiedzieli do czego służy i do kogo pisać w razie pytań
+
+2.Jak skończycie tworzyć coś, udokomentujcie tuż przed funkcją, tak by inni wiedzieli jak z tego korzystać
+/** \author Autor
+ *
+ * \class nazwa_klasy (dla klasy)
+ *
+ * \brief opis krótki
+ *
+ * \param opis parametru (dla funkcji)
+ * \return opis co zwraca (dla funkcji)
+ */
+Oprócz tego możecie w środku funkcji komentować co sie dzieje (opcjonalnie)
+
+Stosujemy ten dziwny zapis by potem łatwo utworzyć dokumentację z doxygen (i się nie jebać potem z tym manualnie)
+
+3.Nazwy funkcji,zmiennych piszemy camel_case, stałe CAMEL_CASE, jeśli wam to nieodpowiada to nie mam problemu z inną konwencją
+
+4. Jeśli nie jesteście pewni czy jest coś dobrze zrobione, i chcecie bym wam sprawdził, pushujcie na branch test, a potem na master, jeśli wg was jest git, to push od razu na master
+
+5. Jeśli macie jakieś nowe pomysły do gry, albo coś chcecie dodać/udoskonalić, otwórzcie nowy issue na githubie
+
+6. Pytania zadawajcie bardziej na messengerze
+
+Jak coś wymyśle jeszcze to tutaj wstawie ;))
