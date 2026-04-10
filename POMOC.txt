@@ -10,7 +10,7 @@ Tutaj wypisze najwazniejsze rzeczy, ktorych trzymamy sie w naszym projekcie
 byśmy wiedzieli do czego służy i do kogo pisać w razie pytań
 
 2.Jak skończycie tworzyć coś, udokomentujcie tuż przed funkcją, tak by inni wiedzieli jak z tego korzystać
-/** \author Autor
+/** \author Autor (opcjonalnie)
  *
  * \class nazwa_klasy (dla klasy)
  *
@@ -19,16 +19,31 @@ byśmy wiedzieli do czego służy i do kogo pisać w razie pytań
  * \param opis parametru (dla funkcji)
  * \return opis co zwraca (dla funkcji)
  */
-Oprócz tego możecie w środku funkcji komentować co sie dzieje (opcjonalnie)
+Najważniejsze właściwości klasy zakomentujecie tak:
+(właściwość); /**< Krótki opis */
+
+Przykłady:
+/** \brief Inicjacja technikalii SDL
+ *
+ * \param t Technical& - obiekt klasy z object_init.h
+ * \return bool - fałsz, gdy wystąpi błąd na którymś etapie, w przeciwnym razie prawda
+ *
+ */                                            
+ friend bool init(Technical& t);
+
+int window_height;/**< Wysokość okna gry */
+
+Oprócz tego możecie komentować co się dzieje w samej funkcji (opcjonalnie)
 
 Stosujemy ten dziwny zapis by potem łatwo utworzyć dokumentację z doxygen (i się nie jebać potem z tym manualnie)
 
-3.Nazwy funkcji,zmiennych piszemy camel_case, stałe CAMEL_CASE, jeśli wam to nieodpowiada to nie mam problemu z inną konwencją
+3. Nazwy funkcji,zmiennych piszemy camel_case, stałe CAMEL_CASE, struktur(enumy klasy structy typedefy) First_capital, w języku angielskim; stosujemy konwencję obiekt_czynność np. main_menu_render() , jeśli wam to nieodpowiada to nie mam problemu z inną konwencją
 
-4. Jeśli nie jesteście pewni czy jest coś dobrze zrobione, i chcecie bym wam sprawdził, pushujcie na branch test, a potem na master, jeśli wg was jest git, to push od razu na master
+4. Jeśli nie jesteście pewni czy jest coś dobrze zrobione, i chcecie bym wam sprawdził, pushujcie na branch test, a po sprawdzeniu na master, jeśli wg was jest git (pun not intended), to push od razu na master
 
 5. Jeśli macie jakieś nowe pomysły do gry, albo coś chcecie dodać/udoskonalić, otwórzcie nowy issue na githubie
 
 6. Pytania zadawajcie bardziej na messengerze
+
 
 Jak coś wymyśle jeszcze to tutaj wstawie ;))

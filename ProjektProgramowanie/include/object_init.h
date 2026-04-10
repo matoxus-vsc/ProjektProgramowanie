@@ -2,7 +2,7 @@
  *
  * \file object_init.h
  *
- * \brief Inicjujemy tu obiekty klas z plików
+ * \brief Inicjujemy tu obiekty klas z plików: inline Nazwa_klasy nazwa_obiektu1;
  */
 
 
@@ -10,7 +10,9 @@
 #define OBJECT_INIT_H_INCLUDED
 
 #include "Technical.h"
+#include "Object.h"
 
-Technical t1;
+inline Technical t1;
+inline Object o1;
 
 #endif // OBJECT_INIT_H_INCLUDED

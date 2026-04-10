@@ -13,14 +13,15 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="include" />
+					<Add directory="ProjektProgramowanie/include" />
 				</Compiler>
 				<Linker>
 					<Add option="-lSDL3" />
-					<Add option="-lSDL3_image" />
-					<Add option="-lSDL3_ttf" />
 					<Add library="ProjektProgramowanie/lib/SDL3.lib" />
 					<Add library="ProjektProgramowanie/lib/SDL3_image.lib" />
 					<Add library="ProjektProgramowanie/lib/SDL3_ttf.lib" />
+					<Add directory="ProjektProgramowanie/lib" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -30,6 +31,8 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include" />
+					<Add directory="ProjektProgramowanie/include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -39,6 +42,11 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="ProjektProgramowanie/include/Object.h" />
+		<Unit filename="ProjektProgramowanie/include/Technical.h" />
+		<Unit filename="ProjektProgramowanie/include/object_init.h" />
+		<Unit filename="ProjektProgramowanie/src/Object.cpp" />
+		<Unit filename="ProjektProgramowanie/src/Technical.cpp" />
 		<Unit filename="ProjektProgramowanie/src/main.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />

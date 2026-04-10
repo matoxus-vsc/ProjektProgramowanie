@@ -1,9 +1,10 @@
 # depslib dependency file v1.0
-1773859285 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/main.cpp
+1775836533 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/main.cpp
 	"../include/SDL3/SDL.h"
 	"../include/SDL3/SDL_main.h"
+	"object_init.h"
 
-1773858015 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL.h
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL.h
 	<SDL3/SDL_stdinc.h>
 	<SDL3/SDL_assert.h>
 	<SDL3/SDL_asyncio.h>
@@ -61,7 +62,7 @@
 	<SDL3/SDL_video.h>
 	<SDL3/SDL_oldnames.h>
 
-1773858015 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_main.h
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_main.h
 	<SDL3/SDL_platform_defines.h>
 	<SDL3/SDL_stdinc.h>
 	<SDL3/SDL_error.h>
@@ -71,4 +72,459 @@
 	<SDL3/SDL_begin_code.h>
 	<SDL3/SDL_close_code.h>
 	<SDL3/SDL_main_impl.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_stdinc.h
+	<SDL3/SDL_platform_defines.h>
+	<stdarg.h>
+	<string.h>
+	<wchar.h>
+	<stdint.h>
+	<inttypes.h>
+	<stdbool.h>
+	<alloca.h>
+	<stdlib.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	<sal.h>
+	<SDL3/SDL_begin_code.h>
+	<stdio.h>
+	<stdlib.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_platform_defines.h
+	<AvailabilityMacros.h>
+	<TargetConditionals.h>
+	<TargetConditionals.h>
+	<winapifamily.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_begin_code.h
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_close_code.h
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_assert.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_begin_code.h>
+	<signal.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_asyncio.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_atomic.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_platform_defines.h>
+	<SDL3/SDL_begin_code.h>
+	<mbarrier.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_audio.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_endian.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_mutex.h>
+	<SDL3/SDL_properties.h>
+	<SDL3/SDL_iostream.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_endian.h
+	<SDL3/SDL_stdinc.h>
+	<intrin.h>
+	<endian.h>
+	<sys/byteorder.h>
+	<endian.h>
+	<sys/endian.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_error.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_mutex.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_atomic.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_thread.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_thread.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_properties.h>
+	<SDL3/SDL_atomic.h>
+	<process.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_properties.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_iostream.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_properties.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_bits.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_blendmode.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_camera.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_pixels.h>
+	<SDL3/SDL_properties.h>
+	<SDL3/SDL_surface.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_pixels.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_endian.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_surface.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_blendmode.h>
+	<SDL3/SDL_pixels.h>
+	<SDL3/SDL_properties.h>
+	<SDL3/SDL_rect.h>
+	<SDL3/SDL_iostream.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_rect.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_clipboard.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_cpuinfo.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_dialog.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_properties.h>
+	<SDL3/SDL_video.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_video.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_pixels.h>
+	<SDL3/SDL_properties.h>
+	<SDL3/SDL_rect.h>
+	<SDL3/SDL_surface.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_dlopennote.h
+	<SDL3/SDL_stdinc.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_events.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_audio.h>
+	<SDL3/SDL_camera.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_gamepad.h>
+	<SDL3/SDL_joystick.h>
+	<SDL3/SDL_keyboard.h>
+	<SDL3/SDL_keycode.h>
+	<SDL3/SDL_mouse.h>
+	<SDL3/SDL_pen.h>
+	<SDL3/SDL_power.h>
+	<SDL3/SDL_sensor.h>
+	<SDL3/SDL_scancode.h>
+	<SDL3/SDL_touch.h>
+	<SDL3/SDL_video.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_gamepad.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_guid.h>
+	<SDL3/SDL_iostream.h>
+	<SDL3/SDL_joystick.h>
+	<SDL3/SDL_power.h>
+	<SDL3/SDL_properties.h>
+	<SDL3/SDL_sensor.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_guid.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_joystick.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_guid.h>
+	<SDL3/SDL_mutex.h>
+	<SDL3/SDL_power.h>
+	<SDL3/SDL_properties.h>
+	<SDL3/SDL_sensor.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_power.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_sensor.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_properties.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_keyboard.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_keycode.h>
+	<SDL3/SDL_properties.h>
+	<SDL3/SDL_rect.h>
+	<SDL3/SDL_scancode.h>
+	<SDL3/SDL_video.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_keycode.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_scancode.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_scancode.h
+	<SDL3/SDL_stdinc.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_mouse.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_surface.h>
+	<SDL3/SDL_video.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_pen.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_mouse.h>
+	<SDL3/SDL_touch.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_touch.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_mouse.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_filesystem.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_gpu.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_pixels.h>
+	<SDL3/SDL_properties.h>
+	<SDL3/SDL_rect.h>
+	<SDL3/SDL_surface.h>
+	<SDL3/SDL_video.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_haptic.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_joystick.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_hidapi.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_properties.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_hints.h
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_init.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_events.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_loadso.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_locale.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_log.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_messagebox.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_video.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_metal.h
+	<SDL3/SDL_video.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_misc.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_platform.h
+	<SDL3/SDL_platform_defines.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_process.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_iostream.h>
+	<SDL3/SDL_properties.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_render.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_blendmode.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_events.h>
+	<SDL3/SDL_pixels.h>
+	<SDL3/SDL_properties.h>
+	<SDL3/SDL_rect.h>
+	<SDL3/SDL_surface.h>
+	<SDL3/SDL_video.h>
+	<SDL3/SDL_gpu.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_storage.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_filesystem.h>
+	<SDL3/SDL_properties.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_system.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_keyboard.h>
+	<SDL3/SDL_video.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_time.h
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_timer.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_tray.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_error.h>
+	<SDL3/SDL_surface.h>
+	<SDL3/SDL_video.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_version.h
+	<SDL3/SDL_stdinc.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_oldnames.h
+	<SDL3/SDL_platform_defines.h>
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_main_impl.h
+	"SDL_main_impl_private.h"
+
+1775837754 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/object_init.h
+	"Technical.h"
+	"Object.h"
+
+1775831033 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/Technical.h
+	"../include/SDL3/SDL.h"
+
+1775836558 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/Technical.cpp
+	"Technical.h"
+	"object_init.h"
+	<iostream>
+
+1775840218 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/Object.cpp
+	"../include/SDL3_image/SDL_image.h"
+	"Object.h"
+	"object_init.h"
+
+1775840513 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/Object.h
+	"../include/SDL3/SDL.h"
+
+1775642095 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3_image/SDL_image.h
+	<SDL3/SDL.h>
+	<SDL3/SDL_begin_code.h>
+	<SDL3/SDL_close_code.h>
 

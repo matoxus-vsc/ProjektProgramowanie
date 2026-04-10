@@ -1,4 +1,5 @@
 #include "Technical.h"
+#include "object_init.h"
 
 #include <iostream>
 
@@ -11,10 +12,9 @@ Technical::Technical()
     renderer = nullptr;
 
     err_code = NO_ERROR;
-
-    if(!init())
+    if(!init(t1))
     {
-        std::cerr<<"\nFailed to initialize game!\nError Code:"<<err_code<<'\n';
+        SDL_Log("Failed to initialize SDL, Error_technical code:%i %s",err_code, SDL_GetError());
         exit(1);
     }
 }
@@ -24,40 +24,40 @@ Technical::~Technical()
     //dtor
 }
 
-bool Technical::init()
+bool init(Technical& t)
 {
     bool success = true;
 
     if(!SDL_Init(SDL_INIT_VIDEO))
     {
-        std::cerr<<"SDL_Init(SDL_INIT_VIDEO) failed!\n"<<SDL_GetError();
-        err_code = ERR_SDL_INIT;
+        SDL_Log("SDL_Init(SDL_INIT_VIDEO) failed! \n%s", SDL_GetError());
+        t.err_code = ERR_SDL_INIT;
         success = false;
     }
     else
     {
-        window = SDL_CreateWindow("SC2D", 800, 640, 0);
-        if(window == nullptr)
+        t.window = SDL_CreateWindow("SC2D", 800, 640, 0);
+        if(t.window == nullptr)
         {
-            std::cerr<<"SDL_CreateWindow(\'SC2D\', 800, 640, 0) failed!\n"<<SDL_GetError();
-            err_code = ERR_SDL_CREATE_WINDOW;
+            SDL_Log("SDL_CreateWindow(\'SC2D\', 800, 640, 0) failed!\n%s", SDL_GetError());
+            t.err_code = ERR_SDL_CREATE_WINDOW;
             success = false;
         }
         else
         {
-            if(!SDL_GetWindowSize(window, &window_width, &window_height))
+            if(!SDL_GetWindowSize(t.window, &t.window_width, &t.window_height))
             {
-                std::cerr<<"SDL_GetWindowSize(window, window_width, window_height) failed!\n"<<SDL_GetError();
-                err_code = ERR_SDL_GET_WINDOW_SIZE;
+                SDL_Log("SDL_GetWindowSize(t.window, &t.window_width, &t.window_height) failed!\n%s", SDL_GetError());
+                t.err_code = ERR_SDL_GET_WINDOW_SIZE;
                 success = false;
             }
             else
             {
-                renderer = SDL_CreateRenderer(window, nullptr);
-                if(renderer==nullptr)
+                t.renderer = SDL_CreateRenderer(t.window, nullptr);
+                if(t.renderer==nullptr)
                 {
-                    std::cerr<<"SDL_CreateRenderer(window, nullptr) failed!\n"<<SDL_GetError();
-                    err_code = ERR_SDL_CREATE_RENDERER;
+                    SDL_Log("SDL_CreateRenderer(t.window, nullptr)\n%s", SDL_GetError());
+                    t.err_code = ERR_SDL_CREATE_RENDERER;
                     success = false;
                 }
             }
@@ -65,6 +65,23 @@ bool Technical::init()
     }
 
     return success;
+}
+
+void close(Technical& t)
+{
+    if(t.renderer!=nullptr)
+    {
+        SDL_DestroyRenderer(t.renderer);
+        t.renderer = nullptr;
+    }
+
+    if(t.window!=nullptr)
+    {
+        SDL_DestroyWindow(t.window);
+        t.window = nullptr;
+    }
+
+    SDL_Quit();
 }
 
 SDL_Window* Technical::window_get()

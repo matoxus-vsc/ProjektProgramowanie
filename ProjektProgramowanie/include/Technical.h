@@ -10,7 +10,11 @@
 
 #include "../include/SDL3/SDL.h"
 
-enum Errors
+/** \enum Errors
+ *
+ *  \brief Błędy przy inicjacji SDL
+ */
+enum Errors_technical
 {
     NO_ERROR = 0x000,
     ERR_SDL_INIT = 0x001,
@@ -19,15 +23,28 @@ enum Errors
     ERR_SDL_CREATE_RENDERER = 0x004
 };
 
+
+/** \class Technical
+ *
+ *  \brief Technikalia, głównie SDL
+ */
 class Technical
 {
     public:
+
+        /** \brief Konstruktor - inicjacja właściwości klasy + SDL
+         *
+         *
+         */
         Technical();
+
         ~Technical();
 
-        bool init();
-        bool media();
-        void close();
+
+        friend bool init(Technical& t);
+
+        friend bool media();
+        friend void close(Technical& t);
 
         SDL_Window* window_get();
         int window_width_get();
@@ -38,14 +55,33 @@ class Technical
     protected:
 
     private:
-        SDL_Window* window;
-        int window_width;
-        int window_height;
+        SDL_Window* window;/**< Wskaźnik do okna gry */
+        int window_width;/**< Szerokość okna gry */
+        int window_height;/**< Wysokość okna gry */
 
-        SDL_Renderer* renderer;
+        SDL_Renderer* renderer;/**< Wskaźnik do renderera okna gry */
 
-        Errors err_code;
+        Errors_technical err_code;/**< Błąd przy inicjacji */
 
 };
+
+/** \brief Inicjacja technikalii SDL
+ *
+ * \param t Technical& - obiekt klasy z object_init.h
+ * \return bool - fałsz, gdy wystąpi błąd na którymś etapie, w przeciwnym razie prawda
+ *
+ */
+bool init(Technical& t);
+
+bool media();
+
+
+/** \brief Czyszczenie po zakończeniu gry
+ *
+ * \return void
+ *
+ */
+void close(Technical& t);
+
 
 #endif // TECHNICAL_H
