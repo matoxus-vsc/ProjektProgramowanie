@@ -26,7 +26,7 @@ public:
      */
     Object();
 
-    /** \brief Destrutkor - dealokacja zasobów + wyzerowanie właściwości
+    /** \brief Destruktor - dealokacja zasobów + wyzerowanie właściwości
      *
      *
      */
@@ -47,18 +47,40 @@ public:
      */
     void destroy();
 
-    void render( float x, float y );
+    /** \brief render obiektu na ekran (kordynaty liczone od lewego gornego rogu zawsze, oś y, rośnie w dół okna!)
+     *
+     * \param x float - współrzędna x okna
+     * \param y float - współrzędna y okna
+     * \param 0.0 double angle - kąt obrotu
+     * \param nullptr SDL_FPoint* center - środek obrotu
+     * \return void
+     *
+     */
+    void render( float x, float y, double angle = 0.0, SDL_FPoint* center = nullptr);
 
+    /** \brief getter
+     *
+     * \return int - szerokość obiektu
+     *
+     */
     int width_get();
+
+    /** \brief getter
+     *
+     * \return int - wysokość obiektu
+     *
+     */
     int height_get();
-    bool load_check();
+   // bool load_check();
 
 protected:
 
 private:
-    SDL_Texture* texture;
-    int texture_width;
-    int texture_height;
+    SDL_Texture* texture;/**< wskaźnik do tekstury */
+    int texture_width;/**< szerokość tekstury */
+    int texture_height;/**< wysokość tekstury */
 };
+
+
 
 #endif // OBJECT_H

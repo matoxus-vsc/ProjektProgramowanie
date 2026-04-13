@@ -1,6 +1,7 @@
 #include "Technical.h"
 #include "object_init.h"
 
+
 #include <iostream>
 
 Technical::Technical()
@@ -12,11 +13,6 @@ Technical::Technical()
     renderer = nullptr;
 
     err_code = NO_ERROR;
-    if(!init(t1))
-    {
-        SDL_Log("Failed to initialize SDL, Error_technical code:%i %s",err_code, SDL_GetError());
-        exit(1);
-    }
 }
 
 Technical::~Technical()
@@ -60,8 +56,48 @@ bool init(Technical& t)
                     t.err_code = ERR_SDL_CREATE_RENDERER;
                     success = false;
                 }
+
             }
         }
+    }
+
+    return success;
+}
+
+bool media()
+{
+    bool success = true;
+
+    if(!player_obj.texture_load("ProjektProgramowanie/Prowizorycznetekstury/gracz.png"))
+    {
+        success = false;
+        SDL_Log("Couldnt load \'gracz.png\'! %s", SDL_GetError());
+    }
+
+    if(!gun_obj.texture_load("ProjektProgramowanie/Prowizorycznetekstury/bron.png"))
+    {
+        success = false;
+        SDL_Log("Couldnt load \'bron.png\'! %s", SDL_GetError());
+    }
+    if(!door_obj.texture_load("ProjektProgramowanie/Prowizorycznetekstury/drzwi.png"))
+    {
+        success = false;
+        SDL_Log("Couldnt load \'drzwi.png\'! %s", SDL_GetError());
+    }
+    if(!map_obj.texture_load("ProjektProgramowanie/Prowizorycznetekstury/mapa.png"))
+    {
+        success = false;
+        SDL_Log("Couldnt load \'mapa.png\'! %s", SDL_GetError());
+    }
+    if(!bullet_obj.texture_load("ProjektProgramowanie/Prowizorycznetekstury/pocisk.png"))
+    {
+        success = false;
+        SDL_Log("Couldnt load \'pocisk.png\'! %s", SDL_GetError());
+    }
+    if(!wall_obj.texture_load("ProjektProgramowanie/Prowizorycznetekstury/sciana.png"))
+    {
+        success = false;
+        SDL_Log("Couldnt load \'sciana.png\'! %s", SDL_GetError());
     }
 
     return success;
@@ -99,6 +135,10 @@ int Technical::window_width_get()
 SDL_Renderer* Technical::renderer_get()
 {
     return renderer;
+}
+Errors_technical Technical::err_code_get()
+{
+    return err_code;
 }
 
 

@@ -3,6 +3,7 @@
 	<FileVersion major="1" minor="6" />
 	<Project>
 		<Option title="ProjektProgramowanie-codeblocks" />
+		<Option execution_dir="/home/temper/ProjektProgramowanie/ProjektProgramowanie" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
@@ -17,10 +18,9 @@
 					<Add directory="ProjektProgramowanie/include" />
 				</Compiler>
 				<Linker>
-					<Add option="-lSDL3" />
-					<Add library="ProjektProgramowanie/lib/SDL3.lib" />
-					<Add library="ProjektProgramowanie/lib/SDL3_image.lib" />
-					<Add library="ProjektProgramowanie/lib/SDL3_ttf.lib" />
+					<Add library="ProjektProgramowanie/lib/libSDL3.so" />
+					<Add library="ProjektProgramowanie/lib/libSDL3_image.so" />
+					<Add library="ProjektProgramowanie/lib/libSDL3_ttf.so" />
 					<Add directory="ProjektProgramowanie/lib" />
 				</Linker>
 			</Target>

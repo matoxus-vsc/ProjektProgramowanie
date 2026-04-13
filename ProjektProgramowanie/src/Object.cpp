@@ -11,6 +11,11 @@ Object::Object()
 
 }
 
+Object::~Object()
+{
+    destroy();
+}
+
 bool Object::texture_load(const char* path)
 {
     destroy();
@@ -52,7 +57,29 @@ void Object::destroy()
         texture_width = 0;
     }
 }
-Object::~Object()
+
+
+
+void Object::render(float x, float y, double angle, SDL_FPoint* center)
 {
-    destroy();
+    SDL_FRect to_render
+    {
+        x,
+        y,
+        static_cast<float>(texture_width),
+        static_cast<float>(texture_height)
+    };
+
+
+    SDL_RenderTextureRotated(t1.renderer_get(), texture, nullptr, &to_render, angle, center, SDL_FLIP_NONE);
 }
+
+int Object::width_get()
+{
+    return texture_width;
+}
+int Object::height_get()
+{
+    return texture_height;
+}
+

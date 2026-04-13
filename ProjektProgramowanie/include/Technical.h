@@ -10,7 +10,7 @@
 
 #include "../include/SDL3/SDL.h"
 
-/** \enum Errors
+/** \enum Errors_technical
  *
  *  \brief Błędy przy inicjacji SDL
  */
@@ -32,7 +32,7 @@ class Technical
 {
     public:
 
-        /** \brief Konstruktor - inicjacja właściwości klasy + SDL
+        /** \brief Konstruktor - inicjacja właściwości klasy
          *
          *
          */
@@ -41,16 +41,56 @@ class Technical
         ~Technical();
 
 
+        /** \brief Inicjacja SDL
+         *
+         * \param t Technical&
+         * \return friend bool
+         *
+         */
         friend bool init(Technical& t);
 
-        friend bool media();
+        /** \brief Dealokacja po skończonej grze
+         *
+         * \param t Technical&
+         * \return friend void
+         *
+         */
         friend void close(Technical& t);
 
+        /** \brief getter
+         *
+         * \return SDL_Window* - wskaźnik do okna
+         *
+         */
         SDL_Window* window_get();
+
+        /** \brief getter
+         *
+         * \return int - szerokość okna
+         *
+         */
         int window_width_get();
+
+        /** \brief getter
+         *
+         * \return int - wysokość okna
+         *
+         */
         int window_height_get();
 
+        /** \brief getter
+         *
+         * \return SDL_Renderer* - wskaźnik do renderera
+         *
+         */
         SDL_Renderer* renderer_get();
+
+        /** \brief getter
+         *
+         * \return Errors_technical - kod błędu
+         *
+         */
+        Errors_technical err_code_get();
 
     protected:
 
@@ -73,6 +113,11 @@ class Technical
  */
 bool init(Technical& t);
 
+/** \brief Załadowanie mediów - tekstur, audio itp. z plików
+ *
+ * \return bool - fałsz, gdy wystąpi błąd na którymś etapie, w przeciwnym razie prawda
+ *
+ */
 bool media();
 
 
