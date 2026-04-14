@@ -11,9 +11,11 @@
 
 #include "Technical.h"
 #include "Object.h"
+#include "Player.h"
 
 inline Technical t1;
 inline Object player_obj, gun_obj, door_obj, map_obj, bullet_obj, wall_obj;
+inline Player player(100, 15);
 
 
 #endif // OBJECT_INIT_H_INCLUDED

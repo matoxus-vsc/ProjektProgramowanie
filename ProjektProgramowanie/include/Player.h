@@ -5,8 +5,8 @@
 
 class Player {
 public:
-  
-    Player(, int health, int attack);
+
+    Player(int health, int attack);
 
     int getHealth() const;
     int getAttack() const;
@@ -18,6 +18,7 @@ public:
 private:
     int health;
     int attack;
+    const char* name;
 };
 
-#endif 
+#endif

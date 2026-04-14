@@ -44,6 +44,9 @@ int main(int argc, char** argv)
                 gun_obj.render(200 + player_obj.width_get(),300 + player_obj.height_get()/2 - gun_obj.height_get()/2);
                 bullet_obj.render(200 + player_obj.width_get() + gun_obj.width_get(),300 + player_obj.height_get()/2 - bullet_obj.height_get()/2);
 
+                player.printStats();
+                player.takeDamage(30);
+                player.printStats();
 
                 SDL_RenderPresent(t1.renderer_get());
 
@@ -51,10 +54,8 @@ int main(int argc, char** argv)
         }
         close(t1);
     }
-    Player player(100, 15);
-        player.printStats();
-        player.takeDamage(30);
-        player.printStats();
+
+
 
 
     return 0;

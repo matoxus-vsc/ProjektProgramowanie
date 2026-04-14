@@ -2,7 +2,7 @@
 #include <iostream>
 
 Player::Player(int health, int attack)
-    :health(health), attack(attack) {}
+    :health(health), attack(attack) {name = "Chuj";}
 int Player::getHealth() const {
     return health;
 }
@@ -24,3 +24,4 @@ void Player::printStats() const {
     std::cout << "Player: " << name
               << " | HP: " << health
               << " | ATK: " << attack << std::endl;
+}
