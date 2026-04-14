@@ -3,6 +3,7 @@
 #include "../include/SDL3/SDL_main.h"
 
 #include "object_init.h"
+#include "Player.h"
 
 int main(int argc, char** argv)
 {
@@ -50,7 +51,10 @@ int main(int argc, char** argv)
         }
         close(t1);
     }
-
+    Player player(100, 15);
+        player.printStats();
+        player.takeDamage(30);
+        player.printStats();
 
 
     return 0;
