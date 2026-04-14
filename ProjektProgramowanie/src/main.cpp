@@ -3,7 +3,8 @@
 #include "../include/SDL3/SDL_main.h"
 
 #include "object_init.h"
-#include "Player.h"
+
+#include "structs.h"
 
 int main(int argc, char** argv)
 {
@@ -23,6 +24,8 @@ int main(int argc, char** argv)
         bool exit = false;
         SDL_Event e;
 
+        Game_state game_state = PLAYING;
+
         while(!exit)
         {
             while(SDL_PollEvent(&e))
@@ -34,6 +37,7 @@ int main(int argc, char** argv)
                         exit = true;
                     }
                 }
+                m1.mouse_handler(&e, game_state);
             }
                 SDL_SetRenderDrawColor(t1.renderer_get(), 255, 255, 255, 255);
                 SDL_RenderClear(t1.renderer_get());
@@ -43,10 +47,6 @@ int main(int argc, char** argv)
                 player_obj.render(200, 300);
                 gun_obj.render(200 + player_obj.width_get(),300 + player_obj.height_get()/2 - gun_obj.height_get()/2);
                 bullet_obj.render(200 + player_obj.width_get() + gun_obj.width_get(),300 + player_obj.height_get()/2 - bullet_obj.height_get()/2);
-
-                player.printStats();
-                player.takeDamage(30);
-                player.printStats();
 
                 SDL_RenderPresent(t1.renderer_get());
 

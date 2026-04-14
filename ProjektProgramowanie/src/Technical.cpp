@@ -32,10 +32,10 @@ bool init(Technical& t)
     }
     else
     {
-        t.window = SDL_CreateWindow("SC2D", 800, 640, 0);
+        t.window = SDL_CreateWindow("SC2D", 800, 600, 0);
         if(t.window == nullptr)
         {
-            SDL_Log("SDL_CreateWindow(\'SC2D\', 800, 640, 0) failed!\n%s", SDL_GetError());
+            SDL_Log("SDL_CreateWindow(\'SC2D\', 800, 600, 0) failed!\n%s", SDL_GetError());
             t.err_code = ERR_SDL_CREATE_WINDOW;
             success = false;
         }
