@@ -45,7 +45,7 @@ class Mouse
          * \return void
          *
          */
-        void mouse_handler(SDL_Event* e, Game_state s);
+        void mouse_handler(SDL_Event* e, Game_state s); // celowanie sledzenie myszki
 
         /** \brief getter
          *

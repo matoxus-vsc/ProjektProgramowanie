@@ -67,14 +67,14 @@ bool init(Technical& t)
 bool media()
 {
     bool success = true;
-
-    if(!player_obj.texture_load("ProjektProgramowanie/Prowizorycznetekstury/gracz.png"))
+    
+    if(!player.sprite.texture_load("ProjektProgramowanie/Prowizorycznetekstury/gracz.png")) // ProjektProgramowanie/Prowizorycznetekstury/gracz.png
     {
         success = false;
         SDL_Log("Couldnt load \'gracz.png\'! %s", SDL_GetError());
     }
 
-    if(!gun_obj.texture_load("ProjektProgramowanie/Prowizorycznetekstury/bron.png"))
+    if(!player.gun.texture_load("ProjektProgramowanie/Prowizorycznetekstury/bron.png"))
     {
         success = false;
         SDL_Log("Couldnt load \'bron.png\'! %s", SDL_GetError());
@@ -89,7 +89,7 @@ bool media()
         success = false;
         SDL_Log("Couldnt load \'mapa.png\'! %s", SDL_GetError());
     }
-    if(!bullet_obj.texture_load("ProjektProgramowanie/Prowizorycznetekstury/pocisk.png"))
+    if(!player.bullet.texture_load("ProjektProgramowanie/Prowizorycznetekstury/pocisk.png"))
     {
         success = false;
         SDL_Log("Couldnt load \'pocisk.png\'! %s", SDL_GetError());

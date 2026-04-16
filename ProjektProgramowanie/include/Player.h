@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include <string>
+#include "Object.h"
 
 class Player {
 public:
@@ -15,10 +16,21 @@ public:
     bool isAlive() const;
     void printStats() const;
 
+    void setPosition(float newX, float newY); 
+    void updatePosition(float targetX, float targetY);
+    void render();
+
+    Object sprite;
+    Object gun;
+    Object bullet;
+
 private:
     int health;
     int attack;
     const char* name;
+
+    float x;
+    float y;
 };
 
 #endif
