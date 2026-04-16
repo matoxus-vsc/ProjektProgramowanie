@@ -13,11 +13,13 @@
 #include "Object.h"
 #include "Player.h"
 #include "Controls.h"
+#include "Timer.h"
 
 inline Technical t1;
 inline Object player_obj, gun_obj, door_obj, map_obj, bullet_obj, wall_obj;
 inline Player player(100, 15);
 inline Mouse m1;
+inline Timer fps;
 
 
 #endif // OBJECT_INIT_H_INCLUDED
