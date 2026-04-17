@@ -16,7 +16,7 @@ public:
     bool isAlive() const;
     void printStats() const;
 
-    void setPosition(float newX, float newY); 
+    void setPosition(float newX, float newY);
     void updatePosition(float targetX, float targetY);
     void render();
 

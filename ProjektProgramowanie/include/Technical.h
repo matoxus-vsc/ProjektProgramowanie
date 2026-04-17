@@ -9,6 +9,7 @@
 #define TECHNICAL_H
 
 #include "../include/SDL3/SDL.h"
+#include "../include/SDL3_ttf/SDL_ttf.h"
 
 /** \enum Errors_technical
  *
@@ -20,7 +21,8 @@ enum Errors_technical
     ERR_SDL_INIT = 0x001,
     ERR_SDL_CREATE_WINDOW = 0x002,
     ERR_SDL_GET_WINDOW_SIZE = 0x003,
-    ERR_SDL_CREATE_RENDERER = 0x004
+    ERR_SDL_CREATE_RENDERER = 0x004,
+    ERR_TTF_INIT = 0x005
 };
 
 
@@ -48,6 +50,8 @@ class Technical
          *
          */
         friend bool init(Technical& t);
+
+        friend bool media(Technical& t);
 
         /** \brief Dealokacja po skończonej grze
          *
@@ -92,6 +96,11 @@ class Technical
          */
         Errors_technical err_code_get();
 
+        TTF_Font* font_default_get();
+        SDL_Color font_default_color_get();
+
+        int fps_target_get();
+
     protected:
 
     private:
@@ -102,6 +111,11 @@ class Technical
         SDL_Renderer* renderer;/**< Wskaźnik do renderera okna gry */
 
         Errors_technical err_code;/**< Błąd przy inicjacji */
+
+        TTF_Font* font_default;
+        SDL_Color font_default_color;
+
+        int fps_target;
 
 };
 
@@ -118,7 +132,7 @@ bool init(Technical& t);
  * \return bool - fałsz, gdy wystąpi błąd na którymś etapie, w przeciwnym razie prawda
  *
  */
-bool media();
+bool media(Technical& t);
 
 
 /** \brief Czyszczenie po zakończeniu gry

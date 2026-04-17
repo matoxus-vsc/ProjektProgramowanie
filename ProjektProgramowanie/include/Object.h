@@ -11,6 +11,8 @@
 #define OBJECT_H
 
 #include "../include/SDL3/SDL.h"
+#include "../include/SDL3_ttf/SDL_ttf.h"
+
 
 /** \class Object
  *
@@ -74,13 +76,27 @@ public:
    // bool load_check();
 
 protected:
-
-private:
     SDL_Texture* texture;/**< wskaźnik do tekstury */
     int texture_width;/**< szerokość tekstury */
     int texture_height;/**< wysokość tekstury */
 };
 
+class Text : public Object
+{
+public:
+    Text();
+
+    ~Text();
+
+    bool text_load(const char* strr, TTF_Font* fontt, SDL_Color font_colorr);
+
+protected:
+
+private:
+    const char* str;
+    TTF_Font* font;
+    SDL_Color font_color;
+};
 
 
 #endif // OBJECT_H

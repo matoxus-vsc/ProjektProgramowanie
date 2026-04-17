@@ -1,14 +1,12 @@
 #include "../include/SDL3_image/SDL_image.h"
 
 #include "Object.h"
-
 #include "object_init.h"
 Object::Object()
 {
     texture = nullptr;
     texture_height = 0;
     texture_width = 0;
-
 }
 
 Object::~Object()
@@ -81,5 +79,51 @@ int Object::width_get()
 int Object::height_get()
 {
     return texture_height;
+}
+Text::Text()
+{
+    texture = nullptr;
+    texture_width = 0;
+    texture_height = 0;
+
+    str = nullptr;
+    font = nullptr;
+    font_color = {0, 0, 0};
+}
+Text::~Text()
+{
+    destroy();
+}
+bool Text::text_load(const char* strr, TTF_Font* fontt, SDL_Color font_colorr)
+{
+
+    destroy();
+
+    SDL_Surface* text_surface = TTF_RenderText_Solid(fontt, strr, strlen(strr), font_colorr);
+    if(text_surface==nullptr)
+    {
+        SDL_Log("Unable to render text %s! %s\n", str, SDL_GetError());
+    }
+    else
+    {
+        texture = SDL_CreateTextureFromSurface(t1.renderer_get(), text_surface);
+        if(texture == nullptr )
+        {
+            SDL_Log("Unable to create texture from loaded pixels!\n%s", SDL_GetError());
+        }
+        else
+        {
+
+            texture_width = text_surface->w;
+            texture_height = text_surface->h;
+            str = strr;
+            font = fontt;
+            font_color = font_colorr;
+        }
+
+
+        SDL_DestroySurface(text_surface);
+    }
+    return texture!=nullptr;
 }
 

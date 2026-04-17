@@ -59,6 +59,9 @@ class Timer
          * \return bool - czy wystartowano stoper
          *
          */
+
+        unsigned long int ticks_get();
+
         bool start_check_get();
 
         /** \brief getter
@@ -71,8 +74,8 @@ class Timer
     protected:
 
     private:
-        long int start_ticks;/**< naliczony czas na stoperze */
-        long int pause_ticks;/**< naliczony czas podczas pauzy */
+        unsigned long int start_ticks;/**< naliczony czas na stoperze */
+        unsigned long int pause_ticks;/**< naliczony czas podczas pauzy */
         bool pause_check;/**< czy zapauzowano stoper */
         bool start_check;/**< czy wystartowano stoper */
 };

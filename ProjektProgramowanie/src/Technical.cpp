@@ -13,6 +13,8 @@ Technical::Technical()
     renderer = nullptr;
 
     err_code = NO_ERROR;
+
+    fps_target = 60;
 }
 
 Technical::~Technical()
@@ -56,6 +58,15 @@ bool init(Technical& t)
                     t.err_code = ERR_SDL_CREATE_RENDERER;
                     success = false;
                 }
+                else
+                {
+                    if(!TTF_Init())
+                    {
+                        SDL_Log("TTF_Init()\n%s", SDL_GetError());
+                        t.err_code = ERR_TTF_INIT;
+                        success = false;
+                    }
+                }
 
             }
         }
@@ -64,10 +75,10 @@ bool init(Technical& t)
     return success;
 }
 
-bool media()
+bool media(Technical& t)
 {
     bool success = true;
-    
+
     if(!player.sprite.texture_load("ProjektProgramowanie/Prowizorycznetekstury/gracz.png")) // ProjektProgramowanie/Prowizorycznetekstury/gracz.png
     {
         success = false;
@@ -99,6 +110,15 @@ bool media()
         success = false;
         SDL_Log("Couldnt load \'sciana.png\'! %s", SDL_GetError());
     }
+    t.font_default = TTF_OpenFont("ProjektProgramowanie/fonts/ProggyVector Regular.ttf", 12);
+    t.font_default_color = {0, 0, 0, 0};
+
+    if(t.font_default==nullptr)
+       {
+            success = false;
+            SDL_Log("Couldnt load \'ProggyVector Regular.ttf\'! %s", SDL_GetError());
+       }
+
 
     return success;
 }
@@ -116,6 +136,18 @@ void close(Technical& t)
         SDL_DestroyWindow(t.window);
         t.window = nullptr;
     }
+
+    player.sprite.destroy();
+    player.gun.destroy();
+    player.bullet.destroy();
+
+    door_obj.destroy();
+    map_obj.destroy();
+    wall_obj.destroy();
+
+    TTF_CloseFont(t.font_default);
+
+    TTF_Quit();
 
     SDL_Quit();
 }
@@ -140,5 +172,16 @@ Errors_technical Technical::err_code_get()
 {
     return err_code;
 }
-
+TTF_Font* Technical::font_default_get()
+{
+    return font_default;
+}
+SDL_Color Technical::font_default_color_get()
+{
+    return font_default_color;
+}
+int Technical::fps_target_get()
+{
+    return fps_target;
+}
 
