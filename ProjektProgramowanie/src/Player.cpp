@@ -2,7 +2,7 @@
 #include <iostream>
 
 Player::Player(int health, int attack)
-    :health(health), attack(attack), x(200), y(300) {name = "Chuj";}
+    :health(health), attack(attack), x(200), y(300) {name = "Chuj";movement_speed=10.0;}
 int Player::getHealth() const {
     return health;
 }
@@ -46,3 +46,27 @@ void Player::render() { // Polaczenie gracza z bronia i pociskiem
     bullet.render(x + sprite.width_get() + gun.width_get(), y + sprite.height_get()/2 - bullet.height_get()/2);
 }
 
+void Player::player_move_handler(SDL_Event* e)
+{
+    //if(e->type==SDL_EVENT_KEY_DOWN)
+    //{
+    const bool* key_board_state = SDL_GetKeyboardState(NULL);
+        if(key_board_state[SDL_SCANCODE_W])
+        {
+            y-=movement_speed;
+        }
+        if(key_board_state[SDL_SCANCODE_S])
+        {
+            y+=movement_speed;
+        }
+        if(key_board_state[SDL_SCANCODE_D])
+        {
+            x+=movement_speed;
+        }
+        if(key_board_state[SDL_SCANCODE_A])
+        {
+            x-=movement_speed;
+        }
+    //}
+
+}

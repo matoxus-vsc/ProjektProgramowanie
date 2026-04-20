@@ -10,6 +10,7 @@
 #ifndef TIMER_H
 #define TIMER_H
 
+#include "../include/SDL3/SDL.h"
 
 /** \class Timer
  *
@@ -60,7 +61,7 @@ class Timer
          *
          */
 
-        unsigned long int ticks_get();
+        Uint64 ticks_get();
 
         bool start_check_get();
 
@@ -74,8 +75,8 @@ class Timer
     protected:
 
     private:
-        unsigned long int start_ticks;/**< naliczony czas na stoperze */
-        unsigned long int pause_ticks;/**< naliczony czas podczas pauzy */
+        Uint64 start_ticks;/**< naliczony czas na stoperze */
+        Uint64 pause_ticks;/**< naliczony czas podczas pauzy */
         bool pause_check;/**< czy zapauzowano stoper */
         bool start_check;/**< czy wystartowano stoper */
 };

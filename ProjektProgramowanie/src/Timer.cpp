@@ -49,9 +49,9 @@ void Timer::finish()
     start_ticks = 0;
     pause_ticks = 0;
 }
-unsigned long int Timer::ticks_get()
+Uint64 Timer::ticks_get()
 {
-    unsigned long int time = 0;
+    Uint64 time = 0;
     if(start_check)
     {
         if(pause_check)

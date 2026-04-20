@@ -4,6 +4,7 @@
 #include <string>
 #include "Object.h"
 
+
 class Player {
 public:
 
@@ -20,6 +21,14 @@ public:
     void updatePosition(float targetX, float targetY);
     void render();
 
+    /** \brief ruch gracza po ekranie
+     *
+     * \param e SDL_Event*
+     * \return void
+     *
+     */
+    void player_move_handler(SDL_Event* e);
+
     Object sprite;
     Object gun;
     Object bullet;
@@ -31,6 +40,7 @@ private:
 
     float x;
     float y;
+    float movement_speed;
 };
 
 #endif
