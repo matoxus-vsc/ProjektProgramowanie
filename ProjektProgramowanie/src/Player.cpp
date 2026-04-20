@@ -1,5 +1,6 @@
 #include "Player.h"
 #include <iostream>
+#include <math.h>
 
 Player::Player(int health, int attack)
     :health(health), attack(attack), x(200), y(300), angle(0.0), is_shooting(false), bullet_x(0), bullet_y(0), bullet_dx(0), bullet_dy(0), bullet_angle(0.0), bullet_speed(15.0f) {name = "Chuj";movement_speed=10.0;}
@@ -61,10 +62,9 @@ void Player::render() { // Polaczenie gracza z bronia i pociskiem
     }
 }
 
-void Player::player_move_handler(SDL_Event* e)
+void Player::player_move_handler()
 {
-    //if(e->type==SDL_EVENT_KEY_DOWN)
-    //{
+
     const bool* key_board_state = SDL_GetKeyboardState(NULL);
         if(key_board_state[SDL_SCANCODE_W])
         {
@@ -86,22 +86,22 @@ void Player::player_move_handler(SDL_Event* e)
     float mouseX, mouseY;
     SDL_MouseButtonFlags mouseFlags = SDL_GetMouseState(&mouseX, &mouseY);
 
-    float centerX = x + sprite.width_get() / 2.0f;
-    float centerY = y + sprite.height_get() / 2.0f;
-    angle = atan2(mouseY - centerY, mouseX - centerX) * 180.0 / 3.14159265;
+    float centerX = x + sprite.width_get() * 0.5f;
+    float centerY = y + sprite.height_get() * 0.5f;
+    angle = atan2(mouseY - centerY, mouseX - centerX) * 180.0 / M_PI;
 
     if ((mouseFlags & SDL_BUTTON_LMASK) && !is_shooting) {
         is_shooting = true;
         bullet_angle = angle;
-        float rad = bullet_angle * 3.14159265f / 180.0f;
+        float rad = bullet_angle * M_PI / 180.0f;
 
-        float offset = sprite.width_get() / 2.0f + gun.width_get();
+        float offset = sprite.width_get() * 0.5f + gun.width_get();
 
-        bullet_x = centerX + offset * cos(rad) - bullet.width_get() / 2.0f;
-        bullet_y = centerY + offset * sin(rad) - bullet.height_get() / 2.0f;
+        bullet_x = centerX + offset * cos(rad) - bullet.width_get() *0.5f;
+        bullet_y = centerY + offset * sin(rad) - bullet.height_get() *0.5f;
         bullet_dx = cos(rad) * bullet_speed;
         bullet_dy = sin(rad) * bullet_speed;
     }
-    //}
+
 
 }

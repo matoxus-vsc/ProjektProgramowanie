@@ -23,11 +23,10 @@ public:
 
     /** \brief ruch gracza po ekranie
      *
-     * \param e SDL_Event*
      * \return void
      *
      */
-    void player_move_handler(SDL_Event* e);
+    void player_move_handler();
 
     Object sprite;
     Object gun;

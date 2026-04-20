@@ -50,7 +50,7 @@ int main(int argc, char** argv)
                 {
                 case PLAYING:
                     {
-                        player.player_move_handler(&e);
+                        player.player_move_handler();
 
                         if(rendered_frame!= 0)
                         {
