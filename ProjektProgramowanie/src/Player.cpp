@@ -2,7 +2,7 @@
 #include <iostream>
 
 Player::Player(int health, int attack)
-    :health(health), attack(attack), x(200), y(300) {name = "Chuj";movement_speed=10.0;}
+    :health(health), attack(attack), x(200), y(300), angle(0.0), is_shooting(false), bullet_x(0), bullet_y(0), bullet_dx(0), bullet_dy(0), bullet_angle(0.0), bullet_speed(15.0f) {name = "Chuj";movement_speed=10.0;}
 int Player::getHealth() const {
     return health;
 }
@@ -41,9 +41,24 @@ void Player::updatePosition(float targetX, float targetY) { // Podazanie za mysz
 }
 
 void Player::render() { // Polaczenie gracza z bronia i pociskiem
-    sprite.render(x, y);
-    gun.render(x + sprite.width_get(), y + sprite.height_get()/2 - gun.height_get()/2);
-    bullet.render(x + sprite.width_get() + gun.width_get(), y + sprite.height_get()/2 - bullet.height_get()/2);
+    SDL_FPoint player_center = { static_cast<float>(sprite.width_get()) / 2.0f, static_cast<float>(sprite.height_get()) / 2.0f };
+    sprite.render(x, y, angle, &player_center);
+
+    SDL_FPoint gun_center = { -static_cast<float>(sprite.width_get()) / 2.0f, static_cast<float>(gun.height_get()) / 2.0f };
+    gun.render(x + sprite.width_get(), y + sprite.height_get()/2.0f - gun.height_get()/2.0f, angle, &gun_center);
+
+    if (is_shooting) {
+        bullet_x += bullet_dx;
+        bullet_y += bullet_dy;
+        bullet.render(bullet_x, bullet_y, bullet_angle, nullptr);
+
+        if (bullet_x < -2000 || bullet_x > 4000 || bullet_y < -2000 || bullet_y > 4000) {
+            is_shooting = false;
+        }
+    } else {
+        SDL_FPoint bullet_center = { -static_cast<float>(sprite.width_get()) / 2.0f - static_cast<float>(gun.width_get()), static_cast<float>(bullet.height_get()) / 2.0f };
+        bullet.render(x + sprite.width_get() + gun.width_get(), y + sprite.height_get()/2.0f - bullet.height_get()/2.0f, angle, &bullet_center);
+    }
 }
 
 void Player::player_move_handler(SDL_Event* e)
@@ -67,6 +82,26 @@ void Player::player_move_handler(SDL_Event* e)
         {
             x-=movement_speed;
         }
+
+    float mouseX, mouseY;
+    SDL_MouseButtonFlags mouseFlags = SDL_GetMouseState(&mouseX, &mouseY);
+
+    float centerX = x + sprite.width_get() / 2.0f;
+    float centerY = y + sprite.height_get() / 2.0f;
+    angle = atan2(mouseY - centerY, mouseX - centerX) * 180.0 / 3.14159265;
+
+    if ((mouseFlags & SDL_BUTTON_LMASK) && !is_shooting) {
+        is_shooting = true;
+        bullet_angle = angle;
+        float rad = bullet_angle * 3.14159265f / 180.0f;
+
+        float offset = sprite.width_get() / 2.0f + gun.width_get();
+
+        bullet_x = centerX + offset * cos(rad) - bullet.width_get() / 2.0f;
+        bullet_y = centerY + offset * sin(rad) - bullet.height_get() / 2.0f;
+        bullet_dx = cos(rad) * bullet_speed;
+        bullet_dy = sin(rad) * bullet_speed;
+    }
     //}
 
 }

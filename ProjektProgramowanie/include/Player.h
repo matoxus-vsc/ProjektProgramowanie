@@ -41,6 +41,15 @@ private:
     float x;
     float y;
     float movement_speed;
+    double angle;
+
+    bool is_shooting;
+    float bullet_x;
+    float bullet_y;
+    float bullet_dx;
+    float bullet_dy;
+    float bullet_angle;
+    float bullet_speed;
 };
 
 #endif
