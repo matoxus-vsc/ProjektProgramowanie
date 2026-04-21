@@ -1,6 +1,6 @@
 #include "Player.h"
 #include <iostream>
-#include <math.h>
+#include "math.h"
 
 Player::Player(int health, int attack)
     :health(health), attack(attack), x(200), y(300), angle(0.0), is_shooting(false), bullet_x(0), bullet_y(0), bullet_dx(0), bullet_dy(0), bullet_angle(0.0), bullet_speed(15.0f) {name = "Chuj";movement_speed=10.0;}

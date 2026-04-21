@@ -14,6 +14,7 @@
 #include "Player.h"
 #include "Controls.h"
 #include "Timer.h"
+#include "HUD.h"
 
 inline Technical t1;
 inline Object door_obj, map_obj, wall_obj;
@@ -21,5 +22,6 @@ inline Player player(100, 15);
 inline Mouse m1;
 inline Timer fps_timer;
 inline Text fps_text;
+inline HUD h1;
 
 #endif // OBJECT_INIT_H_INCLUDED
