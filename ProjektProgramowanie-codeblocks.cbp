@@ -42,7 +42,11 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Linker>
+			<Add option="-lm" />
+		</Linker>
 		<Unit filename="ProjektProgramowanie/include/Controls.h" />
+		<Unit filename="ProjektProgramowanie/include/HUD.h" />
 		<Unit filename="ProjektProgramowanie/include/Object.h" />
 		<Unit filename="ProjektProgramowanie/include/Player.h" />
 		<Unit filename="ProjektProgramowanie/include/Technical.h" />
@@ -50,6 +54,7 @@
 		<Unit filename="ProjektProgramowanie/include/object_init.h" />
 		<Unit filename="ProjektProgramowanie/include/structs.h" />
 		<Unit filename="ProjektProgramowanie/src/Controls.cpp" />
+		<Unit filename="ProjektProgramowanie/src/HUD.cpp" />
 		<Unit filename="ProjektProgramowanie/src/Object.cpp" />
 		<Unit filename="ProjektProgramowanie/src/Player.cpp" />
 		<Unit filename="ProjektProgramowanie/src/Technical.cpp" />

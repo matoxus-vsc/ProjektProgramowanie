@@ -105,3 +105,11 @@ void Player::player_move_handler()
 
 
 }
+
+float Player::getX() const {
+    return x;
+}
+
+float Player::getY() const {
+    return y;
+}

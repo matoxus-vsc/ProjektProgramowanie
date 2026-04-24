@@ -31,6 +31,8 @@ public:
     Object sprite;
     Object gun;
     Object bullet;
+    float getX() const;
+    float getY() const;
 
 private:
     int health;
