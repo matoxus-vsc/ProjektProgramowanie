@@ -22,10 +22,10 @@ int main(int argc, char** argv)
     }
     else
     {
-        Map arena(t1.renderer_get(), "ProjektProgramowanie/Prowizorycznetekstury/mapa.png", "ProjektProgramowanie/Prowizorycznetekstury/sciana.png", "ProjektProgramowanie/Prowizorycznetekstury/drzwi.png");
-        arena.dodaj_sciane(400, 400, 200, 50);
-        arena.dodaj_sciane(500, 400, 50, 400);
-        arena.dodaj_drzwi(300, 350, 50, 100);
+        arena.dodaj_sciane(400, 400);
+        arena.dodaj_sciane(100, 400);
+        arena.dodaj_drzwi(500, 250);
+
         bool exit = false;
         SDL_Event e;
 

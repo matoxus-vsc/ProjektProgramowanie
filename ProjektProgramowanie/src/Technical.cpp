@@ -119,7 +119,6 @@ bool media(Technical& t)
             SDL_Log("Couldnt load \'ProggyVector Regular.ttf\'! %s", SDL_GetError());
        }
 
-
     return success;
 }
 

@@ -2,13 +2,18 @@
 
 #include "Object.h"
 #include "object_init.h"
+
 Object::Object()
 {
     texture = nullptr;
     texture_height = 0;
     texture_width = 0;
 }
-
+Object::Object(float x, float y, const char* p)
+{
+    texture_load(p);
+    pos.arg_set(x, y);
+}
 Object::~Object()
 {
     destroy();
@@ -72,6 +77,10 @@ void Object::render(float x, float y, double angle, SDL_FPoint* center)
     SDL_RenderTextureRotated(t1.renderer_get(), texture, nullptr, &to_render, angle, center, SDL_FLIP_NONE);
 }
 
+SDL_Texture* Object::texture_get()
+{
+    return texture;
+}
 int Object::width_get()
 {
     return texture_width;
@@ -125,5 +134,13 @@ bool Text::text_load(const char* strr, TTF_Font* fontt, SDL_Color font_colorr)
         SDL_DestroySurface(text_surface);
     }
     return texture!=nullptr;
+}
+void Object::position_update(Vec2f update)
+{
+    pos.arg_set(update.x, update.y);
+}
+Vec2f Object::position_get()
+{
+    return pos;
 }
 
