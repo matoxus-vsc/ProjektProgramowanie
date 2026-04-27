@@ -4,7 +4,7 @@
 #include "../include/SDL3/SDL_main.h"
 
 #include "object_init.h"
-
+#include "Map.h"
 #include "structs.h"
 
 int main(int argc, char** argv)
@@ -22,6 +22,10 @@ int main(int argc, char** argv)
     }
     else
     {
+        arena.dodaj_sciane(400, 400);
+        arena.dodaj_sciane(100, 400);
+        arena.dodaj_drzwi(500, 250);
+
         bool exit = false;
         SDL_Event e;
 
@@ -61,7 +65,7 @@ int main(int argc, char** argv)
                         SDL_SetRenderDrawColor(t1.renderer_get(), 255, 255, 255, 255);
                         SDL_RenderClear(t1.renderer_get());
 
-                        map_obj.render(0, 0);
+                        arena.map_render(t1.renderer_get(), player.getX(), player.getY(), 1280, 720);
 
                         fps_text.render(0, 0);
 

@@ -13,7 +13,7 @@
 #include "../include/SDL3/SDL.h"
 #include "../include/SDL3_ttf/SDL_ttf.h"
 
-
+#include "structs.h"
 /** \class Object
  *
  *  \brief Klasa obiektu w grze
@@ -27,6 +27,8 @@ public:
      *
      */
     Object();
+
+    Object(float x, float y, const char* p);
 
     /** \brief Destruktor - dealokacja zasobów + wyzerowanie właściwości
      *
@@ -60,6 +62,8 @@ public:
      */
     void render( float x, float y, double angle = 0.0, SDL_FPoint* center = nullptr);
 
+    SDL_Texture* texture_get();
+
     /** \brief getter
      *
      * \return int - szerokość obiektu
@@ -73,12 +77,18 @@ public:
      *
      */
     int height_get();
+
+    void position_update(Vec2f update);
+
+    Vec2f position_get();
+
    // bool load_check();
 
 protected:
     SDL_Texture* texture;/**< wskaźnik do tekstury */
     int texture_width;/**< szerokość tekstury */
     int texture_height;/**< wysokość tekstury */
+    Vec2f pos;
 };
 
 class Text : public Object

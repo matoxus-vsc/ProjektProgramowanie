@@ -67,6 +67,19 @@ struct Vec2i
     {
         arg_set(p.x, p.y);
     }
+
+    /** \brief Porównanie wektorów
+     *
+     * \param other const Vec2i& - wektor
+     * \return bool - prawda jeśli są takie same, fałsz jeśli nie
+     *
+     */
+    bool compare(const Vec2i& other)
+    {
+        if(other.x==x && other.y==y)
+            return true;
+        return false;
+    }
 };
 
 /** \struct Vec2f
@@ -115,6 +128,19 @@ struct Vec2f
     Vec2f(const Vec2f& p)
     {
         arg_set(p.x, p.y);
+    }
+
+    /** \brief Porównanie wektorów
+     *
+     * \param other const Vec2f& - wektor
+     * \return bool - prawda jeśli są takie same, fałsz jeśli nie
+     *
+     */
+    bool compare(const Vec2f& other)
+    {
+        if(other.x==x && other.y==y)
+            return true;
+        return false;
     }
 };
 

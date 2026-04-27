@@ -28,9 +28,19 @@ public:
      */
     void player_move_handler();
 
+    /** \brief sprawdza kolizję ciała gracza z obiektem
+     *
+     * \param other Object&
+     * \return bool
+     *
+     */
+    bool collision_check_player(Object& other);
+
     Object sprite;
     Object gun;
     Object bullet;
+    float getX() const;
+    float getY() const;
 
 private:
     int health;
@@ -39,7 +49,9 @@ private:
 
     float x;
     float y;
+    float r;
     float movement_speed;
+    Vec2f speed;
     double angle;
 
     bool is_shooting;
