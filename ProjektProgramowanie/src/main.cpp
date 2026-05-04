@@ -22,10 +22,8 @@ int main(int argc, char** argv)
     }
     else
     {
-        arena.dodaj_sciane(400, 400);
-        arena.dodaj_sciane(100, 400);
-        arena.dodaj_drzwi(500, 250);
-
+        arena.wczytaj_z_pliku("ProjektProgramowanie/Prowizorycznetekstury/uklad_mapy.txt", 78.0f);
+        player.setPosition(150.0f, 150.0f);
         bool exit = false;
         SDL_Event e;
 

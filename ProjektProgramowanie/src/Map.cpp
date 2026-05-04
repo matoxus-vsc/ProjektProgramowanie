@@ -1,7 +1,7 @@
 #include "Map.h"
-
+#include<fstream>
 #include "object_init.h"
-
+using namespace std;
 Map::Map() {
     map_width = 6400;
     map_height = 4800;
@@ -73,4 +73,29 @@ void Map::map_render(SDL_Renderer* renderer, float camera_x, float camera_y, int
             }
         }
     }
+}
+void Map::wczytaj_z_pliku(const string& sciezka, float rozmiar_kratki) {
+    ifstream plik(sciezka);
+
+    if (!plik.is_open()) {
+        cerr<<"Blad: Nie udalo sie otworzyc pliku mapy: "<<sciezka<<endl;
+        return;
+    }
+    string linia;
+    int wiersz = 0;
+    while (getline(plik, linia)) {
+        for (int kolumna = 0; kolumna < linia.length(); ++kolumna) {
+            char znak = linia[kolumna];
+            float fizyczny_x = kolumna * rozmiar_kratki;
+            float fizyczny_y = wiersz * rozmiar_kratki;
+            if (znak == '#') {
+                dodaj_sciane(fizyczny_x, fizyczny_y);
+            }
+            else if (znak == 'D') {
+                dodaj_drzwi(fizyczny_x, fizyczny_y);
+            }
+        }
+        wiersz++;
+    }
+    plik.close();
 }

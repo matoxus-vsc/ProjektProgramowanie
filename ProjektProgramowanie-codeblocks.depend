@@ -1020,9 +1020,9 @@
 1776780939 /home/olek/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_oldnames.h
 	<SDL3/SDL_platform_defines.h>
 
-1776780939 /home/olek/ProjektProgramowanie/ProjektProgramowanie/include/structs.h
+1777897434 /home/olek/ProjektProgramowanie/ProjektProgramowanie/include/structs.h
 
-1776966708 source:/home/olek/ProjektProgramowanie/ProjektProgramowanie/src/main.cpp
+1777899219 source:/home/olek/ProjektProgramowanie/ProjektProgramowanie/src/main.cpp
 	<sstream>
 	"../include/SDL3/SDL.h"
 	"../include/SDL3/SDL_main.h"
@@ -1044,13 +1044,14 @@
 1776780939 /home/olek/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_main_impl.h
 	"SDL_main_impl_private.h"
 
-1776780939 /home/olek/ProjektProgramowanie/ProjektProgramowanie/include/object_init.h
+1777897434 /home/olek/ProjektProgramowanie/ProjektProgramowanie/include/object_init.h
 	"Technical.h"
 	"Object.h"
 	"Player.h"
 	"Controls.h"
 	"Timer.h"
 	"HUD.h"
+	"Map.h"
 
 1776780939 /home/olek/ProjektProgramowanie/ProjektProgramowanie/include/Technical.h
 	"../include/SDL3/SDL.h"
@@ -1061,11 +1062,12 @@
 	<SDL3/SDL_begin_code.h>
 	<SDL3/SDL_close_code.h>
 
-1776780939 /home/olek/ProjektProgramowanie/ProjektProgramowanie/include/Object.h
+1777897434 /home/olek/ProjektProgramowanie/ProjektProgramowanie/include/Object.h
 	"../include/SDL3/SDL.h"
 	"../include/SDL3_ttf/SDL_ttf.h"
+	"structs.h"
 
-1776965242 /home/olek/ProjektProgramowanie/ProjektProgramowanie/include/Player.h
+1777897952 /home/olek/ProjektProgramowanie/ProjektProgramowanie/include/Player.h
 	<string>
 	"Object.h"
 
@@ -1075,7 +1077,7 @@
 1776780939 /home/olek/ProjektProgramowanie/ProjektProgramowanie/include/HUD.h
 	"../include/SDL3/SDL.h"
 
-1776794710 source:/home/olek/ProjektProgramowanie/ProjektProgramowanie/src/Object.cpp
+1777897434 source:/home/olek/ProjektProgramowanie/ProjektProgramowanie/src/Object.cpp
 	"../include/SDL3_image/SDL_image.h"
 	"Object.h"
 	"object_init.h"
@@ -1085,7 +1087,7 @@
 	<SDL3/SDL_begin_code.h>
 	<SDL3/SDL_close_code.h>
 
-1776780939 source:/home/olek/ProjektProgramowanie/ProjektProgramowanie/src/Technical.cpp
+1777897434 source:/home/olek/ProjektProgramowanie/ProjektProgramowanie/src/Technical.cpp
 	"Technical.h"
 	"object_init.h"
 	<iostream>
@@ -1094,23 +1096,27 @@
 	"Timer.h"
 	"../include/SDL3/SDL.h"
 
-1776965356 source:/home/olek/ProjektProgramowanie/ProjektProgramowanie/src/Player.cpp
+1777897952 source:/home/olek/ProjektProgramowanie/ProjektProgramowanie/src/Player.cpp
 	"Player.h"
 	<iostream>
 	<math.h>
+	"object_init.h"
 
 1776780939 source:/home/olek/ProjektProgramowanie/ProjektProgramowanie/src/HUD.cpp
 	"HUD.h"
 	"object_init.h"
 	<sstream>
 
-1776966633 source:/home/olek/ProjektProgramowanie/ProjektProgramowanie/src/Map.cpp
+1777898587 source:/home/olek/ProjektProgramowanie/ProjektProgramowanie/src/Map.cpp
 	"Map.h"
+	<fstream>
+	"object_init.h"
 
-1776966514 /home/olek/ProjektProgramowanie/ProjektProgramowanie/include/Map.h
+1777898152 /home/olek/ProjektProgramowanie/ProjektProgramowanie/include/Map.h
 	<SDL3/SDL.h>
 	<SDL3_image/SDL_image.h>
 	<string>
 	<iostream>
 	<vector>
+	"Object.h"
 

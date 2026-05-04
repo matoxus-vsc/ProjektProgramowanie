@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "Object.h"
-
+using namespace std;
 /** \author Aleksander Poniński
  *
  * \file Map.h
@@ -24,6 +24,7 @@ class Map {
 public:
     int map_width;
     int map_height;
+    void wczytaj_z_pliku(const string& sciezka, float rozmiar_kratki);
 
     /** \brief Konstruktor ładujący tło, ściany i drzwi */
     Map();
@@ -47,6 +48,6 @@ private:
     SDL_Texture* sciana_texture;
     SDL_Texture* drzwi_texture;
 
-    std::vector<Object> lista_scian;
-    std::vector<Drzwi> lista_drzwi;
+    vector<Object> lista_scian;
+    vector<Drzwi> lista_drzwi;
 };
