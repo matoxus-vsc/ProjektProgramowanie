@@ -13,6 +13,7 @@ public:
     int getHealth() const;
     int getAttack() const;
 
+    const char* weapon_get();
     void takeDamage(int amount);
     void restoreHealth();
     bool isAlive() const;
@@ -56,6 +57,7 @@ protected:
     int max_health;
     int attack;
     const char* name;
+    const char* weapon;
 
     float x;
     float y;

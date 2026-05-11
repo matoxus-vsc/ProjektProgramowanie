@@ -32,7 +32,10 @@ int Player::getHealth() const {
 int Player::getAttack() const {
     return attack;
 }
-
+const char* Player::weapon_get()
+{
+    return weapon;
+}
 void Player::takeDamage(int amount) {
     health -= amount;
     if (health < 0) health = 0;

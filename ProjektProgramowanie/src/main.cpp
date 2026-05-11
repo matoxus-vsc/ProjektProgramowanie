@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <sstream>
 #include "../include/SDL3/SDL.h"
 #include "../include/SDL3/SDL_main.h"
@@ -84,6 +84,7 @@ int main(int argc, char** argv)
 
                         for(auto &b : bots) b.render();
                         player.render();
+                        h1.banner_bottom_render();
 
                         SDL_RenderPresent(t1.renderer_get());
 
