@@ -37,7 +37,7 @@ bool init(Technical& t)
         t.window = SDL_CreateWindow("SC2D", 800, 600, 0);
         if(t.window == nullptr)
         {
-            SDL_Log("SDL_CreateWindow(\'SC2D\', 800, 600, 0) failed!\n%s", SDL_GetError());
+            SDL_Log("SDL_CreateWindow('SC2D', 800, 600, 0) failed!\n%s", SDL_GetError());
             t.err_code = ERR_SDL_CREATE_WINDOW;
             success = false;
         }
@@ -82,33 +82,63 @@ bool media(Technical& t)
     if(!player.sprite.texture_load("ProjektProgramowanie/Prowizorycznetekstury/gracz.png")) // ProjektProgramowanie/Prowizorycznetekstury/gracz.png
     {
         success = false;
-        SDL_Log("Couldnt load \'gracz.png\'! %s", SDL_GetError());
+        SDL_Log("Couldnt load 'gracz.png'! %s", SDL_GetError());
+    }
+
+    // load sprites for all bots
+    for (auto &b : bots)
+    {
+        if(!b.sprite.texture_load("ProjektProgramowanie/Prowizorycznetekstury/gracz.png"))
+        {
+            success = false;
+            SDL_Log("Couldnt load bot sprite! %s", SDL_GetError());
+        }
     }
 
     if(!player.gun.texture_load("ProjektProgramowanie/Prowizorycznetekstury/bron.png"))
     {
         success = false;
-        SDL_Log("Couldnt load \'bron.png\'! %s", SDL_GetError());
+        SDL_Log("Couldnt load 'bron.png'! %s", SDL_GetError());
     }
+
+    for (auto &b : bots)
+    {
+        if(!b.gun.texture_load("ProjektProgramowanie/Prowizorycznetekstury/bron.png"))
+        {
+            success = false;
+            SDL_Log("Couldnt load bot gun! %s", SDL_GetError());
+        }
+    }
+
     if(!door_obj.texture_load("ProjektProgramowanie/Prowizorycznetekstury/drzwi.png"))
     {
         success = false;
-        SDL_Log("Couldnt load \'drzwi.png\'! %s", SDL_GetError());
+        SDL_Log("Couldnt load 'drzwi.png'! %s", SDL_GetError());
     }
     if(!map_obj.texture_load("ProjektProgramowanie/Prowizorycznetekstury/mapa.png"))
     {
         success = false;
-        SDL_Log("Couldnt load \'mapa.png\'! %s", SDL_GetError());
+        SDL_Log("Couldnt load 'mapa.png'! %s", SDL_GetError());
     }
     if(!player.bullet.texture_load("ProjektProgramowanie/Prowizorycznetekstury/pocisk.png"))
     {
         success = false;
-        SDL_Log("Couldnt load \'pocisk.png\'! %s", SDL_GetError());
+        SDL_Log("Couldnt load 'pocisk.png'! %s", SDL_GetError());
     }
+
+    for (auto &b : bots)
+    {
+        if(!b.bullet.texture_load("ProjektProgramowanie/Prowizorycznetekstury/pocisk.png"))
+        {
+            success = false;
+            SDL_Log("Couldnt load bot bullet! %s", SDL_GetError());
+        }
+    }
+
     if(!wall_obj.texture_load("ProjektProgramowanie/Prowizorycznetekstury/sciana.png"))
     {
         success = false;
-        SDL_Log("Couldnt load \'sciana.png\'! %s", SDL_GetError());
+        SDL_Log("Couldnt load 'sciana.png'! %s", SDL_GetError());
     }
     t.font_default = TTF_OpenFont("ProjektProgramowanie/fonts/ProggyVector Regular.ttf", 12);
     t.font_default_color = {0, 0, 0, 0};
@@ -116,15 +146,7 @@ bool media(Technical& t)
     if(t.font_default==nullptr)
        {
             success = false;
-            SDL_Log("Couldnt load \'ProggyVector Regular.ttf\'! %s", SDL_GetError());
-       }
-    t.font_banner_bottom = TTF_OpenFont("ProjektProgramowanie/fonts/ProggyVector Regular.ttf", 14);
-    t.font_banner_bottom_color = {255, 255, 255, 0};
-
-    if(t.font_banner_bottom==nullptr)
-       {
-            success = false;
-            SDL_Log("Couldnt load \'ProggyVector Regular.ttf\'! %s", SDL_GetError());
+            SDL_Log("Couldnt load 'ProggyVector Regular.ttf'! %s", SDL_GetError());
        }
 
     return success;
@@ -147,6 +169,13 @@ void close(Technical& t)
     player.sprite.destroy();
     player.gun.destroy();
     player.bullet.destroy();
+
+    for (auto &b : bots)
+    {
+        b.sprite.destroy();
+        b.gun.destroy();
+        b.bullet.destroy();
+    }
 
     door_obj.destroy();
     map_obj.destroy();
@@ -186,14 +215,6 @@ TTF_Font* Technical::font_default_get()
 SDL_Color Technical::font_default_color_get()
 {
     return font_default_color;
-}
-TTF_Font* Technical::font_banner_bottom_get()
-{
-    return font_banner_bottom;
-}
-SDL_Color Technical::font_banner_bottom_color_get()
-{
-    return font_banner_bottom_color;
 }
 int Technical::fps_target_get()
 {

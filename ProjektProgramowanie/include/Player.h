@@ -13,12 +13,9 @@ public:
     int getHealth() const;
     int getAttack() const;
 
-    int current_ammo_get();
-    int reloads_get();
-
     const char* weapon_get();
-
     void takeDamage(int amount);
+    void restoreHealth();
     bool isAlive() const;
     void printStats() const;
 
@@ -47,12 +44,18 @@ public:
     float getX() const;
     float getY() const;
 
-private:
-    int health;
-    int attack;
-    int current_ammo;
-    int reloads;
+    // --- ammo / reload  ---
+    void start_reload();
+    void update_reload();
+    bool is_reloading() const;
+    int ammo_in_mag_get() const;
+    int spare_mags_get() const;
+    void consume_one_ammo();
 
+protected:
+    int health;
+    int max_health;
+    int attack;
     const char* name;
     const char* weapon;
 
@@ -70,6 +73,18 @@ private:
     float bullet_dy;
     float bullet_angle;
     float bullet_speed;
+
+    // ammo/reload
+    int ammo_in_mag;        // ilosc akutalna
+    int spare_mags;        // ilosc magazynkow pozostala
+    int mag_capacity;      // ilosc naboi w magazynku
+    bool reloading;
+    int reload_timer_frames; // czas reload
+
+  
+    int fire_cooldown_frames; 
+    int fire_rate_frames;
+
 };
 
 #endif

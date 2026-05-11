@@ -2,23 +2,35 @@
 #include <iostream>
 #include <math.h>
 #include "object_init.h"
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
 Player::Player(int health, int attack)
-    :health(health), attack(attack), x(100), y(150), angle(0.0), is_shooting(false), bullet_x(0), bullet_y(0), bullet_dx(0), bullet_dy(0), bullet_angle(0.0), bullet_speed(15.0f) {name = "Chuj";movement_speed=10.0;reloads=2;current_ammo=30;weapon = "AK-47";}
+    :health(health), max_health(health), attack(attack), x(100), y(150), angle(0.0), is_shooting(false), bullet_x(0), bullet_y(0), bullet_dx(0), bullet_dy(0), bullet_angle(0.0), bullet_speed(15.0f)
+{
+    name = "Player";
+    movement_speed=10.0;
+
+    // ammo
+    mag_capacity = 30;
+    ammo_in_mag = mag_capacity;
+    spare_mags = 2; // two spare mags
+    reloading = false;
+    reload_timer_frames = 0;
+
+    // fire rate: frames between shots (lower = faster)
+    fire_rate_frames = 6; // e.g., at 60fps -> 10 shots/sec
+    fire_cooldown_frames = 0;
+}
+
 int Player::getHealth() const {
     return health;
 }
 
 int Player::getAttack() const {
     return attack;
-}
-
-int Player::reloads_get()
-{
-    return reloads;
-}
-int Player::current_ammo_get()
-{
-    return current_ammo;
 }
 const char* Player::weapon_get()
 {
@@ -27,6 +39,11 @@ const char* Player::weapon_get()
 void Player::takeDamage(int amount) {
     health -= amount;
     if (health < 0) health = 0;
+}
+
+void Player::restoreHealth()
+{
+    health = max_health;
 }
 
 bool Player::isAlive() const {
@@ -54,28 +71,39 @@ void Player::updatePosition(float targetX, float targetY) { // Podazanie za mysz
 }
 
 void Player::render() { // Polaczenie gracza z bronia i pociskiem
+    float view_x = arena.camera_view_x_get();
+    float view_y = arena.camera_view_y_get();
+
+    float screen_x = x - view_x;
+    float screen_y = y - view_y;
+
     SDL_FPoint player_center = { static_cast<float>(sprite.width_get()) / 2.0f, static_cast<float>(sprite.height_get()) / 2.0f };
-    sprite.render(x, y, angle, &player_center);
+    sprite.render(screen_x, screen_y, angle, &player_center);
 
     SDL_FPoint gun_center = { -static_cast<float>(sprite.width_get()) / 2.0f, static_cast<float>(gun.height_get()) / 2.0f };
-    gun.render(x + sprite.width_get(), y + sprite.height_get()/2.0f - gun.height_get()/2.0f, angle, &gun_center);
+    gun.render(screen_x + sprite.width_get(), screen_y + sprite.height_get()/2.0f - gun.height_get()/2.0f, angle, &gun_center);
 
     if (is_shooting) {
         bullet_x += bullet_dx;
         bullet_y += bullet_dy;
-        bullet.render(bullet_x, bullet_y, bullet_angle, nullptr);
+        bullet.render(bullet_x - view_x, bullet_y - view_y, bullet_angle, nullptr);
 
         if (bullet_x < -2000 || bullet_x > 4000 || bullet_y < -2000 || bullet_y > 4000) {
             is_shooting = false;
         }
     } else {
         SDL_FPoint bullet_center = { -static_cast<float>(sprite.width_get()) / 2.0f - static_cast<float>(gun.width_get()), static_cast<float>(bullet.height_get()) / 2.0f };
-        bullet.render(x + sprite.width_get() + gun.width_get(), y + sprite.height_get()/2.0f - bullet.height_get()/2.0f, angle, &bullet_center);
+        bullet.render(screen_x + sprite.width_get() + gun.width_get(), screen_y + sprite.height_get()/2.0f - bullet.height_get()/2.0f, angle, &bullet_center);
     }
 }
 
 void Player::player_move_handler()
 {
+    // handle reload timer
+    update_reload();
+
+    // reduce fire cooldown
+    if (fire_cooldown_frames > 0) fire_cooldown_frames--;
 
     const bool* key_board_state = SDL_GetKeyboardState(NULL);
     bool move_key_press[4] = {false, false, false, false};
@@ -115,24 +143,45 @@ void Player::player_move_handler()
     float mouseX, mouseY;
     SDL_MouseButtonFlags mouseFlags = SDL_GetMouseState(&mouseX, &mouseY);
 
+    float mouseWorldX = mouseX + arena.camera_view_x_get();
+    float mouseWorldY = mouseY + arena.camera_view_y_get();
+
     float centerX = x + sprite.width_get() * 0.5f;
     float centerY = y + sprite.height_get() * 0.5f;
-    angle = atan2(mouseY - centerY, mouseX - centerX) * 180.0 / M_PI;
+    angle = atan2(mouseWorldY - centerY, mouseWorldX - centerX) * 180.0 / M_PI;
 
-    if ((mouseFlags & SDL_BUTTON_LMASK) && !is_shooting) {
-        is_shooting = true;
-        bullet_angle = angle;
-        float rad = bullet_angle * M_PI / 180.0f;
+    // handle shoot/reload
+    if (key_board_state[SDL_SCANCODE_R]) {
+        if (!reloading && spare_mags > 0 && ammo_in_mag < mag_capacity) start_reload();
+    }
 
-        float offset = sprite.width_get() * 0.5f + gun.width_get();
+    if ((mouseFlags & SDL_BUTTON_LMASK) && !reloading) {
+        if (fire_cooldown_frames <= 0)
+        {
+            if (ammo_in_mag > 0) {
+                // start shot
+                is_shooting = true;
+                consume_one_ammo();
+                fire_cooldown_frames = fire_rate_frames;
+                bullet_angle = angle;
+                float rad = bullet_angle * M_PI / 180.0f;
+                float offset = sprite.width_get() * 0.5f + gun.width_get();
+                bullet_x = centerX + offset * cos(rad) - bullet.width_get() *0.5f;
+                bullet_y = centerY + offset * sin(rad) - bullet.height_get() *0.5f;
+                bullet_dx = cos(rad) * bullet_speed;
+                bullet_dy = sin(rad) * bullet_speed;
 
-        bullet_x = centerX + offset * cos(rad) - bullet.width_get() *0.5f;
-        bullet_y = centerY + offset * sin(rad) - bullet.height_get() *0.5f;
-        bullet_dx = cos(rad) * bullet_speed;
-        bullet_dy = sin(rad) * bullet_speed;
+                // advance bullet immediately so it doesn't linger at muzzle
+                bullet_x += bullet_dx;
+                bullet_y += bullet_dy;
+            } else {
+                if (spare_mags > 0 && !reloading) start_reload();
+            }
+        }
     }
 
 }
+
 bool Player::collision_check_player(Object& other)
 {
     Vec2f player_centre(x + sprite.width_get() * 0.5f, y + sprite.width_get()*0.5f);
@@ -162,4 +211,39 @@ float Player::getX() const {
 
 float Player::getY() const {
     return y;
+}
+
+// --- ammo i reload
+void Player::start_reload()
+{
+    if (reloading) return;
+    if (spare_mags <= 0) return;
+    reloading = true;
+    // reload time 5s 
+    reload_timer_frames = static_cast<int>(5.0f * static_cast<float>(t1.fps_target_get()));
+    SDL_Log("Player: start reload, will take %d frames", reload_timer_frames);
+}
+
+void Player::update_reload()
+{
+    if (!reloading) return;
+    if (reload_timer_frames > 0) reload_timer_frames--;
+    if (reload_timer_frames <= 0)
+    {
+        reloading = false;
+        if (spare_mags > 0)
+        {
+            spare_mags--;
+            ammo_in_mag = mag_capacity;
+            SDL_Log("Player: reload complete. ammo=%d spare_mags=%d", ammo_in_mag, spare_mags);
+        }
+    }
+}
+
+bool Player::is_reloading() const { return reloading; }
+int Player::ammo_in_mag_get() const { return ammo_in_mag; }
+int Player::spare_mags_get() const { return spare_mags; }
+void Player::consume_one_ammo()
+{
+    if (ammo_in_mag > 0) ammo_in_mag--;
 }

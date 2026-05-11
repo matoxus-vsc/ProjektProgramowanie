@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1778489585 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/main.cpp
+1778524027 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/main.cpp
 	<sstream>
 	"../include/SDL3/SDL.h"
 	"../include/SDL3/SDL_main.h"
@@ -506,30 +506,33 @@
 1778486700 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_main_impl.h
 	"SDL_main_impl_private.h"
 
-1778491366 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/object_init.h
+1778523802 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/object_init.h
 	"Technical.h"
 	"Object.h"
 	"Player.h"
+	"Bot.h"
 	"Controls.h"
 	"Timer.h"
 	"HUD.h"
 	"Map.h"
+	"Camera.h"
+	<vector>
 
-1778489729 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/Technical.h
+1778523802 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/Technical.h
 	"../include/SDL3/SDL.h"
 	"../include/SDL3_ttf/SDL_ttf.h"
 
-1778486700 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/Object.h
+1778523802 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/Object.h
 	"../include/SDL3/SDL.h"
 	"../include/SDL3_ttf/SDL_ttf.h"
 	"structs.h"
 
-1778490377 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/Technical.cpp
+1778523965 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/Technical.cpp
 	"Technical.h"
 	"object_init.h"
 	<iostream>
 
-1778486700 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/Object.cpp
+1778523802 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/Object.cpp
 	"../include/SDL3_image/SDL_image.h"
 	"Object.h"
 	"object_init.h"
@@ -1131,21 +1134,21 @@
 	<vector>
 	"Object.h"
 
-1778486700 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/Controls.cpp
+1778523802 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/Controls.cpp
 	"Controls.h"
 
-1778486700 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/Controls.h
+1778523802 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/Controls.h
 	"SDL3/SDL.h"
 	"structs.h"
 
-1778486700 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/structs.h
+1778523802 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/structs.h
 
-1778490999 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/HUD.cpp
+1778523802 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/HUD.cpp
 	"HUD.h"
 	"object_init.h"
 	<sstream>
 
-1778491160 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/HUD.h
+1778523802 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/HUD.h
 	"../include/SDL3/SDL.h"
 
 1778486700 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/SDL3_ttf/SDL_ttf.h
@@ -1153,33 +1156,51 @@
 	<SDL3/SDL_begin_code.h>
 	<SDL3/SDL_close_code.h>
 
-1778491445 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/Player.h
+1778523802 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/Player.h
 	<string>
 	"Object.h"
 
-1778486700 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/Timer.h
+1778523802 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/Bot.h
+	"Player.h"
+
+1778523802 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/Timer.h
 	"../include/SDL3/SDL.h"
 
-1778487667 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/Map.h
+1778523802 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/Map.h
 	<SDL3/SDL.h>
 	<SDL3_image/SDL_image.h>
 	<string>
 	<iostream>
 	<vector>
 	"Object.h"
+	"Camera.h"
 
-1778491160 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/Player.cpp
+1778523802 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/Camera.h
+
+1778523802 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/Map.cpp
+	"Map.h"
+	<fstream>
+	<random>
+	<cmath>
+	"object_init.h"
+
+1778523802 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/Player.cpp
 	"Player.h"
 	<iostream>
 	<math.h>
 	"object_init.h"
 
-1778486700 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/Timer.cpp
+1778523802 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/Timer.cpp
 	"Timer.h"
 	"../include/SDL3/SDL.h"
 
-1778487667 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/Map.cpp
-	"Map.h"
-	<fstream>
+1778523802 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/Bot.cpp
+	"Bot.h"
+	<math.h>
+	<cstdlib>
+	<ctime>
 	"object_init.h"
+
+1778523802 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/Camera.cpp
+	"Camera.h"
 

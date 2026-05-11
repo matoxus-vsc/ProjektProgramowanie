@@ -6,6 +6,8 @@
 #include <vector>
 
 #include "Object.h"
+#include "Camera.h"
+
 using namespace std;
 /** \author Aleksander Poniński
  *
@@ -25,6 +27,7 @@ public:
     int map_width;
     int map_height;
     void wczytaj_z_pliku(const string& sciezka, float rozmiar_kratki);
+    bool get_random_free_position(float width, float height, float& outX, float& outY, int maxAttempts = 100, float margin = 0.0f);
 
     /** \brief Konstruktor ładujący tło, ściany i drzwi */
     Map();
@@ -41,6 +44,10 @@ public:
      */
     bool collision_objects_check();
 
+    void camera_update(float camera_x, float camera_y, int window_w, int window_h);
+    float camera_view_x_get() const;
+    float camera_view_y_get() const;
+
     void map_render(SDL_Renderer* renderer, float camera_x, float camera_y, int window_w, int window_h);
 
 private:
@@ -48,6 +55,13 @@ private:
     SDL_Texture* sciana_texture;
     SDL_Texture* drzwi_texture;
 
-    vector<Object> lista_scian;
-    vector<Drzwi> lista_drzwi;
+    Camera camera;
+
+    int map_cols;
+    int map_rows;
+    float cell_size;
+    std::vector<std::string> tile_map;
+
+    std::vector<Object> lista_scian;
+    std::vector<Drzwi> lista_drzwi;
 };

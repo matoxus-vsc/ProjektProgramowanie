@@ -12,14 +12,19 @@
 #include "Technical.h"
 #include "Object.h"
 #include "Player.h"
+#include "Bot.h"
 #include "Controls.h"
 #include "Timer.h"
 #include "HUD.h"
 #include "Map.h"
+#include "Camera.h"
+#include <vector>
 
 inline Technical t1;
 inline Object door_obj, map_obj, wall_obj;
+inline Camera camera;
 inline Player player(100, 15);
+inline std::vector<Bot> bots = { Bot(80,10), Bot(80,10), Bot(80,10), Bot(80,10) };
 inline Mouse m1;
 inline Timer fps_timer;
 inline Text fps_text, hp_stat_text, ammo_stat_text, weapon_stat_text;
