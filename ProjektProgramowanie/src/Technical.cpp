@@ -79,38 +79,76 @@ bool media(Technical& t)
 {
     bool success = true;
 
-    if(!player.sprite.texture_load("ProjektProgramowanie/Prowizorycznetekstury/gracz.png")) // ProjektProgramowanie/Prowizorycznetekstury/gracz.png
+    if(!player.sprite.texture_load("Prowizorycznetekstury/gracz.png")) // ProjektProgramowanie/Prowizorycznetekstury/gracz.png
     {
         success = false;
         SDL_Log("Couldnt load \'gracz.png\'! %s", SDL_GetError());
     }
 
-    if(!player.gun.texture_load("ProjektProgramowanie/Prowizorycznetekstury/bron.png"))
+    if(!bot1.sprite.texture_load("Prowizorycznetekstury/gracz.png"))
+    {
+        success = false;
+        SDL_Log("Couldnt load bot1 sprite! %s", SDL_GetError());
+    }
+
+    if(!bot2.sprite.texture_load("Prowizorycznetekstury/gracz.png"))
+    {
+        success = false;
+        SDL_Log("Couldnt load bot2 sprite! %s", SDL_GetError());
+    }
+
+    if(!player.gun.texture_load("Prowizorycznetekstury/bron.png"))
     {
         success = false;
         SDL_Log("Couldnt load \'bron.png\'! %s", SDL_GetError());
     }
-    if(!door_obj.texture_load("ProjektProgramowanie/Prowizorycznetekstury/drzwi.png"))
+
+    if(!bot1.gun.texture_load("Prowizorycznetekstury/bron.png"))
+    {
+        success = false;
+        SDL_Log("Couldnt load bot1 gun! %s", SDL_GetError());
+    }
+
+    if(!bot2.gun.texture_load("Prowizorycznetekstury/bron.png"))
+    {
+        success = false;
+        SDL_Log("Couldnt load bot2 gun! %s", SDL_GetError());
+    }
+
+    if(!door_obj.texture_load("Prowizorycznetekstury/drzwi.png"))
     {
         success = false;
         SDL_Log("Couldnt load \'drzwi.png\'! %s", SDL_GetError());
     }
-    if(!map_obj.texture_load("ProjektProgramowanie/Prowizorycznetekstury/mapa.png"))
+    if(!map_obj.texture_load("Prowizorycznetekstury/mapa.png"))
     {
         success = false;
         SDL_Log("Couldnt load \'mapa.png\'! %s", SDL_GetError());
     }
-    if(!player.bullet.texture_load("ProjektProgramowanie/Prowizorycznetekstury/pocisk.png"))
+    if(!player.bullet.texture_load("Prowizorycznetekstury/pocisk.png"))
     {
         success = false;
         SDL_Log("Couldnt load \'pocisk.png\'! %s", SDL_GetError());
     }
-    if(!wall_obj.texture_load("ProjektProgramowanie/Prowizorycznetekstury/sciana.png"))
+
+    if(!bot1.bullet.texture_load("Prowizorycznetekstury/pocisk.png"))
+    {
+        success = false;
+        SDL_Log("Couldnt load bot1 bullet! %s", SDL_GetError());
+    }
+
+    if(!bot2.bullet.texture_load("Prowizorycznetekstury/pocisk.png"))
+    {
+        success = false;
+        SDL_Log("Couldnt load bot2 bullet! %s", SDL_GetError());
+    }
+
+    if(!wall_obj.texture_load("Prowizorycznetekstury/sciana.png"))
     {
         success = false;
         SDL_Log("Couldnt load \'sciana.png\'! %s", SDL_GetError());
     }
-    t.font_default = TTF_OpenFont("ProjektProgramowanie/fonts/ProggyVector Regular.ttf", 12);
+    t.font_default = TTF_OpenFont("fonts/ProggyVector Regular.ttf", 12);
     t.font_default_color = {0, 0, 0, 0};
 
     if(t.font_default==nullptr)
@@ -139,6 +177,14 @@ void close(Technical& t)
     player.sprite.destroy();
     player.gun.destroy();
     player.bullet.destroy();
+
+    bot1.sprite.destroy();
+    bot1.gun.destroy();
+    bot1.bullet.destroy();
+
+    bot2.sprite.destroy();
+    bot2.gun.destroy();
+    bot2.bullet.destroy();
 
     door_obj.destroy();
     map_obj.destroy();

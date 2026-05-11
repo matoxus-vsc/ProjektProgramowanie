@@ -53,6 +53,8 @@ int main(int argc, char** argv)
                 case PLAYING:
                     {
                         player.player_move_handler();
+                        bot1.updateAI(player);
+                        bot2.updateAI(player);
 
                         if(rendered_frame!= 0)
                         {
@@ -63,10 +65,19 @@ int main(int argc, char** argv)
                         SDL_SetRenderDrawColor(t1.renderer_get(), 255, 255, 255, 255);
                         SDL_RenderClear(t1.renderer_get());
 
-                        arena.map_render(t1.renderer_get(), player.getX(), player.getY(), 1280, 720);
+
+                        int win_w = t1.window_width_get();
+                        int win_h = t1.window_height_get();
+
+
+                        float playerCenterX = player.getX() + player.sprite.width_get() * 0.5f;
+                        float playerCenterY = player.getY() + player.sprite.height_get() * 0.5f;
+                        arena.map_render(t1.renderer_get(), playerCenterX, playerCenterY, win_w, win_h);
 
                         fps_text.render(0, 0);
 
+                        bot1.render();
+                        bot2.render();
                         player.render();
 
                         SDL_RenderPresent(t1.renderer_get());
