@@ -18,13 +18,13 @@
 #include "HUD.h"
 #include "Map.h"
 #include "Camera.h"
+#include <vector>
 
 inline Technical t1;
 inline Object door_obj, map_obj, wall_obj;
 inline Camera camera;
 inline Player player(100, 15);
-inline Bot bot1(80, 10, 900.0f, 900.0f, 1200.0f, 900.0f);
-inline Bot bot2(80, 10, 1400.0f, 1200.0f, 1700.0f, 1200.0f);
+inline std::vector<Bot> bots = { Bot(80,10), Bot(80,10), Bot(80,10), Bot(80,10) };
 inline Mouse m1;
 inline Timer fps_timer;
 inline Text fps_text;

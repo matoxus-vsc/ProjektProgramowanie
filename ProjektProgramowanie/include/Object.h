@@ -62,25 +62,25 @@ public:
      */
     void render( float x, float y, double angle = 0.0, SDL_FPoint* center = nullptr);
 
-    SDL_Texture* texture_get();
+    SDL_Texture* texture_get() const;
 
     /** \brief getter
      *
      * \return int - szerokość obiektu
      *
      */
-    int width_get();
+    int width_get() const;
 
     /** \brief getter
      *
      * \return int - wysokość obiektu
      *
      */
-    int height_get();
+    int height_get() const;
 
     void position_update(Vec2f update);
 
-    Vec2f position_get();
+    Vec2f position_get() const;
 
    // bool load_check();
 
