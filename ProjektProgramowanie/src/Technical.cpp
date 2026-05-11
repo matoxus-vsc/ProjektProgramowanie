@@ -37,7 +37,7 @@ bool init(Technical& t)
         t.window = SDL_CreateWindow("SC2D", 800, 600, 0);
         if(t.window == nullptr)
         {
-            SDL_Log("SDL_CreateWindow(\'SC2D\', 800, 600, 0) failed!\n%s", SDL_GetError());
+            SDL_Log("SDL_CreateWindow('SC2D', 800, 600, 0) failed!\n%s", SDL_GetError());
             t.err_code = ERR_SDL_CREATE_WINDOW;
             success = false;
         }
@@ -82,71 +82,63 @@ bool media(Technical& t)
     if(!player.sprite.texture_load("Prowizorycznetekstury/gracz.png")) // ProjektProgramowanie/Prowizorycznetekstury/gracz.png
     {
         success = false;
-        SDL_Log("Couldnt load \'gracz.png\'! %s", SDL_GetError());
+        SDL_Log("Couldnt load 'gracz.png'! %s", SDL_GetError());
     }
 
-    if(!bot1.sprite.texture_load("Prowizorycznetekstury/gracz.png"))
+    // load sprites for all bots
+    for (auto &b : bots)
     {
-        success = false;
-        SDL_Log("Couldnt load bot1 sprite! %s", SDL_GetError());
-    }
-
-    if(!bot2.sprite.texture_load("Prowizorycznetekstury/gracz.png"))
-    {
-        success = false;
-        SDL_Log("Couldnt load bot2 sprite! %s", SDL_GetError());
+        if(!b.sprite.texture_load("Prowizorycznetekstury/gracz.png"))
+        {
+            success = false;
+            SDL_Log("Couldnt load bot sprite! %s", SDL_GetError());
+        }
     }
 
     if(!player.gun.texture_load("Prowizorycznetekstury/bron.png"))
     {
         success = false;
-        SDL_Log("Couldnt load \'bron.png\'! %s", SDL_GetError());
+        SDL_Log("Couldnt load 'bron.png'! %s", SDL_GetError());
     }
 
-    if(!bot1.gun.texture_load("Prowizorycznetekstury/bron.png"))
+    for (auto &b : bots)
     {
-        success = false;
-        SDL_Log("Couldnt load bot1 gun! %s", SDL_GetError());
-    }
-
-    if(!bot2.gun.texture_load("Prowizorycznetekstury/bron.png"))
-    {
-        success = false;
-        SDL_Log("Couldnt load bot2 gun! %s", SDL_GetError());
+        if(!b.gun.texture_load("Prowizorycznetekstury/bron.png"))
+        {
+            success = false;
+            SDL_Log("Couldnt load bot gun! %s", SDL_GetError());
+        }
     }
 
     if(!door_obj.texture_load("Prowizorycznetekstury/drzwi.png"))
     {
         success = false;
-        SDL_Log("Couldnt load \'drzwi.png\'! %s", SDL_GetError());
+        SDL_Log("Couldnt load 'drzwi.png'! %s", SDL_GetError());
     }
     if(!map_obj.texture_load("Prowizorycznetekstury/mapa.png"))
     {
         success = false;
-        SDL_Log("Couldnt load \'mapa.png\'! %s", SDL_GetError());
+        SDL_Log("Couldnt load 'mapa.png'! %s", SDL_GetError());
     }
     if(!player.bullet.texture_load("Prowizorycznetekstury/pocisk.png"))
     {
         success = false;
-        SDL_Log("Couldnt load \'pocisk.png\'! %s", SDL_GetError());
+        SDL_Log("Couldnt load 'pocisk.png'! %s", SDL_GetError());
     }
 
-    if(!bot1.bullet.texture_load("Prowizorycznetekstury/pocisk.png"))
+    for (auto &b : bots)
     {
-        success = false;
-        SDL_Log("Couldnt load bot1 bullet! %s", SDL_GetError());
-    }
-
-    if(!bot2.bullet.texture_load("Prowizorycznetekstury/pocisk.png"))
-    {
-        success = false;
-        SDL_Log("Couldnt load bot2 bullet! %s", SDL_GetError());
+        if(!b.bullet.texture_load("Prowizorycznetekstury/pocisk.png"))
+        {
+            success = false;
+            SDL_Log("Couldnt load bot bullet! %s", SDL_GetError());
+        }
     }
 
     if(!wall_obj.texture_load("Prowizorycznetekstury/sciana.png"))
     {
         success = false;
-        SDL_Log("Couldnt load \'sciana.png\'! %s", SDL_GetError());
+        SDL_Log("Couldnt load 'sciana.png'! %s", SDL_GetError());
     }
     t.font_default = TTF_OpenFont("fonts/ProggyVector Regular.ttf", 12);
     t.font_default_color = {0, 0, 0, 0};
@@ -154,7 +146,7 @@ bool media(Technical& t)
     if(t.font_default==nullptr)
        {
             success = false;
-            SDL_Log("Couldnt load \'ProggyVector Regular.ttf\'! %s", SDL_GetError());
+            SDL_Log("Couldnt load 'ProggyVector Regular.ttf'! %s", SDL_GetError());
        }
 
     return success;
@@ -178,13 +170,12 @@ void close(Technical& t)
     player.gun.destroy();
     player.bullet.destroy();
 
-    bot1.sprite.destroy();
-    bot1.gun.destroy();
-    bot1.bullet.destroy();
-
-    bot2.sprite.destroy();
-    bot2.gun.destroy();
-    bot2.bullet.destroy();
+    for (auto &b : bots)
+    {
+        b.sprite.destroy();
+        b.gun.destroy();
+        b.bullet.destroy();
+    }
 
     door_obj.destroy();
     map_obj.destroy();

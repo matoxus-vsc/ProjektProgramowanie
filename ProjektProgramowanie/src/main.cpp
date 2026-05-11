@@ -22,8 +22,15 @@ int main(int argc, char** argv)
     }
     else
     {
-        arena.wczytaj_z_pliku("ProjektProgramowanie/Prowizorycznetekstury/uklad_mapy.txt", 78.0f);
+        arena.wczytaj_z_pliku("Prowizorycznetekstury/uklad_mapy.txt", 78.0f);
         player.setPosition(150.0f, 150.0f);
+
+        // init bots
+        if(bots.size() > 0) bots[0].init(1200.0f,900.0f);
+        if(bots.size() > 1) bots[1].init(1700.0f,1200.0f);
+        if(bots.size() > 2) bots[2].init(4000.0f,3000.0f);
+        if(bots.size() > 3) bots[3].init(5000.0f,3500.0f);
+
         bool exit = false;
         SDL_Event e;
 
@@ -53,8 +60,7 @@ int main(int argc, char** argv)
                 case PLAYING:
                     {
                         player.player_move_handler();
-                        bot1.updateAI(player);
-                        bot2.updateAI(player);
+                        for(auto &b : bots) b.updateAI(player);
 
                         if(rendered_frame!= 0)
                         {
@@ -76,8 +82,7 @@ int main(int argc, char** argv)
 
                         fps_text.render(0, 0);
 
-                        bot1.render();
-                        bot2.render();
+                        for(auto &b : bots) b.render();
                         player.render();
 
                         SDL_RenderPresent(t1.renderer_get());
@@ -99,7 +104,6 @@ int main(int argc, char** argv)
         }
         close(t1);
     }
-
 
 
 
