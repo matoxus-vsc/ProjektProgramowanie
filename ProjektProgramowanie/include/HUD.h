@@ -19,10 +19,32 @@
 class HUD
 {
     public:
+        /** \brief Konstruktor
+         *
+         *
+         */
         HUD();
+
+        /** \brief Destruktor
+         *
+         *
+         */
         ~HUD();
 
+        /** \brief Renderowanie fps liczby fps
+         *
+         * \param rend_frame Uint64& - klatka
+         * \return void
+         *
+         */
         void fps_render(Uint64 &rend_frame);
+
+        /** \brief Renderowanie panelu dolnego
+         *
+         * \return void
+         *
+         */
+        void banner_bottom_render();
 
     protected:
 

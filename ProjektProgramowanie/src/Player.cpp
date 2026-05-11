@@ -3,7 +3,7 @@
 #include <math.h>
 #include "object_init.h"
 Player::Player(int health, int attack)
-    :health(health), attack(attack), x(100), y(150), angle(0.0), is_shooting(false), bullet_x(0), bullet_y(0), bullet_dx(0), bullet_dy(0), bullet_angle(0.0), bullet_speed(15.0f) {name = "Chuj";movement_speed=10.0;}
+    :health(health), attack(attack), x(100), y(150), angle(0.0), is_shooting(false), bullet_x(0), bullet_y(0), bullet_dx(0), bullet_dy(0), bullet_angle(0.0), bullet_speed(15.0f) {name = "Chuj";movement_speed=10.0;reloads=2;current_ammo=30;weapon = "AK-47";}
 int Player::getHealth() const {
     return health;
 }
@@ -12,6 +12,18 @@ int Player::getAttack() const {
     return attack;
 }
 
+int Player::reloads_get()
+{
+    return reloads;
+}
+int Player::current_ammo_get()
+{
+    return current_ammo;
+}
+const char* Player::weapon_get()
+{
+    return weapon;
+}
 void Player::takeDamage(int amount) {
     health -= amount;
     if (health < 0) health = 0;

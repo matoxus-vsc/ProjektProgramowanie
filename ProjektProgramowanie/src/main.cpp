@@ -66,8 +66,10 @@ int main(int argc, char** argv)
                         arena.map_render(t1.renderer_get(), player.getX(), player.getY(), 1280, 720);
 
                         fps_text.render(0, 0);
-
                         player.render();
+                        h1.banner_bottom_render();
+
+
 
                         SDL_RenderPresent(t1.renderer_get());
 

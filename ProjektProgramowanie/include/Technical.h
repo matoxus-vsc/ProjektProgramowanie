@@ -97,7 +97,9 @@ class Technical
         Errors_technical err_code_get();
 
         TTF_Font* font_default_get();
+        TTF_Font* font_banner_bottom_get();
         SDL_Color font_default_color_get();
+        SDL_Color font_banner_bottom_color_get();
 
         int fps_target_get();
 
@@ -113,7 +115,10 @@ class Technical
         Errors_technical err_code;/**< Błąd przy inicjacji */
 
         TTF_Font* font_default;
+        TTF_Font* font_banner_bottom;
+
         SDL_Color font_default_color;
+        SDL_Color font_banner_bottom_color;
 
         int fps_target;
 

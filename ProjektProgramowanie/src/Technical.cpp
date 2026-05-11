@@ -118,6 +118,14 @@ bool media(Technical& t)
             success = false;
             SDL_Log("Couldnt load \'ProggyVector Regular.ttf\'! %s", SDL_GetError());
        }
+    t.font_banner_bottom = TTF_OpenFont("ProjektProgramowanie/fonts/ProggyVector Regular.ttf", 14);
+    t.font_banner_bottom_color = {255, 255, 255, 0};
+
+    if(t.font_banner_bottom==nullptr)
+       {
+            success = false;
+            SDL_Log("Couldnt load \'ProggyVector Regular.ttf\'! %s", SDL_GetError());
+       }
 
     return success;
 }
@@ -178,6 +186,14 @@ TTF_Font* Technical::font_default_get()
 SDL_Color Technical::font_default_color_get()
 {
     return font_default_color;
+}
+TTF_Font* Technical::font_banner_bottom_get()
+{
+    return font_banner_bottom;
+}
+SDL_Color Technical::font_banner_bottom_color_get()
+{
+    return font_banner_bottom_color;
 }
 int Technical::fps_target_get()
 {

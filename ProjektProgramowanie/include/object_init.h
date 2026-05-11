@@ -22,7 +22,7 @@ inline Object door_obj, map_obj, wall_obj;
 inline Player player(100, 15);
 inline Mouse m1;
 inline Timer fps_timer;
-inline Text fps_text;
+inline Text fps_text, hp_stat_text, ammo_stat_text, weapon_stat_text;
 inline HUD h1;
 inline Map arena;
 

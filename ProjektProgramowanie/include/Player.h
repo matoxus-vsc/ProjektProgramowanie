@@ -13,6 +13,11 @@ public:
     int getHealth() const;
     int getAttack() const;
 
+    int current_ammo_get();
+    int reloads_get();
+
+    const char* weapon_get();
+
     void takeDamage(int amount);
     bool isAlive() const;
     void printStats() const;
@@ -45,7 +50,11 @@ public:
 private:
     int health;
     int attack;
+    int current_ammo;
+    int reloads;
+
     const char* name;
+    const char* weapon;
 
     float x;
     float y;
