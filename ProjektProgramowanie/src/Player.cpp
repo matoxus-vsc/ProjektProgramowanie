@@ -12,7 +12,7 @@ Player::Player(int health, int attack)
 {
     name = "Player";
     movement_speed=10.0;
-
+    weapon = "AK-47";
     // ammo
     mag_capacity = 30;
     ammo_in_mag = mag_capacity;
@@ -219,7 +219,7 @@ void Player::start_reload()
     if (reloading) return;
     if (spare_mags <= 0) return;
     reloading = true;
-    // reload time 5s 
+    // reload time 5s
     reload_timer_frames = static_cast<int>(5.0f * static_cast<float>(t1.fps_target_get()));
     SDL_Log("Player: start reload, will take %d frames", reload_timer_frames);
 }

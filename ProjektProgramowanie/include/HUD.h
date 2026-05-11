@@ -23,6 +23,7 @@ class HUD
         ~HUD();
 
         void fps_render(Uint64 &rend_frame);
+        void banner_bottom_render();
 
     protected:
 

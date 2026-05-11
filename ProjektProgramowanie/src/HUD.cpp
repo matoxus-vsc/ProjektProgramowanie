@@ -40,7 +40,7 @@ void HUD::banner_bottom_render()
 
     std::stringstream ammo_t;
     ammo_t.str("");
-    ammo_t<<"AMMO:"<<player.current_ammo_get()<<" / "<<player.reloads_get();
+    ammo_t<<"AMMO:"<<player.ammo_in_mag_get()<<" / "<<player.spare_mags_get();
 
     ammo_stat_text.text_load(ammo_t.str().c_str(),t1.font_banner_bottom_get(), t1.font_banner_bottom_color_get());
 
