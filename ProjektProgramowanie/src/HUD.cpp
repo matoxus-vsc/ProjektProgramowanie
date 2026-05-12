@@ -27,9 +27,9 @@ void HUD::banner_bottom_render()
     SDL_FRect gradient
     {
         .x = 0,
-        .y = 0.95 * t1.window_height_get(),
-        .w = t1.window_width_get(),
-        .h = 0.05 * t1.window_height_get()
+        .y = static_cast<float>(0.95 * t1.window_height_get()),
+        .w = static_cast<float>(t1.window_width_get()),
+        .h = static_cast<float>(0.05 * t1.window_height_get())
     };
 
     std::stringstream hp_t;

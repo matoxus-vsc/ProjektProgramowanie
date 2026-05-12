@@ -44,6 +44,18 @@ public:
      */
     bool collision_objects_check();
 
+    /** \brief sprawdza kolizję obiektu z ścianami i drzwiami
+     *
+     * \param obj Object - obiekt do sprawdzenia
+     * \return bool - czy jest kolizja
+     *
+     */
+    bool collision_check_object(Object& obj);
+
+    // Gettery dla botów aby sprawdzały kolizje
+    const std::vector<Object>& get_walls() const;
+    const std::vector<Drzwi>& get_doors() const;
+
     void camera_update(float camera_x, float camera_y, int window_w, int window_h);
     float camera_view_x_get() const;
     float camera_view_y_get() const;

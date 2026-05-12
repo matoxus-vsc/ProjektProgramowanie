@@ -84,13 +84,7 @@ void Player::render() { // Polaczenie gracza z bronia i pociskiem
     gun.render(screen_x + sprite.width_get(), screen_y + sprite.height_get()/2.0f - gun.height_get()/2.0f, angle, &gun_center);
 
     if (is_shooting) {
-        bullet_x += bullet_dx;
-        bullet_y += bullet_dy;
         bullet.render(bullet_x - view_x, bullet_y - view_y, bullet_angle, nullptr);
-
-        if (bullet_x < -2000 || bullet_x > 4000 || bullet_y < -2000 || bullet_y > 4000) {
-            is_shooting = false;
-        }
     } else {
         SDL_FPoint bullet_center = { -static_cast<float>(sprite.width_get()) / 2.0f - static_cast<float>(gun.width_get()), static_cast<float>(bullet.height_get()) / 2.0f };
         bullet.render(screen_x + sprite.width_get() + gun.width_get(), screen_y + sprite.height_get()/2.0f - bullet.height_get()/2.0f, angle, &bullet_center);
@@ -180,11 +174,21 @@ void Player::player_move_handler()
         }
     }
 
+    // Update bullet position
+    if (is_shooting) {
+        bullet_x += bullet_dx;
+        bullet_y += bullet_dy;
+
+        // Sprawdzanie granic mapy + margines bezpieczeństwa
+        if (bullet_x < -100 || bullet_x > arena.map_width + 100 || bullet_y < -100 || bullet_y > arena.map_height + 100) {
+            is_shooting = false;
+        }
+    }
 }
 
 bool Player::collision_check_player(Object& other)
 {
-    Vec2f player_centre(x + sprite.width_get() * 0.5f, y + sprite.width_get()*0.5f);
+    Vec2f player_centre(x + sprite.width_get() * 0.5f, y + sprite.height_get()*0.5f);
     float r = sprite.width_get() * 0.5f;
 
     float closest_x = player_centre.x;
