@@ -68,6 +68,53 @@ int main(int argc, char** argv)
                         player.player_move_handler();
                         for(auto &b : bots) b.updateAI(player);
 
+                        // Player bullet -> bots
+                        if (player.is_shooting_get())
+                        {
+                            for (auto &bot : bots)
+                            {
+                                float dx = player.bullet_x_get() - (bot.getX() + bot.sprite.width_get() * 0.5f);
+                                float dy = player.bullet_y_get() - (bot.getY() + bot.sprite.height_get() * 0.5f);
+                                float dist_sq = dx * dx + dy * dy;
+                                float hit_radius = 30.0f;
+
+                                if (dist_sq <= hit_radius * hit_radius)
+                                {
+                                    bot.takeDamage(player.getAttack());
+                                    player.bullet_hit();
+                                    SDL_Log("Player hit Bot! Health: %d", bot.getHealth());
+
+                                    if (!bot.isAlive())
+                                    {
+                                        bot.respawn();
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+
+                        // Bot bullets -> player
+                        for (auto &bot : bots)
+                        {
+                            if (!bot.is_shooting_get())
+                            {
+                                continue;
+                            }
+
+                            float dx = bot.bullet_x_get() - (player.getX() + player.sprite.width_get() * 0.5f);
+                            float dy = bot.bullet_y_get() - (player.getY() + player.sprite.height_get() * 0.5f);
+                            float dist_sq = dx * dx + dy * dy;
+                            float hit_radius = 30.0f;
+
+                            if (dist_sq <= hit_radius * hit_radius)
+                            {
+                                player.takeDamage(bot.getAttack());
+                                bot.bullet_hit();
+                                SDL_Log("Bot hit Player! Health: %d", player.getHealth());
+                                break;
+                            }
+                        }
+
                         // Bot-vs-Bot interaction: boty się zauważają i atakują
                         for(size_t i = 0; i < bots.size(); ++i)
                         {
@@ -86,25 +133,9 @@ int main(int argc, char** argv)
                                 float distSq = dx * dx + dy * dy;
                                 float dist = sqrtf(distSq);
                                 
-                                // Jeśli boty są blisko siebie (w zasięgu), starują sobie strzelać
                                 if (distSq <= 500.0f * 500.0f && distSq > 100.0f)
                                 {
-                                    // Bot1 strzela do Bot2 jeśli nie ma amunicjii do gracza
-                                    if (!bot1.is_shooting_get() && bot1.fire_cooldown_get() == 0 && bot1.ammo_in_mag_get() > 0)
-                                    {
-                                        // Włas bot1 do bot2
-                                        float angle = atan2(dy, dx) * 180.0f / M_PI;
-                                        float rad = angle * M_PI / 180.0f;
-                                        
-                                        float offset = bot1.sprite.width_get() * 0.5f + bot1.gun.width_get();
-                                        bot1.bullet_set_position(
-                                            bot1_centerX + offset * cos(rad) - bot1.bullet.width_get() * 0.5f,
-                                            bot1_centerY + offset * sin(rad) - bot1.bullet.height_get() * 0.5f
-                                        );
-                                        bot1.bullet_set_velocity(cos(rad) * 11.0f, sin(rad) * 11.0f);
-                                        bot1.bullet_start_shooting();
-                                        bot1.consume_one_ammo();
-                                    }
+                                    bot1.try_shoot_at(bot2_centerX, bot2_centerY, dist);
                                 }
                             }
                         }

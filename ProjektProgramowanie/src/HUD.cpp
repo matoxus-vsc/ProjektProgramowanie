@@ -34,19 +34,19 @@ void HUD::banner_bottom_render()
 
     std::stringstream hp_t;
     hp_t.str("");
-    hp_t<<"HP:"<<player.getHealth();
+    hp_t << "HP:" << player.getHealth() << " / " << player.max_health_get();
 
     hp_stat_text.text_load(hp_t.str().c_str(),t1.font_banner_bottom_get(), t1.font_banner_bottom_color_get());
 
     std::stringstream ammo_t;
     ammo_t.str("");
-    ammo_t<<"AMMO:"<<player.ammo_in_mag_get()<<" / "<<player.spare_mags_get();
+    ammo_t << "AMMO:" << player.ammo_in_mag_get() << " / " << player.spare_mags_get();
 
     ammo_stat_text.text_load(ammo_t.str().c_str(),t1.font_banner_bottom_get(), t1.font_banner_bottom_color_get());
 
     std::stringstream weapon_t;
     weapon_t.str("");
-    weapon_t<<"WEAPON:"<<player.weapon_get();
+    weapon_t << "WEAPON:" << player.weapon_get();
 
     weapon_stat_text.text_load(weapon_t.str().c_str(),t1.font_banner_bottom_get(), t1.font_banner_bottom_color_get());
 

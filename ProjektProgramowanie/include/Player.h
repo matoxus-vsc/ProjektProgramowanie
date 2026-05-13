@@ -12,6 +12,7 @@ public:
 
     int getHealth() const;
     int getAttack() const;
+    int max_health_get() const;
 
     const char* weapon_get();
     void takeDamage(int amount);
@@ -22,6 +23,10 @@ public:
     void setPosition(float newX, float newY);
     void updatePosition(float targetX, float targetY);
     void render();
+    bool is_shooting_get() const;
+    float bullet_x_get() const;
+    float bullet_y_get() const;
+    void bullet_hit();
 
     /** \brief ruch gracza po ekranie
      *

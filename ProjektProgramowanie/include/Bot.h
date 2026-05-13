@@ -21,6 +21,7 @@ public:
     float bullet_y_get() const;
     void bullet_hit();  
     int fire_cooldown_get() const;
+    bool try_shoot_at(float targetCenterX, float targetCenterY, float distance);
     
     // Settery dla ataków bot-vs-bot
     void bullet_set_position(float x, float y);
@@ -58,8 +59,12 @@ private:
     float strafe_dir_x;   // Kierunek strafowania
     float strafe_dir_y;
 
+    int burst_shots_left;
+    int burst_pause_timer;
+
     void moveWithBounds(float dx, float dy);
     void change_goal();  // Zmień goal point na losowy
+    void shoot_at(float targetCenterX, float targetCenterY);
 };
 
 #endif
