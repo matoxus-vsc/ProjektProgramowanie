@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <algorithm>
-
+#include <sstream>
 #include "object_init.h"
 
 #ifndef M_PI
@@ -22,13 +22,21 @@ Bot::Bot(int health, int attack) : Player(health, attack),
 {
     static bool seeded = false;
     static unsigned int bot_counter = 0;
-    
+
     if (!seeded) { std::srand(static_cast<unsigned int>(std::time(nullptr))); seeded = true; }
-    
+
     // Każdy bot dostaje unikalny seed na bazie licznika + losowość
     goal_seed = (bot_counter * 16807U) ^ static_cast<unsigned int>(std::time(nullptr));
+
+    std::stringstream s;
+    s.str("");
+    s<<"Bot "<<bot_counter;
+    name = s.str();
     bot_counter++;
-    
+
+    kill_stat = 0;
+    death_stat = 0;
+
     // Przypisz losową osobowość botowi
     bot_personality = std::rand() % 3;  // 0 = aggressive, 1 = tactical, 2 = defensive
 }
@@ -42,7 +50,7 @@ void Bot::set_bot_index(int idx)
 
 void Bot::init(float goalX, float goalY)
 {
-    goal_x = goalX; 
+    goal_x = goalX;
     goal_y = goalY;
     goal_change_timer = 0;
     respawn();
@@ -69,7 +77,7 @@ void Bot::respawn()
         {4000.0f, 3600.0f},     // 6: Prawy dolny
         {4800.0f, 2500.0f}      // 7: Prawy środek dolny
     };
-    
+
     int num_spawns = 8;
 
     int spawn_idx;
@@ -89,7 +97,7 @@ void Bot::respawn()
         int idx = (spawn_idx + attempt) % num_spawns;
         float x = safe_spawns[idx][0];
         float y = safe_spawns[idx][1];
-        
+
         setPosition(x, y);
         // Kolizja z scianami Bota
         bool has_collision = false;
@@ -101,7 +109,7 @@ void Bot::respawn()
                 break;
             }
         }
-        
+
         // Ze drzwiami
         if (!has_collision)
         {
@@ -114,15 +122,15 @@ void Bot::respawn()
                 }
             }
         }
-        
-        // Jeśli bez kolizji 
+
+        // Jeśli bez kolizji
         if (!has_collision)
         {
             SDL_Log("Bot %d: respawned at safe_spawn[%d] x=%f y=%f", bot_index, idx, x, y);
             return;
         }
     }
-    
+
     // Fallback - jeśli wszystkie spawn pointy mają kolizje
     float fallback_x = 800.0f;
     float fallback_y = 500.0f;
@@ -134,7 +142,7 @@ void Bot::moveWithBounds(float dx, float dy)
 {
     float oldX = getX();
     float oldY = getY();
-    
+
     float newX = oldX + dx;
     float newY = oldY + dy;
 
@@ -147,7 +155,7 @@ void Bot::moveWithBounds(float dx, float dy)
     if (newY > maxY) newY = maxY;
 
     setPosition(newX, newY);
-    
+
     // Sprawdzenie kolizji ze ścianami
     for (const auto& sciana : arena.get_walls())
     {
@@ -157,7 +165,7 @@ void Bot::moveWithBounds(float dx, float dy)
             return;
         }
     }
-    
+
     // Sprawdzenie kolizji ze drzwiami
     for (const auto& drzwi : arena.get_doors())
     {
@@ -262,15 +270,15 @@ bool Bot::try_shoot_at(float targetCenterX, float targetCenterY, float distance)
 
 void Bot::updateAI(Player& enemy)
 {
-    
+
     update_reload();
-    
+
     // Zmniejsz cooldown
     if (fire_cooldown > 0) fire_cooldown--;
     if (burst_pause_timer > 0) burst_pause_timer--;
     if (movement_timer > 0) movement_timer--;
-    
-    //timer zmiany celu i zmień cel co 300 frames 
+
+    //timer zmiany celu i zmień cel co 300 frames
     goal_change_timer++;
     if (goal_change_timer > 300)
     {
@@ -279,7 +287,7 @@ void Bot::updateAI(Player& enemy)
 
     if (!isAlive()) { respawn(); return; }
 
-   
+
     if (ammo_in_mag_get() <= 0 && spare_mags_get() > 0 && !is_reloading())
     {
         start_reload();
@@ -308,7 +316,7 @@ void Bot::updateAI(Player& enemy)
         // Ruch w zależności od osobowości
         if (bot_personality == 0)  // AGGRESSIVE - bezpośredni atak
         {
-            // Atak 
+            // Atak
             if (distance > 300.0f)
             {
                 float dirX = toEnemyX / distance;
@@ -325,12 +333,12 @@ void Bot::updateAI(Player& enemy)
                 strafe_dir_y = (std::rand() % 2 == 0) ? 1.0f : -1.0f;
                 movement_timer = 20 + std::rand() % 20;  // Random duration
             }
-            
-            // Strafe 
+
+            // Strafe
             float perpX = -toEnemyY / distance;
             float perpY = toEnemyX / distance;
             moveWithBounds(perpX * strafe_dir_x * bot_speed * 0.7f, perpY * strafe_dir_y * bot_speed * 0.7f);
-            
+
             // Dystans
             if (distance < 250.0f)
             {
@@ -356,47 +364,47 @@ void Bot::updateAI(Player& enemy)
     else
     {
         // Gracz nie widoczny - patrol
-        float toGoalX = goal_x - centerX; 
-        float toGoalY = goal_y - centerY; 
+        float toGoalX = goal_x - centerX;
+        float toGoalY = goal_y - centerY;
         float goalDistSq = toGoalX*toGoalX + toGoalY*toGoalY;
-        
-        if (goalDistSq > 200.0f) 
-        { 
-            float len = sqrtf(goalDistSq); 
-            float dirX = toGoalX/len; 
-            float dirY = toGoalY/len; 
-            bot_angle = atan2(dirY, dirX) * 180.0 / M_PI; 
-            moveWithBounds(dirX * bot_speed, dirY * bot_speed); 
+
+        if (goalDistSq > 200.0f)
+        {
+            float len = sqrtf(goalDistSq);
+            float dirX = toGoalX/len;
+            float dirY = toGoalY/len;
+            bot_angle = atan2(dirY, dirX) * 180.0 / M_PI;
+            moveWithBounds(dirX * bot_speed, dirY * bot_speed);
         }
-        else 
-        { 
+        else
+        {
             // Patrol w celu
-            patrol_timer++; 
-            if (patrol_timer > 20) 
-            { 
-                patrol_timer = 0; 
-                patrol_dir *= -1; 
-            } 
-            moveWithBounds(patrol_dir * bot_speed, 0.0f); 
-            bot_angle = (patrol_dir >= 0) ? 0.0 : 180.0; 
+            patrol_timer++;
+            if (patrol_timer > 20)
+            {
+                patrol_timer = 0;
+                patrol_dir *= -1;
+            }
+            moveWithBounds(patrol_dir * bot_speed, 0.0f);
+            bot_angle = (patrol_dir >= 0) ? 0.0 : 180.0;
         }
     }
 
     if (!is_shooting) return;
 
-    bullet_x += bullet_dx; 
+    bullet_x += bullet_dx;
     bullet_y += bullet_dy;
-    if (bullet_x < -800 || bullet_x > arena.map_width + 800 || bullet_y < -800 || bullet_y > arena.map_height + 800) 
-    { 
-        is_shooting = false; 
+    if (bullet_x < -800 || bullet_x > arena.map_width + 800 || bullet_y < -800 || bullet_y > arena.map_height + 800)
+    {
+        is_shooting = false;
     }
 }
 
 void Bot::render()
 {
-    float view_x = arena.camera_view_x_get(); 
+    float view_x = arena.camera_view_x_get();
     float view_y = arena.camera_view_y_get();
-    float screen_x = getX() - view_x; 
+    float screen_x = getX() - view_x;
     float screen_y = getY() - view_y;
 
     SDL_FPoint player_center = { static_cast<float>(sprite.width_get())/2.0f, static_cast<float>(sprite.height_get())/2.0f };
@@ -405,9 +413,9 @@ void Bot::render()
     SDL_FPoint gun_center = { -static_cast<float>(sprite.width_get())/2.0f, static_cast<float>(gun.height_get())/2.0f };
     gun.render(screen_x + sprite.width_get(), screen_y + sprite.height_get()*0.5f - gun.height_get()*0.5f, bot_angle, &gun_center);
 
-    if (is_shooting) { 
-        bullet.render(bullet_x - view_x, bullet_y - view_y, bullet_angle, nullptr); 
-        return; 
+    if (is_shooting) {
+        bullet.render(bullet_x - view_x, bullet_y - view_y, bullet_angle, nullptr);
+        return;
     }
 
     SDL_FPoint bullet_center = { -static_cast<float>(sprite.width_get())*0.5f - static_cast<float>(gun.width_get()), static_cast<float>(bullet.height_get())*0.5f };
@@ -458,16 +466,16 @@ void Bot::bullet_start_shooting()
 
 void Bot::change_goal()
 {
-    
+
     goal_seed = goal_seed * 1103515245U + 12345U;
     unsigned int rand1 = (goal_seed / 65536U) % 32768U;
-    
+
     goal_seed = goal_seed * 1103515245U + 12345U;
     unsigned int rand2 = (goal_seed / 65536U) % 32768U;
-    
-    // Losowy punkt na mapie 
+
+    // Losowy punkt na mapie
     goal_x = 100.0f + (rand1 % static_cast<unsigned int>(arena.map_width - 200)) * 1.0f;
     goal_y = 100.0f + (rand2 % static_cast<unsigned int>(arena.map_height - 200)) * 1.0f;
-    
+
     goal_change_timer = 0;
 }

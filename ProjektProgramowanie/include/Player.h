@@ -43,6 +43,10 @@ public:
      */
     bool collision_check_player(Object& other);
 
+    int kill_stat;
+    int death_stat;
+    std::string name;
+
     Object sprite;
     Object gun;
     Object bullet;
@@ -61,7 +65,7 @@ protected:
     int health;
     int max_health;
     int attack;
-    const char* name;
+
     const char* weapon;
 
     float x;
@@ -86,9 +90,11 @@ protected:
     bool reloading;
     int reload_timer_frames; // czas reload
 
-  
-    int fire_cooldown_frames; 
+
+    int fire_cooldown_frames;
     int fire_rate_frames;
+
+
 
 };
 

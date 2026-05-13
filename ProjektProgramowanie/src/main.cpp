@@ -27,9 +27,11 @@ int main(int argc, char** argv)
     }
     else
     {
-        arena.wczytaj_z_pliku("Prowizorycznetekstury/uklad_mapy.txt", 78.0f);
+        arena.wczytaj_z_pliku("ProjektProgramowanie/Prowizorycznetekstury/uklad_mapy.txt", 78.0f);
         player.setPosition(150.0f, 150.0f);
-
+        tab_name_column_text.text_load("NAME", t1.font_banner_bottom_get(), t1.font_banner_bottom_color_get());
+        tab_kill_column_text.text_load("KILLS", t1.font_banner_bottom_get(), t1.font_banner_bottom_color_get());
+        tab_death_column_text.text_load("DEATHS", t1.font_banner_bottom_get(), t1.font_banner_bottom_color_get());
         // init bots - każdy bot dostaje inny spawn point na bazie indeksu
         for (int i = 0; i < static_cast<int>(bots.size()); i++)
         {
@@ -71,6 +73,7 @@ int main(int argc, char** argv)
                         // Player bullet -> bots
                         if (player.is_shooting_get())
                         {
+                            int index = 0;
                             for (auto &bot : bots)
                             {
                                 float bullet_x = player.bullet_x_get();
@@ -102,10 +105,14 @@ int main(int argc, char** argv)
 
                                     if (!bot.isAlive())
                                     {
+                                        player.kill_stat++;
+                                        bot.death_stat++;
+                                        h1.tab_sort();
                                         bot.respawn();
                                     }
                                     break;
                                 }
+                                index++;
                             }
                         }
 
@@ -153,18 +160,18 @@ int main(int argc, char** argv)
                             Bot& bot1 = bots[i];
                             float bot1_centerX = bot1.getX() + bot1.sprite.width_get() * 0.5f;
                             float bot1_centerY = bot1.getY() + bot1.sprite.height_get() * 0.5f;
-                            
+
                             for(size_t j = i + 1; j < bots.size(); ++j)
                             {
                                 Bot& bot2 = bots[j];
                                 float bot2_centerX = bot2.getX() + bot2.sprite.width_get() * 0.5f;
                                 float bot2_centerY = bot2.getY() + bot2.sprite.height_get() * 0.5f;
-                                
+
                                 float dx = bot2_centerX - bot1_centerX;
                                 float dy = bot2_centerY - bot1_centerY;
                                 float distSq = dx * dx + dy * dy;
                                 float dist = sqrtf(distSq);
-                                
+
                                 if (distSq <= 500.0f * 500.0f && distSq > 100.0f)
                                 {
                                     bot1.try_shoot_at(bot2_centerX, bot2_centerY, dist);
@@ -176,14 +183,14 @@ int main(int argc, char** argv)
                         for(size_t i = 0; i < bots.size(); ++i)
                         {
                             Bot& shooter = bots[i];
-                            
+
                             // Sprawdzenie czy pocisk bota trafia innych botów
                             for(size_t j = 0; j < bots.size(); ++j)
                             {
                                 if (i == j) continue;  // Nie strzel do siebie
-                                
+
                                 Bot& target = bots[j];
-                                
+
                                 // Sprawdzenie czy pocisk trafia target
                                 if (shooter.is_shooting_get())
                                 {
@@ -213,9 +220,12 @@ int main(int argc, char** argv)
                                         target.takeDamage(10);
                                         shooter.bullet_hit();
                                         SDL_Log("Bot %d hit Bot %d! Health: %d", (int)i, (int)j, target.getHealth());
-                                        
+
                                         if (!target.isAlive())
                                         {
+                                            shooter.kill_stat++;
+                                            target.death_stat++;
+                                            h1.tab_sort();
                                             SDL_Log("Bot %d killed Bot %d!", (int)i, (int)j);
                                             target.respawn();
                                         }
@@ -247,6 +257,13 @@ int main(int argc, char** argv)
                         for(auto &b : bots) b.render();
                         player.render();
                         h1.banner_bottom_render();
+
+                        const bool* key_board_state = SDL_GetKeyboardState(NULL);
+                        if(key_board_state[SDL_SCANCODE_TAB])
+                        {
+                            h1.tab_render();
+                        }
+
 
                         SDL_RenderPresent(t1.renderer_get());
 

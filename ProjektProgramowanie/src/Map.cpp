@@ -19,11 +19,11 @@ Map::~Map() {
 }
 
 void Map::dodaj_sciane(float x, float y) {
-    lista_scian.push_back(Object(x, y, "Prowizorycznetekstury/sciana.png"));
+    lista_scian.push_back(Object(x, y, "ProjektProgramowanie/Prowizorycznetekstury/sciana.png"));
 }
 
 void Map::dodaj_drzwi(float x, float y) {
-    lista_drzwi.push_back({Object(x, y, "Prowizorycznetekstury/drzwi.png"),false});
+    lista_drzwi.push_back({Object(x, y, "ProjektProgramowanie/Prowizorycznetekstury/drzwi.png"),false});
 }
 
 bool Map::get_random_free_position(float width, float height, float& outX, float& outY, int maxAttempts, float margin)
@@ -33,7 +33,7 @@ bool Map::get_random_free_position(float width, float height, float& outX, float
     {
         // Zwiększ marżynę do przynajmniej rozmiar obiektu
         float effectiveMargin = std::max(margin, width * 0.5f);
-        
+
         int needX = static_cast<int>(std::ceil((double)width / (double)cell_size));
         int needY = static_cast<int>(std::ceil((double)height / (double)cell_size));
 
@@ -165,18 +165,18 @@ bool Map::collision_check_object(Object& obj)
 {
     // Sprawdzenie kolizji obiektu ze ścianami i drzwiami
     // obj - obiekt do sprawdzenia (sprite z pozycją)
-    
+
     Vec2f obj_pos = obj.position_get();
     float obj_w = obj.width_get();
     float obj_h = obj.height_get();
-    
+
     // Sprawdzenie ze ścianami
     for(const auto& sciana : lista_scian)
     {
         Vec2f wall_pos = sciana.position_get();
         float wall_w = sciana.width_get();
         float wall_h = sciana.height_get();
-        
+
         // AABB collision check (nie używaj radius)
         if (obj_pos.x < wall_pos.x + wall_w &&
             obj_pos.x + obj_w > wall_pos.x &&
@@ -186,14 +186,14 @@ bool Map::collision_check_object(Object& obj)
             return true;
         }
     }
-    
+
     // Sprawdzenie ze drzwiami
     for(const auto& drzwi : lista_drzwi)
     {
         Vec2f door_pos = drzwi.drzwi.position_get();
         float door_w = drzwi.drzwi.width_get();
         float door_h = drzwi.drzwi.height_get();
-        
+
         if (obj_pos.x < door_pos.x + door_w &&
             obj_pos.x + obj_w > door_pos.x &&
             obj_pos.y < door_pos.y + door_h &&
@@ -202,7 +202,7 @@ bool Map::collision_check_object(Object& obj)
             return true;
         }
     }
-    
+
     return false;
 }
 

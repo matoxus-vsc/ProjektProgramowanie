@@ -27,7 +27,7 @@ inline Player player(100, 15);
 inline std::vector<Bot> bots = { Bot(80,10), Bot(80,10), Bot(80,10), Bot(80,10) };
 inline Mouse m1;
 inline Timer fps_timer;
-inline Text fps_text, hp_stat_text, ammo_stat_text, weapon_stat_text;
+inline Text fps_text, hp_stat_text, ammo_stat_text, weapon_stat_text, tab_name_column_text, tab_kill_column_text, tab_death_column_text, tab_name, tab_kill, tab_death;
 inline HUD h1;
 inline Map arena;
 

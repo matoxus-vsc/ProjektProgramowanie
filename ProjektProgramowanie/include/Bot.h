@@ -19,10 +19,10 @@ public:
     bool is_shooting_get() const;
     float bullet_x_get() const;
     float bullet_y_get() const;
-    void bullet_hit();  
+    void bullet_hit();
     int fire_cooldown_get() const;
     bool try_shoot_at(float targetCenterX, float targetCenterY, float distance);
-    
+
     // Settery dla ataków bot-vs-bot
     void bullet_set_position(float x, float y);
     void bullet_set_velocity(float dx, float dy);
@@ -52,7 +52,7 @@ private:
     int goal_change_timer;  // Timer do zmiany goal pointa
 
     float detection_range;
-    
+
     // AI personality - każdy bot ma inną taktykę
     int bot_personality;  // 0 = aggressive, 1 = tactical, 2 = defensive
     int movement_timer;   // Timer dla taktycznego ruchu (strafe)
@@ -65,6 +65,8 @@ private:
     void moveWithBounds(float dx, float dy);
     void change_goal();  // Zmień goal point na losowy
     void shoot_at(float targetCenterX, float targetCenterY);
+
+
 };
 
 #endif
