@@ -73,12 +73,28 @@ int main(int argc, char** argv)
                         {
                             for (auto &bot : bots)
                             {
-                                float dx = player.bullet_x_get() - (bot.getX() + bot.sprite.width_get() * 0.5f);
-                                float dy = player.bullet_y_get() - (bot.getY() + bot.sprite.height_get() * 0.5f);
-                                float dist_sq = dx * dx + dy * dy;
-                                float hit_radius = 30.0f;
+                                float bullet_x = player.bullet_x_get();
+                                float bullet_y = player.bullet_y_get();
+                                float bot_x = bot.getX();
+                                float bot_y = bot.getY();
 
-                                if (dist_sq <= hit_radius * hit_radius)
+                                float bullet_half_w = player.bullet.width_get() * 0.5f;
+                                float bullet_half_h = player.bullet.height_get() * 0.5f;
+                                float bot_half_w = bot.sprite.width_get() * 0.5f;
+                                float bot_half_h = bot.sprite.height_get() * 0.5f;
+
+                                float bullet_left = bullet_x - bullet_half_w;
+                                float bullet_right = bullet_x + bullet_half_w;
+                                float bullet_top = bullet_y - bullet_half_h;
+                                float bullet_bottom = bullet_y + bullet_half_h;
+
+                                float bot_left = bot_x + bot_half_w - bot_half_w;
+                                float bot_right = bot_x + bot_half_w + bot_half_w;
+                                float bot_top = bot_y + bot_half_h - bot_half_h;
+                                float bot_bottom = bot_y + bot_half_h + bot_half_h;
+
+                                if (!(bullet_right < bot_left || bullet_left > bot_right ||
+                                      bullet_bottom < bot_top || bullet_top > bot_bottom))
                                 {
                                     bot.takeDamage(player.getAttack());
                                     player.bullet_hit();
@@ -101,12 +117,28 @@ int main(int argc, char** argv)
                                 continue;
                             }
 
-                            float dx = bot.bullet_x_get() - (player.getX() + player.sprite.width_get() * 0.5f);
-                            float dy = bot.bullet_y_get() - (player.getY() + player.sprite.height_get() * 0.5f);
-                            float dist_sq = dx * dx + dy * dy;
-                            float hit_radius = 30.0f;
+                            float bullet_x = bot.bullet_x_get();
+                            float bullet_y = bot.bullet_y_get();
+                            float player_x = player.getX();
+                            float player_y = player.getY();
 
-                            if (dist_sq <= hit_radius * hit_radius)
+                            float bullet_half_w = bot.bullet.width_get() * 0.5f;
+                            float bullet_half_h = bot.bullet.height_get() * 0.5f;
+                            float player_half_w = player.sprite.width_get() * 0.5f;
+                            float player_half_h = player.sprite.height_get() * 0.5f;
+
+                            float bullet_left = bullet_x - bullet_half_w;
+                            float bullet_right = bullet_x + bullet_half_w;
+                            float bullet_top = bullet_y - bullet_half_h;
+                            float bullet_bottom = bullet_y + bullet_half_h;
+
+                            float player_left = player_x + player_half_w - player_half_w;
+                            float player_right = player_x + player_half_w + player_half_w;
+                            float player_top = player_y + player_half_h - player_half_h;
+                            float player_bottom = player_y + player_half_h + player_half_h;
+
+                            if (!(bullet_right < player_left || bullet_left > player_right ||
+                                  bullet_bottom < player_top || bullet_top > player_bottom))
                             {
                                 player.takeDamage(bot.getAttack());
                                 bot.bullet_hit();
@@ -155,20 +187,28 @@ int main(int argc, char** argv)
                                 // Sprawdzenie czy pocisk trafia target
                                 if (shooter.is_shooting_get())
                                 {
-                                    // Proximity check - czy pocisk jest blisko targetu
-                                    float bullet_center_x = shooter.bullet_x_get();
-                                    float bullet_center_y = shooter.bullet_y_get();
-                                    
-                                    float target_center_x = target.getX() + target.sprite.width_get() * 0.5f;
-                                    float target_center_y = target.getY() + target.sprite.height_get() * 0.5f;
-                                    
-                                    float dx = bullet_center_x - target_center_x;
-                                    float dy = bullet_center_y - target_center_y;
-                                    float dist_sq = dx * dx + dy * dy;
-                                    
-                                    float hit_radius = 30.0f;
-                                    
-                                    if (dist_sq <= hit_radius * hit_radius)
+                                    float bullet_x = shooter.bullet_x_get();
+                                    float bullet_y = shooter.bullet_y_get();
+                                    float target_x = target.getX();
+                                    float target_y = target.getY();
+
+                                    float bullet_half_w = shooter.bullet.width_get() * 0.5f;
+                                    float bullet_half_h = shooter.bullet.height_get() * 0.5f;
+                                    float target_half_w = target.sprite.width_get() * 0.5f;
+                                    float target_half_h = target.sprite.height_get() * 0.5f;
+
+                                    float bullet_left = bullet_x - bullet_half_w;
+                                    float bullet_right = bullet_x + bullet_half_w;
+                                    float bullet_top = bullet_y - bullet_half_h;
+                                    float bullet_bottom = bullet_y + bullet_half_h;
+
+                                    float target_left = target_x + target_half_w - target_half_w;
+                                    float target_right = target_x + target_half_w + target_half_w;
+                                    float target_top = target_y + target_half_h - target_half_h;
+                                    float target_bottom = target_y + target_half_h + target_half_h;
+
+                                    if (!(bullet_right < target_left || bullet_left > target_right ||
+                                          bullet_bottom < target_top || bullet_top > target_bottom))
                                     {
                                         target.takeDamage(10);
                                         shooter.bullet_hit();
