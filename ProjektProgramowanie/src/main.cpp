@@ -32,6 +32,9 @@ int main(int argc, char** argv)
         tab_name_column_text.text_load("NAME", t1.font_banner_bottom_get(), t1.font_banner_bottom_color_get());
         tab_kill_column_text.text_load("KILLS", t1.font_banner_bottom_get(), t1.font_banner_bottom_color_get());
         tab_death_column_text.text_load("DEATHS", t1.font_banner_bottom_get(), t1.font_banner_bottom_color_get());
+
+
+
         // init bots - każdy bot dostaje inny spawn point na bazie indeksu
         for (int i = 0; i < static_cast<int>(bots.size()); i++)
         {
@@ -108,6 +111,8 @@ int main(int argc, char** argv)
                                         player.kill_stat++;
                                         bot.death_stat++;
                                         h1.tab_sort();
+                                        h1.kill_feed_push(-1, index);
+
                                         bot.respawn();
                                     }
                                     break;
@@ -225,7 +230,9 @@ int main(int argc, char** argv)
                                         {
                                             shooter.kill_stat++;
                                             target.death_stat++;
+                                            h1.kill_feed_push(i, j);
                                             h1.tab_sort();
+
                                             SDL_Log("Bot %d killed Bot %d!", (int)i, (int)j);
                                             target.respawn();
                                         }
@@ -263,7 +270,7 @@ int main(int argc, char** argv)
                         {
                             h1.tab_render();
                         }
-
+                        h1.kill_feed_render();
 
                         SDL_RenderPresent(t1.renderer_get());
 

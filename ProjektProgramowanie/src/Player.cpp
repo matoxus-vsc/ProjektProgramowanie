@@ -148,6 +148,10 @@ void Player::player_move_handler()
             speed.x=-movement_speed;
             move_key_press[3] = true;
         }
+        if(key_board_state[SDL_SCANCODE_W] && key_board_state[SDL_SCANCODE_S])
+            speed.y = 0;
+        if(key_board_state[SDL_SCANCODE_A] && key_board_state[SDL_SCANCODE_D])
+            speed.x= 0;
     x+=speed.x;
     if(arena.collision_objects_check())
     {

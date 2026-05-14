@@ -61,7 +61,20 @@ class Timer
          *
          */
 
+        /** \brief getter
+         *
+         * \return Uint64 - czas timera
+         *
+         */
         Uint64 ticks_get();
+
+        /** \brief ustawia customowy time
+         *
+         * \param ticks Uint64 - liczba ticków stopera
+         * \return void
+         *
+         */
+        void ticks_set(Uint64 ticks);
 
         bool start_check_get();
 

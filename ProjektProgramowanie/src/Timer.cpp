@@ -65,6 +65,10 @@ Uint64 Timer::ticks_get()
     }
     return time;
 }
+void Timer::ticks_set(Uint64 ticks)
+{
+    start_ticks = ticks;
+}
 bool Timer::pause_check_get()
 {
     return pause_check;
