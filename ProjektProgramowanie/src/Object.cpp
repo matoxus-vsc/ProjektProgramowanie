@@ -75,6 +75,9 @@ void Object::render(float x, float y, double angle, SDL_FPoint* center)
 
 
     SDL_RenderTextureRotated(t1.renderer_get(), texture, nullptr, &to_render, angle, center, SDL_FLIP_NONE);
+
+    position_update({x, y});
+
 }
 
 SDL_Texture* Object::texture_get() const

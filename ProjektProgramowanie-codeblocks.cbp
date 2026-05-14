@@ -45,6 +45,8 @@
 		<Linker>
 			<Add option="-lm" />
 		</Linker>
+		<Unit filename="ProjektProgramowanie/include/Bot.h" />
+		<Unit filename="ProjektProgramowanie/include/Camera.h" />
 		<Unit filename="ProjektProgramowanie/include/Controls.h" />
 		<Unit filename="ProjektProgramowanie/include/HUD.h" />
 		<Unit filename="ProjektProgramowanie/include/Map.h" />
@@ -54,6 +56,8 @@
 		<Unit filename="ProjektProgramowanie/include/Timer.h" />
 		<Unit filename="ProjektProgramowanie/include/object_init.h" />
 		<Unit filename="ProjektProgramowanie/include/structs.h" />
+		<Unit filename="ProjektProgramowanie/src/Bot.cpp" />
+		<Unit filename="ProjektProgramowanie/src/Camera.cpp" />
 		<Unit filename="ProjektProgramowanie/src/Controls.cpp" />
 		<Unit filename="ProjektProgramowanie/src/HUD.cpp" />
 		<Unit filename="ProjektProgramowanie/src/Map.cpp" />

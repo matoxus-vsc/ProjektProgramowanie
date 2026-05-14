@@ -12,7 +12,7 @@ Player::Player(int health, int attack)
 {
     name = "Player";
     movement_speed=10.0;
-
+    weapon = "AK-47";
     // ammo
     mag_capacity = 30;
     ammo_in_mag = mag_capacity;
@@ -32,10 +32,17 @@ int Player::getHealth() const {
 int Player::getAttack() const {
     return attack;
 }
+
+int Player::max_health_get() const
+{
+    return max_health;
+}
+
 const char* Player::weapon_get()
 {
     return weapon;
 }
+
 void Player::takeDamage(int amount) {
     health -= amount;
     if (health < 0) health = 0;
@@ -84,17 +91,31 @@ void Player::render() { // Polaczenie gracza z bronia i pociskiem
     gun.render(screen_x + sprite.width_get(), screen_y + sprite.height_get()/2.0f - gun.height_get()/2.0f, angle, &gun_center);
 
     if (is_shooting) {
-        bullet_x += bullet_dx;
-        bullet_y += bullet_dy;
         bullet.render(bullet_x - view_x, bullet_y - view_y, bullet_angle, nullptr);
-
-        if (bullet_x < -2000 || bullet_x > 4000 || bullet_y < -2000 || bullet_y > 4000) {
-            is_shooting = false;
-        }
     } else {
         SDL_FPoint bullet_center = { -static_cast<float>(sprite.width_get()) / 2.0f - static_cast<float>(gun.width_get()), static_cast<float>(bullet.height_get()) / 2.0f };
         bullet.render(screen_x + sprite.width_get() + gun.width_get(), screen_y + sprite.height_get()/2.0f - bullet.height_get()/2.0f, angle, &bullet_center);
     }
+}
+
+bool Player::is_shooting_get() const
+{
+    return is_shooting;
+}
+
+float Player::bullet_x_get() const
+{
+    return bullet_x;
+}
+
+float Player::bullet_y_get() const
+{
+    return bullet_y;
+}
+
+void Player::bullet_hit()
+{
+    is_shooting = false;
 }
 
 void Player::player_move_handler()
@@ -180,11 +201,21 @@ void Player::player_move_handler()
         }
     }
 
+    // Update bullet position
+    if (is_shooting) {
+        bullet_x += bullet_dx;
+        bullet_y += bullet_dy;
+
+        // Sprawdzanie granic mapy + większy margines bezpieczeństwa
+        if (bullet_x < -800 || bullet_x > arena.map_width + 800 || bullet_y < -800 || bullet_y > arena.map_height + 800) {
+            is_shooting = false;
+        }
+    }
 }
 
 bool Player::collision_check_player(Object& other)
 {
-    Vec2f player_centre(x + sprite.width_get() * 0.5f, y + sprite.width_get()*0.5f);
+    Vec2f player_centre(x + sprite.width_get() * 0.5f, y + sprite.height_get()*0.5f);
     float r = sprite.width_get() * 0.5f;
 
     float closest_x = player_centre.x;
@@ -219,7 +250,7 @@ void Player::start_reload()
     if (reloading) return;
     if (spare_mags <= 0) return;
     reloading = true;
-    // reload time 5s 
+    // reload time 5s
     reload_timer_frames = static_cast<int>(5.0f * static_cast<float>(t1.fps_target_get()));
     SDL_Log("Player: start reload, will take %d frames", reload_timer_frames);
 }

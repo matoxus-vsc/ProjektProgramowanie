@@ -31,6 +31,9 @@ bool Map::get_random_free_position(float width, float height, float& outX, float
 
     if (map_cols > 0 && map_rows > 0 && cell_size > 0.0f)
     {
+        // Zwiększ marżynę do przynajmniej rozmiar obiektu
+        float effectiveMargin = std::max(margin, width * 0.5f);
+
         int needX = static_cast<int>(std::ceil((double)width / (double)cell_size));
         int needY = static_cast<int>(std::ceil((double)height / (double)cell_size));
 
@@ -51,11 +54,13 @@ bool Map::get_random_free_position(float width, float height, float& outX, float
             int r = distR(gen);
 
             bool ok = true;
-            for (int rr = 0; rr < needY && ok; ++rr)
+            // Sprawdzaj z marżyną - rozszerzony obszar
+            int checkMargin = static_cast<int>(std::ceil(effectiveMargin / cell_size));
+            for (int rr = std::max(0, r - checkMargin); rr < std::min(map_rows, r + needY + checkMargin) && ok; ++rr)
             {
-                for (int cc = 0; cc < needX; ++cc)
+                for (int cc = std::max(0, c - checkMargin); cc < std::min(map_cols, c + needX + checkMargin); ++cc)
                 {
-                    if (tile_map[r + rr][c + cc] != '.') { ok = false; break; }
+                    if (tile_map[rr][cc] != '.') { ok = false; break; }
                 }
             }
 
@@ -71,10 +76,10 @@ bool Map::get_random_free_position(float width, float height, float& outX, float
             outY = baseY + (areaH - height) * 0.5f;
 
             // add small margin checks to be safe against neighbouring walls
-            if (outX < 0) outX = 0;
-            if (outY < 0) outY = 0;
-            if (outX + width > map_width) outX = map_width - width;
-            if (outY + height > map_height) outY = map_height - height;
+            if (outX < effectiveMargin) outX = effectiveMargin;
+            if (outY < effectiveMargin) outY = effectiveMargin;
+            if (outX + width > map_width - effectiveMargin) outX = map_width - width - effectiveMargin;
+            if (outY + height > map_height - effectiveMargin) outY = map_height - height - effectiveMargin;
 
             SDL_Log("Map: found free tile area at cell r=%d c=%d -> x=%f y=%f on attempt %d (need %d x %d)", r, c, outX, outY, attempt, needX, needY);
             return true;
@@ -85,10 +90,11 @@ bool Map::get_random_free_position(float width, float height, float& outX, float
     }
 
     // fallback: previous pixel-random method
+    float effectiveMargin = std::max(margin, width * 0.5f);
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_real_distribution<float> distX(margin, static_cast<float>(map_width) - width - margin);
-    std::uniform_real_distribution<float> distY(margin, static_cast<float>(map_height) - height - margin);
+    std::uniform_real_distribution<float> distX(effectiveMargin, static_cast<float>(map_width) - width - effectiveMargin);
+    std::uniform_real_distribution<float> distY(effectiveMargin, static_cast<float>(map_height) - height - effectiveMargin);
 
     for (int i = 0; i < maxAttempts; ++i)
     {
@@ -104,7 +110,7 @@ bool Map::get_random_free_position(float width, float height, float& outX, float
             float sw = static_cast<float>(sc.width_get());
             float sh = static_cast<float>(sc.height_get());
 
-            if (x < sx + sw + margin && x + width > sx - margin && y < sy + sh + margin && y + height > sy - margin)
+            if (x < sx + sw + effectiveMargin && x + width > sx - effectiveMargin && y < sy + sh + effectiveMargin && y + height > sy - effectiveMargin)
             {
                 ok = false;
                 break;
@@ -121,7 +127,7 @@ bool Map::get_random_free_position(float width, float height, float& outX, float
             float sw = static_cast<float>(dr.drzwi.width_get());
             float sh = static_cast<float>(dr.drzwi.height_get());
 
-            if (x < sx + sw + margin && x + width > sx - margin && y < sy + sh + margin && y + height > sy - margin)
+            if (x < sx + sw + effectiveMargin && x + width > sx - effectiveMargin && y < sy + sh + effectiveMargin && y + height > sy - effectiveMargin)
             {
                 ok = false;
                 break;
@@ -153,6 +159,61 @@ bool Map::collision_objects_check()
         return true;
     }
     return false;
+}
+
+bool Map::collision_check_object(Object& obj)
+{
+    // Sprawdzenie kolizji obiektu ze ścianami i drzwiami
+    // obj - obiekt do sprawdzenia (sprite z pozycją)
+
+    Vec2f obj_pos = obj.position_get();
+    float obj_w = obj.width_get();
+    float obj_h = obj.height_get();
+
+    // Sprawdzenie ze ścianami
+    for(const auto& sciana : lista_scian)
+    {
+        Vec2f wall_pos = sciana.position_get();
+        float wall_w = sciana.width_get();
+        float wall_h = sciana.height_get();
+
+        // AABB collision check (nie używaj radius)
+        if (obj_pos.x < wall_pos.x + wall_w &&
+            obj_pos.x + obj_w > wall_pos.x &&
+            obj_pos.y < wall_pos.y + wall_h &&
+            obj_pos.y + obj_h > wall_pos.y)
+        {
+            return true;
+        }
+    }
+
+    // Sprawdzenie ze drzwiami
+    for(const auto& drzwi : lista_drzwi)
+    {
+        Vec2f door_pos = drzwi.drzwi.position_get();
+        float door_w = drzwi.drzwi.width_get();
+        float door_h = drzwi.drzwi.height_get();
+
+        if (obj_pos.x < door_pos.x + door_w &&
+            obj_pos.x + obj_w > door_pos.x &&
+            obj_pos.y < door_pos.y + door_h &&
+            obj_pos.y + obj_h > door_pos.y)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+const std::vector<Object>& Map::get_walls() const
+{
+    return lista_scian;
+}
+
+const std::vector<Drzwi>& Map::get_doors() const
+{
+    return lista_drzwi;
 }
 
 void Map::camera_update(float camera_x, float camera_y, int window_w, int window_h)

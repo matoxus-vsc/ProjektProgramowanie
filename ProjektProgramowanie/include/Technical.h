@@ -98,6 +98,8 @@ class Technical
 
         TTF_Font* font_default_get();
         SDL_Color font_default_color_get();
+        TTF_Font* font_banner_bottom_get();
+        SDL_Color font_banner_bottom_color_get();
 
         int fps_target_get();
 
@@ -114,6 +116,9 @@ class Technical
 
         TTF_Font* font_default;
         SDL_Color font_default_color;
+
+        TTF_Font* font_banner_bottom;
+        SDL_Color font_banner_bottom_color;
 
         int fps_target;
 

@@ -12,6 +12,7 @@ public:
 
     int getHealth() const;
     int getAttack() const;
+    int max_health_get() const;
 
     const char* weapon_get();
     void takeDamage(int amount);
@@ -22,6 +23,10 @@ public:
     void setPosition(float newX, float newY);
     void updatePosition(float targetX, float targetY);
     void render();
+    bool is_shooting_get() const;
+    float bullet_x_get() const;
+    float bullet_y_get() const;
+    void bullet_hit();
 
     /** \brief ruch gracza po ekranie
      *
@@ -37,6 +42,10 @@ public:
      *
      */
     bool collision_check_player(Object& other);
+
+    int kill_stat;
+    int death_stat;
+    std::string name;
 
     Object sprite;
     Object gun;
@@ -56,7 +65,7 @@ protected:
     int health;
     int max_health;
     int attack;
-    const char* name;
+
     const char* weapon;
 
     float x;
@@ -81,9 +90,11 @@ protected:
     bool reloading;
     int reload_timer_frames; // czas reload
 
-  
-    int fire_cooldown_frames; 
+
+    int fire_cooldown_frames;
     int fire_rate_frames;
+
+
 
 };
 
