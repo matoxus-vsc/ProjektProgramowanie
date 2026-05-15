@@ -8,7 +8,7 @@
 #endif
 
 Player::Player(int health, int attack)
-    :health(health), max_health(health), attack(attack), x(100), y(150), angle(0.0), is_shooting(false), bullet_x(0), bullet_y(0), bullet_dx(0), bullet_dy(0), bullet_angle(0.0), bullet_speed(15.0f)
+    :health(health), max_health(health), attack(attack), x(100), y(150), angle(0.0), is_shooting(false)
 {
     name = "Player";
     movement_speed=10.0;
@@ -90,8 +90,11 @@ void Player::render() { // Polaczenie gracza z bronia i pociskiem
     SDL_FPoint gun_center = { -static_cast<float>(sprite.width_get()) / 2.0f, static_cast<float>(gun.height_get()) / 2.0f };
     gun.render(screen_x + sprite.width_get(), screen_y + sprite.height_get()/2.0f - gun.height_get()/2.0f, angle, &gun_center);
 
-    if (is_shooting) {
-        bullet.render(bullet_x - view_x, bullet_y - view_y, bullet_angle, nullptr);
+    if (!active_bullets.empty()) {
+        for (const auto& b : active_bullets)
+        {
+            bullet.render(b.x - view_x, b.y - view_y, b.angle, nullptr);
+        }
     } else {
         SDL_FPoint bullet_center = { -static_cast<float>(sprite.width_get()) / 2.0f - static_cast<float>(gun.width_get()), static_cast<float>(bullet.height_get()) / 2.0f };
         bullet.render(screen_x + sprite.width_get() + gun.width_get(), screen_y + sprite.height_get()/2.0f - bullet.height_get()/2.0f, angle, &bullet_center);
@@ -100,22 +103,50 @@ void Player::render() { // Polaczenie gracza z bronia i pociskiem
 
 bool Player::is_shooting_get() const
 {
-    return is_shooting;
+    return !active_bullets.empty();
 }
 
 float Player::bullet_x_get() const
 {
-    return bullet_x;
+    if (active_bullets.empty()) return 0.0f;
+    return active_bullets.front().x;
 }
 
 float Player::bullet_y_get() const
 {
-    return bullet_y;
+    if (active_bullets.empty()) return 0.0f;
+    return active_bullets.front().y;
+}
+
+std::size_t Player::bullets_count_get() const
+{
+    return active_bullets.size();
+}
+
+float Player::bullet_x_at(std::size_t idx) const
+{
+    return active_bullets[idx].x;
+}
+
+float Player::bullet_y_at(std::size_t idx) const
+{
+    return active_bullets[idx].y;
+}
+
+void Player::bullet_remove_at(std::size_t idx)
+{
+    if (idx < active_bullets.size())
+    {
+        active_bullets.erase(active_bullets.begin() + static_cast<std::ptrdiff_t>(idx));
+    }
 }
 
 void Player::bullet_hit()
 {
-    is_shooting = false;
+    if (!active_bullets.empty())
+    {
+        active_bullets.erase(active_bullets.begin());
+    }
 }
 
 void Player::player_move_handler()
@@ -180,37 +211,45 @@ void Player::player_move_handler()
         if (fire_cooldown_frames <= 0)
         {
             if (ammo_in_mag > 0) {
-                // start shot
-                is_shooting = true;
                 consume_one_ammo();
                 fire_cooldown_frames = fire_rate_frames;
-                bullet_angle = angle;
-                float rad = bullet_angle * M_PI / 180.0f;
+
+                ActiveBullet new_bullet;
+                new_bullet.angle = angle;
+                float rad = static_cast<float>(new_bullet.angle * M_PI / 180.0f);
                 float offset = sprite.width_get() * 0.5f + gun.width_get();
-                bullet_x = centerX + offset * cos(rad) - bullet.width_get() *0.5f;
-                bullet_y = centerY + offset * sin(rad) - bullet.height_get() *0.5f;
-                bullet_dx = cos(rad) * bullet_speed;
-                bullet_dy = sin(rad) * bullet_speed;
+                float bullet_speed = 15.0f;
+                new_bullet.x = centerX + offset * cos(rad) - bullet.width_get() *0.5f;
+                new_bullet.y = centerY + offset * sin(rad) - bullet.height_get() *0.5f;
+                new_bullet.dx = cos(rad) * bullet_speed;
+                new_bullet.dy = sin(rad) * bullet_speed;
 
                 // advance bullet immediately so it doesn't linger at muzzle
-                bullet_x += bullet_dx;
-                bullet_y += bullet_dy;
+                new_bullet.x += new_bullet.dx;
+                new_bullet.y += new_bullet.dy;
+
+                active_bullets.push_back(new_bullet);
+                is_shooting = true;
             } else {
                 if (spare_mags > 0 && !reloading) start_reload();
             }
         }
     }
 
-    // Update bullet position
-    if (is_shooting) {
-        bullet_x += bullet_dx;
-        bullet_y += bullet_dy;
+    // Update bullets positions
+    for (std::size_t i = 0; i < active_bullets.size(); ) {
+        active_bullets[i].x += active_bullets[i].dx;
+        active_bullets[i].y += active_bullets[i].dy;
 
-        // Sprawdzanie granic mapy + większy margines bezpieczeństwa
-        if (bullet_x < -800 || bullet_x > arena.map_width + 800 || bullet_y < -800 || bullet_y > arena.map_height + 800) {
-            is_shooting = false;
+        if (active_bullets[i].x < -800 || active_bullets[i].x > arena.map_width + 800 ||
+            active_bullets[i].y < -800 || active_bullets[i].y > arena.map_height + 800) {
+            active_bullets.erase(active_bullets.begin() + static_cast<std::ptrdiff_t>(i));
+        } else {
+            ++i;
         }
     }
+
+    is_shooting = !active_bullets.empty();
 }
 
 bool Player::collision_check_player(Object& other)

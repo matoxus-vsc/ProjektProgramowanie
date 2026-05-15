@@ -2,6 +2,8 @@
 #define PLAYER_H
 
 #include <string>
+#include <vector>
+#include <cstddef>
 #include "Object.h"
 
 
@@ -26,6 +28,10 @@ public:
     bool is_shooting_get() const;
     float bullet_x_get() const;
     float bullet_y_get() const;
+    std::size_t bullets_count_get() const;
+    float bullet_x_at(std::size_t idx) const;
+    float bullet_y_at(std::size_t idx) const;
+    void bullet_remove_at(std::size_t idx);
     void bullet_hit();
 
     /** \brief ruch gracza po ekranie
@@ -65,7 +71,6 @@ protected:
     int health;
     int max_health;
     int attack;
-
     const char* weapon;
 
     float x;
@@ -76,12 +81,16 @@ protected:
     double angle;
 
     bool is_shooting;
-    float bullet_x;
-    float bullet_y;
-    float bullet_dx;
-    float bullet_dy;
-    float bullet_angle;
-    float bullet_speed;
+
+    struct ActiveBullet
+    {
+        float x;
+        float y;
+        float dx;
+        float dy;
+        float angle;
+    };
+    std::vector<ActiveBullet> active_bullets;
 
     // ammo/reload
     int ammo_in_mag;        // ilosc akutalna

@@ -72,10 +72,10 @@ void HUD::tab_render()
 {
     SDL_FRect to_render
     {
-        .x = 0.25 * t1.window_width_get(),
-        .y = 0.25 * t1.window_height_get(),
-        .w = 0.5 * t1.window_width_get(),
-        .h = 0.5 * t1.window_height_get()
+        .x = 0.25f * t1.window_width_get(),
+        .y = 0.25f * t1.window_height_get(),
+        .w = 0.5f * t1.window_width_get(),
+        .h = 0.5f * t1.window_height_get()
     };
 
     SDL_SetRenderDrawColor(t1.renderer_get(), 0, 0, 0, 127);
