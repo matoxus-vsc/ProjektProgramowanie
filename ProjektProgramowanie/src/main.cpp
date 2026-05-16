@@ -29,6 +29,11 @@ int main(int argc, char** argv)
     {
         arena.wczytaj_z_pliku("Prowizorycznetekstury/uklad_mapy.txt", 78.0f);
         player.setPosition(150.0f, 150.0f);
+        tab_name_column_text.text_load("NAME", t1.font_banner_bottom_get(), t1.font_banner_bottom_color_get());
+        tab_kill_column_text.text_load("KILLS", t1.font_banner_bottom_get(), t1.font_banner_bottom_color_get());
+        tab_death_column_text.text_load("DEATHS", t1.font_banner_bottom_get(), t1.font_banner_bottom_color_get());
+
+
 
         // init bots - każdy bot dostaje inny spawn point na bazie indeksu
         for (int i = 0; i < static_cast<int>(bots.size()); i++)
@@ -117,6 +122,11 @@ int main(int argc, char** argv)
 
                                     if (!bot.isAlive())
                                     {
+                                        player.kill_stat++;
+                                        bot.death_stat++;
+                                        h1.tab_sort();
+                                        h1.kill_feed_push(-1, index);
+
                                         bot.respawn();
                                     }
 
@@ -240,6 +250,11 @@ int main(int argc, char** argv)
                                         
                                         if (!target.isAlive())
                                         {
+                                            shooter.kill_stat++;
+                                            target.death_stat++;
+                                            h1.kill_feed_push(i, j);
+                                            h1.tab_sort();
+
                                             SDL_Log("Bot %d killed Bot %d!", (int)i, (int)j);
                                             target.respawn();
                                         }
@@ -270,9 +285,16 @@ int main(int argc, char** argv)
                 SDL_RenderClear(t1.renderer_get());
 
 
-                int win_w = t1.window_width_get();
-                int win_h = t1.window_height_get();
+                        for(auto &b : bots) b.render();
+                        player.render();
+                        h1.banner_bottom_render();
 
+                        const bool* key_board_state = SDL_GetKeyboardState(NULL);
+                        if(key_board_state[SDL_SCANCODE_TAB])
+                        {
+                            h1.tab_render();
+                        }
+                        h1.kill_feed_render();
 
                 float playerCenterX = player.getX() + player.sprite.width_get() * 0.5f;
                 float playerCenterY = player.getY() + player.sprite.height_get() * 0.5f;

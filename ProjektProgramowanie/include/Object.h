@@ -78,8 +78,19 @@ public:
      */
     int height_get() const;
 
+    /** \brief update pozycji tekstury
+     *
+     * \param update Vec2f - wektor pozycji do przypisania
+     * \return void
+     *
+     */
     void position_update(Vec2f update);
 
+    /** \brief getter
+     *
+     * \return Vec2f - pozycja
+     *
+     */
     Vec2f position_get() const;
 
    // bool load_check();
@@ -88,24 +99,44 @@ protected:
     SDL_Texture* texture;/**< wskaźnik do tekstury */
     int texture_width;/**< szerokość tekstury */
     int texture_height;/**< wysokość tekstury */
-    Vec2f pos;
+    Vec2f pos;/**< pozycja tekstury */
 };
 
+/** \class Text
+ *
+ *  \brief Pochodna klasy Object, określa jak tekst renderuje sie w grze
+ */
 class Text : public Object
 {
 public:
+    /** \brief Konstruktor
+     *
+     *
+     */
     Text();
 
+    /** \brief Destruktor
+     *
+     *
+     */
     ~Text();
 
+    /** \brief Generowanie tekstu
+     *
+     * \param strr const char* - napis
+     * \param fontt TTF_Font* - czcionka
+     * \param font_colorr SDL_Color - kolor czcionki
+     * \return bool
+     *
+     */
     bool text_load(const char* strr, TTF_Font* fontt, SDL_Color font_colorr);
 
 protected:
 
 private:
-    const char* str;
-    TTF_Font* font;
-    SDL_Color font_color;
+    const char* str;/**< aktualny napis */
+    TTF_Font* font;/**< aktualna czcionka */
+    SDL_Color font_color;/**< aktualny kolor czcionki */
 };
 
 
