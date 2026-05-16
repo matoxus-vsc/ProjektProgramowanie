@@ -153,7 +153,10 @@ void HUD::kill_feed_push(int shooter, int dead)
     else
         to_push<<bots[shooter].name;
     to_push<<" > ";
-    to_push<<bots[dead].name;
+    if(dead==-1)
+        to_push<<player.name;
+    else
+        to_push<<bots[dead].name;
 
         kill_feed.push_back({to_push.str(), kill_feed_disperse.ticks_get()});
 

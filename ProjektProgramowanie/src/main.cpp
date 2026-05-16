@@ -27,7 +27,7 @@ int main(int argc, char** argv)
     }
     else
     {
-        arena.wczytaj_z_pliku("Prowizorycznetekstury/uklad_mapy.txt", 78.0f);
+        arena.wczytaj_z_pliku("ProjektProgramowanie/Prowizorycznetekstury/uklad_mapy.txt", 78.0f);
         player.setPosition(150.0f, 150.0f);
         tab_name_column_text.text_load("NAME", t1.font_banner_bottom_get(), t1.font_banner_bottom_color_get());
         tab_kill_column_text.text_load("KILLS", t1.font_banner_bottom_get(), t1.font_banner_bottom_color_get());
@@ -103,6 +103,8 @@ int main(int argc, char** argv)
                             float bullet_top = bullet_y - bullet_half_h;
                             float bullet_bottom = bullet_y + bullet_half_h;
 
+                            int index = 0;
+
                             for (auto &bot : bots)
                             {
                                 float bot_x = bot.getX();
@@ -133,6 +135,7 @@ int main(int argc, char** argv)
                                     bullet_hit_target = true;
                                     break;
                                 }
+                                index++;
                             }
 
                             if (!bullet_hit_target)
@@ -142,10 +145,12 @@ int main(int argc, char** argv)
                         }
 
                         // Bot bullets -> player
+                        int index = 0;
                         for (auto &bot : bots)
                         {
                             if (!bot.is_shooting_get())
                             {
+                                index++;
                                 continue;
                             }
 
@@ -172,16 +177,22 @@ int main(int argc, char** argv)
                             {
                                 player.takeDamage(bot.getAttack());
                                 bot.bullet_hit();
-                                SDL_Log("Bot hit Player! Health: %d", player.getHealth());
-                                break;
+                                SDL_Log("Bot %d hit Player! Health: %d",index, player.getHealth());
+                                if (!player.isAlive())
+                                {
+                                    game_state = DEAD;
+                                    bot.kill_stat++;
+                                    player.death_stat++;
+                                    h1.tab_sort();
+                                    h1.kill_feed_push(index, -1);
+                                    //fps_text.text_load("YOU DIED - click to respawn", t1.font_default_get(), t1.font_default_color_get());
+                                }
+
                             }
+                           index++;
                         }
 
-                        if (!player.isAlive())
-                        {
-                            game_state = DEAD;
-                            fps_text.text_load("YOU DIED - click to respawn", t1.font_default_get(), t1.font_default_color_get());
-                        }
+
 
                         // Bot-vs-Bot interaction: boty się zauważają i atakują
                         for(size_t i = 0; i < bots.size(); ++i)
@@ -189,18 +200,18 @@ int main(int argc, char** argv)
                             Bot& bot1 = bots[i];
                             float bot1_centerX = bot1.getX() + bot1.sprite.width_get() * 0.5f;
                             float bot1_centerY = bot1.getY() + bot1.sprite.height_get() * 0.5f;
-                            
+
                             for(size_t j = i + 1; j < bots.size(); ++j)
                             {
                                 Bot& bot2 = bots[j];
                                 float bot2_centerX = bot2.getX() + bot2.sprite.width_get() * 0.5f;
                                 float bot2_centerY = bot2.getY() + bot2.sprite.height_get() * 0.5f;
-                                
+
                                 float dx = bot2_centerX - bot1_centerX;
                                 float dy = bot2_centerY - bot1_centerY;
                                 float distSq = dx * dx + dy * dy;
                                 float dist = sqrtf(distSq);
-                                
+
                                 if (distSq <= 500.0f * 500.0f && distSq > 100.0f)
                                 {
                                     bot1.try_shoot_at(bot2_centerX, bot2_centerY, dist);
@@ -212,14 +223,14 @@ int main(int argc, char** argv)
                         for(size_t i = 0; i < bots.size(); ++i)
                         {
                             Bot& shooter = bots[i];
-                            
+
                             // Sprawdzenie czy pocisk bota trafia innych botów
                             for(size_t j = 0; j < bots.size(); ++j)
                             {
                                 if (i == j) continue;  // Nie strzel do siebie
-                                
+
                                 Bot& target = bots[j];
-                                
+
                                 // Sprawdzenie czy pocisk trafia target
                                 if (shooter.is_shooting_get())
                                 {
@@ -247,7 +258,7 @@ int main(int argc, char** argv)
                                         target.takeDamage(10);
                                         shooter.bullet_hit();
                                         SDL_Log("Bot %d hit Bot %d! Health: %d", (int)i, (int)j, target.getHealth());
-                                        
+
                                         if (!target.isAlive())
                                         {
                                             shooter.kill_stat++;
@@ -262,29 +273,12 @@ int main(int argc, char** argv)
                                 }
                             }
                         }
+                        SDL_SetRenderDrawColor(t1.renderer_get(), 255, 255, 255, 255);
+                        SDL_RenderClear(t1.renderer_get());
 
-                        break;
-                    }
-                case DEAD:
-                    {
-                        if (game_state == DEAD)
-                        {
-                            fps_text.text_load("YOU DIED - click to respawn", t1.font_default_get(), t1.font_default_color_get());
-                        }
-                        break;
-                    }
-                }
-
-                if(rendered_frame!= 0)
-                {
-                    h1.fps_render(rendered_frame);
-                }
-
-
-                SDL_SetRenderDrawColor(t1.renderer_get(), 255, 255, 255, 255);
-                SDL_RenderClear(t1.renderer_get());
-
-
+                        float playerCenterX = player.getX() + player.sprite.width_get() * 0.5f;
+                        float playerCenterY = player.getY() + player.sprite.height_get() * 0.5f;
+                        arena.map_render(t1.renderer_get(), playerCenterX, playerCenterY, t1.window_width_get(), t1.window_height_get());
                         for(auto &b : bots) b.render();
                         player.render();
                         h1.banner_bottom_render();
@@ -296,30 +290,29 @@ int main(int argc, char** argv)
                         }
                         h1.kill_feed_render();
 
-                float playerCenterX = player.getX() + player.sprite.width_get() * 0.5f;
-                float playerCenterY = player.getY() + player.sprite.height_get() * 0.5f;
-                arena.map_render(t1.renderer_get(), playerCenterX, playerCenterY, win_w, win_h);
-
-                fps_text.render(0, 0);
-
-                if (game_state == PLAYING)
-                {
-                    for(auto &b : bots) b.render();
-                    player.render();
-                    h1.banner_bottom_render();
-                }
-                else if (game_state == DEAD)
-                {
-                    SDL_FRect overlay
+                    if(rendered_frame!= 0)
                     {
+                        h1.fps_render(rendered_frame);
+                    }
+
+                        fps_text.render(0, 0);
+
+                        break;
+                    }
+                case DEAD:
+                    {
+                        SDL_FRect overlay
+                        {
                         .x = 0,
                         .y = 0,
-                        .w = static_cast<float>(win_w),
-                        .h = static_cast<float>(win_h)
-                    };
+                        .w = static_cast<float>(t1.window_width_get()),
+                        .h = static_cast<float>(t1.window_height_get())
+                        };
                     SDL_SetRenderDrawColor(t1.renderer_get(), 0, 0, 0, 160);
                     SDL_RenderFillRect(t1.renderer_get(), &overlay);
-                    fps_text.render(win_w * 0.5f - fps_text.width_get() * 0.5f, win_h * 0.5f - 60.0f);
+                    fps_text.render(t1.window_width_get() * 0.5f - fps_text.width_get() * 0.5f, t1.window_height_get() * 0.5f - 60.0f);
+                        break;
+                    }
                 }
 
                 SDL_RenderPresent(t1.renderer_get());
