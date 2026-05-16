@@ -16,7 +16,8 @@
  */
 enum Game_state
 {
-    PLAYING
+    PLAYING,
+    DEAD
 };
 
 /** \struct Vec2i
