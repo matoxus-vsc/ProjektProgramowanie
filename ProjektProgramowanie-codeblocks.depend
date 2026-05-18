@@ -1143,7 +1143,7 @@
 	<SDL3/SDL_begin_code.h>
 	<SDL3/SDL_close_code.h>
 
-1779099604 /home/olek/ProjektProgramowanie/ProjektProgramowanie/include/object_init.h
+1779131743 /home/olek/ProjektProgramowanie/ProjektProgramowanie/include/object_init.h
 	"Technical.h"
 	"Object.h"
 	"Player.h"
@@ -1155,11 +1155,11 @@
 	"Camera.h"
 	<vector>
 
-1778923729 /home/olek/ProjektProgramowanie/ProjektProgramowanie/include/Technical.h
+1779131743 /home/olek/ProjektProgramowanie/ProjektProgramowanie/include/Technical.h
 	"../include/SDL3/SDL.h"
 	"../include/SDL3_ttf/SDL_ttf.h"
 
-1779099604 /home/olek/ProjektProgramowanie/ProjektProgramowanie/include/Player.h
+1779131743 /home/olek/ProjektProgramowanie/ProjektProgramowanie/include/Player.h
 	<string>
 	<vector>
 	<cstddef>
@@ -1191,7 +1191,7 @@
 	"Timer.h"
 	"../include/SDL3/SDL.h"
 
-1779099604 source:/home/olek/ProjektProgramowanie/ProjektProgramowanie/src/Bot.cpp
+1779131743 source:/home/olek/ProjektProgramowanie/ProjektProgramowanie/src/Bot.cpp
 	"Bot.h"
 	<math.h>
 	<cstdlib>
@@ -1207,7 +1207,7 @@
 	<sstream>
 	<algorithm>
 
-1779123693 source:/home/olek/ProjektProgramowanie/ProjektProgramowanie/src/main.cpp
+1779131743 source:/home/olek/ProjektProgramowanie/ProjektProgramowanie/src/main.cpp
 	<iostream>
 	<sstream>
 	<math.h>
@@ -1231,20 +1231,20 @@
 1776780939 /home/olek/ProjektProgramowanie/ProjektProgramowanie/include/SDL3/SDL_main_impl.h
 	"SDL_main_impl_private.h"
 
-1779124717 source:/home/olek/ProjektProgramowanie/ProjektProgramowanie/src/Map.cpp
+1779132164 source:/home/olek/ProjektProgramowanie/ProjektProgramowanie/src/Map.cpp
 	"Map.h"
 	<fstream>
 	<random>
 	<cmath>
 	"object_init.h"
 
-1779099604 source:/home/olek/ProjektProgramowanie/ProjektProgramowanie/src/Player.cpp
+1779131743 source:/home/olek/ProjektProgramowanie/ProjektProgramowanie/src/Player.cpp
 	"Player.h"
 	<iostream>
 	<math.h>
 	"object_init.h"
 
-1779121783 source:/home/olek/ProjektProgramowanie/ProjektProgramowanie/src/Technical.cpp
+1779131743 source:/home/olek/ProjektProgramowanie/ProjektProgramowanie/src/Technical.cpp
 	"Technical.h"
 	"object_init.h"
 	<iostream>

@@ -148,6 +148,10 @@ bool Map::get_random_free_position(float width, float height, float& outX, float
 
 bool Map::collision_objects_check()
 {
+    float p_x = player.getX();
+    float p_y = player.getY();
+    float p_w = 100.0f;
+    float p_h = 100.0f;
     for(auto& sciana : lista_scian)
     {
         if(player.collision_check_player(sciana))
@@ -156,11 +160,13 @@ bool Map::collision_objects_check()
      for(auto& drzwi : lista_drzwi)
     {
         if(!drzwi.otwarte) {
-            if(player.collision_check_player(drzwi.drzwi))
-            return true;
+            Vec2f pos = drzwi.drzwi.position_get();
+            if (p_x < pos.x + cell_size && p_x + p_w > pos.x && p_y < pos.y + cell_size && p_y + p_h > pos.y) {
+                return true;
+            }
+        }
     }
     return false;
-}
 }
 bool Map::collision_check_object(Object& obj)
 {
@@ -302,7 +308,7 @@ void Map::wczytaj_z_pliku(const string& sciezka, float rozmiar_kratki) {
     }
 }
 void Map::interakcja_z_drzwiami(float gracz_x, float gracz_y, float gracz_w, float gracz_h) {
-    float zasieg = 120.0f;
+    float zasieg = 200.0f;
     float pole_x = gracz_x - zasieg;
     float pole_y = gracz_y - zasieg;
     float pole_w = gracz_w + (zasieg * 2);
