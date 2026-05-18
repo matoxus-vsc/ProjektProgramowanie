@@ -2,6 +2,7 @@
 
 #include <math.h>
 #include <cstdlib>
+#include <cstddef>
 #include <ctime>
 #include <algorithm>
 #include <sstream>
@@ -15,8 +16,8 @@ Bot::Bot(int health, int attack) : Player(health, attack),
     goal_x(0), goal_y(0),
     goal_seed(0),
     bot_index(-1),
-    bot_speed(4.0f), bot_angle(0.0), is_shooting(false),
-    bullet_x(0.0f), bullet_y(0.0f), bullet_dx(0.0f), bullet_dy(0.0f), bullet_angle(0.0f), bullet_speed(11.0f),
+    bot_speed(4.0f), bot_angle(0.0),
+    bullet_speed(11.0f),
     fire_cooldown(0), hide_timer(0), patrol_timer(0), patrol_dir(1), goal_change_timer(0), detection_range(480.0f),
     movement_timer(0), strafe_dir_x(0.0f), strafe_dir_y(0.0f), burst_shots_left(0), burst_pause_timer(0)
 {
@@ -59,12 +60,12 @@ void Bot::init(float goalX, float goalY)
 void Bot::respawn()
 {
     restoreHealth();
-    hide_timer = 0; patrol_timer = 0; patrol_dir = 1; is_shooting = false;
+    hide_timer = 0; patrol_timer = 0; patrol_dir = 1;
     fire_cooldown = 0;
     goal_change_timer = 0;
     burst_shots_left = 0;
     burst_pause_timer = 0;
-    bullet_x = bullet_y = bullet_dx = bullet_dy = 0.0f;
+    active_bullets.clear();
 
     //  każdy bot ma swoj spawnpoint
     float safe_spawns[8][2] = {
@@ -186,13 +187,13 @@ void Bot::shoot_at(float targetCenterX, float targetCenterY)
     float angle = atan2(dy, dx) * 180.0f / M_PI;
     float rad = static_cast<float>(angle * M_PI / 180.0f);
 
-    bullet_angle = angle;
     float offset = sprite.width_get() * 0.5f + gun.width_get();
-    bullet_x = centerX + offset * cos(rad) - bullet.width_get() * 0.5f;
-    bullet_y = centerY + offset * sin(rad) - bullet.height_get() * 0.5f;
-    bullet_dx = cos(rad) * bullet_speed;
-    bullet_dy = sin(rad) * bullet_speed;
-    is_shooting = true;
+    float bullet_x = centerX + offset * cos(rad) - bullet.width_get() * 0.5f;
+    float bullet_y = centerY + offset * sin(rad) - bullet.height_get() * 0.5f;
+    float bullet_dx = cos(rad) * bullet_speed;
+    float bullet_dy = sin(rad) * bullet_speed;
+
+    active_bullets.push_back({bullet_x, bullet_y, bullet_dx, bullet_dy, angle});
     consume_one_ammo();
     hide_timer = 35;
 }
@@ -390,13 +391,76 @@ void Bot::updateAI(Player& enemy)
         }
     }
 
-    if (!is_shooting) return;
-
-    bullet_x += bullet_dx;
-    bullet_y += bullet_dy;
-    if (bullet_x < -800 || bullet_x > arena.map_width + 800 || bullet_y < -800 || bullet_y > arena.map_height + 800)
+    // Update all active bullets
+    for (auto it = active_bullets.begin(); it != active_bullets.end(); )
     {
-        is_shooting = false;
+        it->x += it->dx;
+        it->y += it->dy;
+
+        bool bullet_out_of_bounds = (it->x < -800 || it->x > arena.map_width + 800 || 
+                                      it->y < -800 || it->y > arena.map_height + 800);
+
+        bool bullet_hit_wall = false;
+
+        // Check collision with walls
+        for (const auto& wall : arena.get_walls())
+        {
+            float bullet_half_w = bullet.width_get() * 0.5f;
+            float bullet_half_h = bullet.height_get() * 0.5f;
+
+            float bullet_left = it->x - bullet_half_w;
+            float bullet_right = it->x + bullet_half_w;
+            float bullet_top = it->y - bullet_half_h;
+            float bullet_bottom = it->y + bullet_half_h;
+
+            float wall_left = wall.position_get().x;
+            float wall_right = wall.position_get().x + wall.width_get();
+            float wall_top = wall.position_get().y;
+            float wall_bottom = wall.position_get().y + wall.height_get();
+
+            if (!(bullet_right < wall_left || bullet_left > wall_right ||
+                  bullet_bottom < wall_top || bullet_top > wall_bottom))
+            {
+                bullet_hit_wall = true;
+                break;
+            }
+        }
+
+        // Check collision with doors
+        if (!bullet_hit_wall)
+        {
+            for (const auto& drzwi : arena.get_doors())
+            {
+                float bullet_half_w = bullet.width_get() * 0.5f;
+                float bullet_half_h = bullet.height_get() * 0.5f;
+
+                float bullet_left = it->x - bullet_half_w;
+                float bullet_right = it->x + bullet_half_w;
+                float bullet_top = it->y - bullet_half_h;
+                float bullet_bottom = it->y + bullet_half_h;
+
+                float door_left = drzwi.drzwi.position_get().x;
+                float door_right = drzwi.drzwi.position_get().x + drzwi.drzwi.width_get();
+                float door_top = drzwi.drzwi.position_get().y;
+                float door_bottom = drzwi.drzwi.position_get().y + drzwi.drzwi.height_get();
+
+                if (!(bullet_right < door_left || bullet_left > door_right ||
+                      bullet_bottom < door_top || bullet_top > door_bottom))
+                {
+                    bullet_hit_wall = true;
+                    break;
+                }
+            }
+        }
+
+        if (bullet_out_of_bounds || bullet_hit_wall)
+        {
+            it = active_bullets.erase(it);
+        }
+        else
+        {
+            ++it;
+        }
     }
 }
 
@@ -413,33 +477,72 @@ void Bot::render()
     SDL_FPoint gun_center = { -static_cast<float>(sprite.width_get())/2.0f, static_cast<float>(gun.height_get())/2.0f };
     gun.render(screen_x + sprite.width_get(), screen_y + sprite.height_get()*0.5f - gun.height_get()*0.5f, bot_angle, &gun_center);
 
-    if (is_shooting) {
-        bullet.render(bullet_x - view_x, bullet_y - view_y, bullet_angle, nullptr);
-        return;
+    if (!active_bullets.empty()) {
+        for (const auto& b : active_bullets)
+        {
+            bullet.render(b.x - view_x, b.y - view_y, b.angle, nullptr);
+        }
+    } else {
+        SDL_FPoint bullet_center = { -static_cast<float>(sprite.width_get())*0.5f - static_cast<float>(gun.width_get()), static_cast<float>(bullet.height_get())*0.5f };
+        bullet.render(screen_x + sprite.width_get() + gun.width_get(), screen_y + sprite.height_get()*0.5f - bullet.height_get()*0.5f, bot_angle, &bullet_center);
     }
-
-    SDL_FPoint bullet_center = { -static_cast<float>(sprite.width_get())*0.5f - static_cast<float>(gun.width_get()), static_cast<float>(bullet.height_get())*0.5f };
-    bullet.render(screen_x + sprite.width_get() + gun.width_get(), screen_y + sprite.height_get()*0.5f - bullet.height_get()*0.5f, bot_angle, &bullet_center);
 }
 
 bool Bot::is_shooting_get() const
 {
-    return is_shooting;
+    return !active_bullets.empty();
 }
 
 float Bot::bullet_x_get() const
 {
-    return bullet_x;
+    if (!active_bullets.empty()) {
+        return active_bullets[0].x;
+    }
+    return 0.0f;
 }
 
 float Bot::bullet_y_get() const
 {
-    return bullet_y;
+    if (!active_bullets.empty()) {
+        return active_bullets[0].y;
+    }
+    return 0.0f;
+}
+
+std::size_t Bot::bullets_count_get() const
+{
+    return active_bullets.size();
+}
+
+float Bot::bullet_x_at(std::size_t idx) const
+{
+    if (idx < active_bullets.size()) {
+        return active_bullets[idx].x;
+    }
+    return 0.0f;
+}
+
+float Bot::bullet_y_at(std::size_t idx) const
+{
+    if (idx < active_bullets.size()) {
+        return active_bullets[idx].y;
+    }
+    return 0.0f;
 }
 
 void Bot::bullet_hit()
 {
-    is_shooting = false;
+    if (!active_bullets.empty()) {
+        active_bullets.erase(active_bullets.begin());
+    }
+}
+
+void Bot::bullet_remove_at(std::size_t idx)
+{
+    if (idx < active_bullets.size())
+    {
+        active_bullets.erase(active_bullets.begin() + static_cast<std::ptrdiff_t>(idx));
+    }
 }
 
 int Bot::fire_cooldown_get() const
@@ -449,19 +552,20 @@ int Bot::fire_cooldown_get() const
 
 void Bot::bullet_set_position(float x, float y)
 {
-    bullet_x = x;
-    bullet_y = y;
+    // Deprecated - bullets are now managed by active_bullets vector
+    // This is kept for backward compatibility
 }
 
 void Bot::bullet_set_velocity(float dx, float dy)
 {
-    bullet_dx = dx;
-    bullet_dy = dy;
+    // Deprecated - bullets are now managed by active_bullets vector
+    // This is kept for backward compatibility
 }
 
 void Bot::bullet_start_shooting()
 {
-    is_shooting = true;
+    // Deprecated - bullets are now managed by active_bullets vector
+    // This is kept for backward compatibility
 }
 
 void Bot::change_goal()

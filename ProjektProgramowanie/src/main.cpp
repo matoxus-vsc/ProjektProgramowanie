@@ -27,7 +27,7 @@ int main(int argc, char** argv)
     }
     else
     {
-        arena.wczytaj_z_pliku("ProjektProgramowanie/Prowizorycznetekstury/uklad_mapy.txt", 78.0f);
+        arena.wczytaj_z_pliku("Prowizorycznetekstury/uklad_mapy.txt", 78.0f);
         player.setPosition(150.0f, 150.0f);
         tab_name_column_text.text_load("NAME", t1.font_banner_bottom_get(), t1.font_banner_bottom_color_get());
         tab_kill_column_text.text_load("KILLS", t1.font_banner_bottom_get(), t1.font_banner_bottom_color_get());
@@ -220,59 +220,70 @@ int main(int argc, char** argv)
                         }
 
                         // Sprawdzenie czy pociski botów trafiają inne boty
-                        for(size_t i = 0; i < bots.size(); ++i)
-                        {
-                            Bot& shooter = bots[i];
+                         for(size_t i = 0; i < bots.size(); ++i)
+                         {
+                             Bot& shooter = bots[i];
+                             size_t bullet_count = shooter.bullets_count_get();
 
-                            // Sprawdzenie czy pocisk bota trafia innych botów
-                            for(size_t j = 0; j < bots.size(); ++j)
-                            {
-                                if (i == j) continue;  // Nie strzel do siebie
+                             // Sprawdzenie wszystkich pocisków tego bota
+                             for(size_t bullet_idx = 0; bullet_idx < bullet_count; )
+                             {
+                                 float bullet_x = shooter.bullet_x_at(bullet_idx);
+                                 float bullet_y = shooter.bullet_y_at(bullet_idx);
 
-                                Bot& target = bots[j];
+                                 float bullet_half_w = shooter.bullet.width_get() * 0.5f;
+                                 float bullet_half_h = shooter.bullet.height_get() * 0.5f;
 
-                                // Sprawdzenie czy pocisk trafia target
-                                if (shooter.is_shooting_get())
-                                {
-                                    float bullet_x = shooter.bullet_x_get();
-                                    float bullet_y = shooter.bullet_y_get();
-                                    float target_x = target.getX();
-                                    float target_y = target.getY();
+                                 float bullet_left = bullet_x - bullet_half_w;
+                                 float bullet_right = bullet_x + bullet_half_w;
+                                 float bullet_top = bullet_y - bullet_half_h;
+                                 float bullet_bottom = bullet_y + bullet_half_h;
 
-                                    float bullet_half_w = shooter.bullet.width_get() * 0.5f;
-                                    float bullet_half_h = shooter.bullet.height_get() * 0.5f;
+                                 bool bullet_hit_target = false;
 
-                                    float bullet_left = bullet_x - bullet_half_w;
-                                    float bullet_right = bullet_x + bullet_half_w;
-                                    float bullet_top = bullet_y - bullet_half_h;
-                                    float bullet_bottom = bullet_y + bullet_half_h;
+                                 // Sprawdzenie czy pocisk trafia inne boty
+                                 for(size_t j = 0; j < bots.size(); ++j)
+                                 {
+                                     if (i == j) continue;  // Nie strzel do siebie
 
-                                    float target_left = target_x;
-                                    float target_right = target_x + target.sprite.width_get();
-                                    float target_top = target_y;
-                                    float target_bottom = target_y + target.sprite.height_get();
+                                     Bot& target = bots[j];
+                                     float target_x = target.getX();
+                                     float target_y = target.getY();
 
-                                    if (!(bullet_right < target_left || bullet_left > target_right ||
-                                          bullet_bottom < target_top || bullet_top > target_bottom))
-                                    {
-                                        target.takeDamage(10);
-                                        shooter.bullet_hit();
-                                        SDL_Log("Bot %d hit Bot %d! Health: %d", (int)i, (int)j, target.getHealth());
+                                     float target_left = target_x;
+                                     float target_right = target_x + target.sprite.width_get();
+                                     float target_top = target_y;
+                                     float target_bottom = target_y + target.sprite.height_get();
 
-                                        if (!target.isAlive())
-                                        {
-                                            shooter.kill_stat++;
-                                            target.death_stat++;
-                                            h1.kill_feed_push(i, j);
-                                            h1.tab_sort();
+                                     if (!(bullet_right < target_left || bullet_left > target_right ||
+                                           bullet_bottom < target_top || bullet_top > target_bottom))
+                                     {
+                                         target.takeDamage(10);
+                                         shooter.bullet_remove_at(bullet_idx);
+                                         bullet_count--;
+                                         bullet_hit_target = true;
+                                         SDL_Log("Bot %d hit Bot %d! Health: %d", (int)i, (int)j, target.getHealth());
 
-                                            SDL_Log("Bot %d killed Bot %d!", (int)i, (int)j);
-                                            target.respawn();
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                                         if (!target.isAlive())
+                                         {
+                                             shooter.kill_stat++;
+                                             target.death_stat++;
+                                             h1.kill_feed_push(i, j);
+                                             h1.tab_sort();
+
+                                             SDL_Log("Bot %d killed Bot %d!", (int)i, (int)j);
+                                             target.respawn();
+                                         }
+                                         break;
+                                     }
+                                 }
+
+                                 if (!bullet_hit_target)
+                                 {
+                                     ++bullet_idx;
+                                 }
+                             }
+                         }
                         SDL_SetRenderDrawColor(t1.renderer_get(), 255, 255, 255, 255);
                         SDL_RenderClear(t1.renderer_get());
 

@@ -2,6 +2,7 @@
 #define BOT_H
 
 #include "Player.h"
+#include <vector>
 
 class Bot : public Player
 {
@@ -19,7 +20,11 @@ public:
     bool is_shooting_get() const;
     float bullet_x_get() const;
     float bullet_y_get() const;
+    std::size_t bullets_count_get() const;
+    float bullet_x_at(std::size_t idx) const;
+    float bullet_y_at(std::size_t idx) const;
     void bullet_hit();
+    void bullet_remove_at(std::size_t idx);
     int fire_cooldown_get() const;
     bool try_shoot_at(float targetCenterX, float targetCenterY, float distance);
 
@@ -37,12 +42,15 @@ private:
     float bot_speed;
     float bot_angle;
 
-    bool is_shooting;
-    float bullet_x;
-    float bullet_y;
-    float bullet_dx;
-    float bullet_dy;
-    float bullet_angle;
+    struct ActiveBullet
+    {
+        float x;
+        float y;
+        float dx;
+        float dy;
+        float angle;
+    };
+    std::vector<ActiveBullet> active_bullets;
     float bullet_speed;
 
     int fire_cooldown;

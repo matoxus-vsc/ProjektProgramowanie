@@ -73,10 +73,10 @@ void HUD::tab_render()
 {
     SDL_FRect to_render
     {
-        .x = 0.25 * t1.window_width_get(),
-        .y = 0.25 * t1.window_height_get(),
-        .w = 0.5 * t1.window_width_get(),
-        .h = 0.5 * t1.window_height_get()
+        .x = static_cast<float>(0.25 * t1.window_width_get()),
+        .y = static_cast<float>(0.25 * t1.window_height_get()),
+        .w = static_cast<float>(0.5 * t1.window_width_get()),
+        .h = static_cast<float>(0.5 * t1.window_height_get())
     };
 
     SDL_SetRenderDrawColor(t1.renderer_get(), 0, 0, 0, 127);
@@ -172,10 +172,10 @@ void HUD::kill_feed_row_render(int index)
             kill_feed_max_width = kill_feed_text.width_get();
         SDL_FRect to_render
         {
-            .x = t1.window_width_get() - 1.02 * kill_feed_max_width,
-            .y = 1.02 * kill_feed_text.height_get() * index,
-            .w = 1.02 * kill_feed_max_width,
-            .h = 1.02 * kill_feed_text.height_get()
+            .x = static_cast<float>(t1.window_width_get() - 1.02 * kill_feed_max_width),
+            .y = static_cast<float>(1.02 * kill_feed_text.height_get() * index),
+            .w = static_cast<float>(1.02 * kill_feed_max_width),
+            .h = static_cast<float>(1.02 * kill_feed_text.height_get())
         };
         SDL_SetRenderDrawColor(t1.renderer_get(), 0, 0, 0, 127);
         SDL_RenderRect(t1.renderer_get(), &to_render);

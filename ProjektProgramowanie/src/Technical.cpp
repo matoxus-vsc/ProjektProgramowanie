@@ -79,7 +79,7 @@ bool media(Technical& t)
 {
     bool success = true;
 
-    if(!player.sprite.texture_load("ProjektProgramowanie/Prowizorycznetekstury/gracz.png")) // ProjektProgramowanie/Prowizorycznetekstury/gracz.png
+    if(!player.sprite.texture_load("Prowizorycznetekstury/gracz.png")) // ProjektProgramowanie/Prowizorycznetekstury/gracz.png
     {
         success = false;
         SDL_Log("Couldnt load 'gracz.png'! %s", SDL_GetError());
@@ -88,14 +88,14 @@ bool media(Technical& t)
     // load sprites for all bots
     for (auto &b : bots)
     {
-        if(!b.sprite.texture_load("ProjektProgramowanie/Prowizorycznetekstury/gracz.png"))
+        if(!b.sprite.texture_load("Prowizorycznetekstury/gracz.png"))
         {
             success = false;
             SDL_Log("Couldnt load bot sprite! %s", SDL_GetError());
         }
     }
 
-    if(!player.gun.texture_load("ProjektProgramowanie/Prowizorycznetekstury/bron.png"))
+    if(!player.gun.texture_load("Prowizorycznetekstury/bron.png"))
     {
         success = false;
         SDL_Log("Couldnt load 'bron.png'! %s", SDL_GetError());
@@ -103,24 +103,24 @@ bool media(Technical& t)
 
     for (auto &b : bots)
     {
-        if(!b.gun.texture_load("ProjektProgramowanie/Prowizorycznetekstury/bron.png"))
+        if(!b.gun.texture_load("Prowizorycznetekstury/bron.png"))
         {
             success = false;
             SDL_Log("Couldnt load bot gun! %s", SDL_GetError());
         }
     }
 
-    if(!door_obj.texture_load("ProjektProgramowanie/Prowizorycznetekstury/drzwi.png"))
+    if(!door_obj.texture_load("Prowizorycznetekstury/drzwi.png"))
     {
         success = false;
         SDL_Log("Couldnt load 'drzwi.png'! %s", SDL_GetError());
     }
-    if(!map_obj.texture_load("ProjektProgramowanie/Prowizorycznetekstury/mapa.png"))
+    if(!map_obj.texture_load("Prowizorycznetekstury/mapa.png"))
     {
         success = false;
         SDL_Log("Couldnt load 'mapa.png'! %s", SDL_GetError());
     }
-    if(!player.bullet.texture_load("ProjektProgramowanie/Prowizorycznetekstury/pocisk.png"))
+    if(!player.bullet.texture_load("Prowizorycznetekstury/pocisk.png"))
     {
         success = false;
         SDL_Log("Couldnt load 'pocisk.png'! %s", SDL_GetError());
@@ -128,19 +128,19 @@ bool media(Technical& t)
 
     for (auto &b : bots)
     {
-        if(!b.bullet.texture_load("ProjektProgramowanie/Prowizorycznetekstury/pocisk.png"))
+        if(!b.bullet.texture_load("Prowizorycznetekstury/pocisk.png"))
         {
             success = false;
             SDL_Log("Couldnt load bot bullet! %s", SDL_GetError());
         }
     }
 
-    if(!wall_obj.texture_load("ProjektProgramowanie/Prowizorycznetekstury/sciana.png"))
+    if(!wall_obj.texture_load("Prowizorycznetekstury/sciana.png"))
     {
         success = false;
         SDL_Log("Couldnt load 'sciana.png'! %s", SDL_GetError());
     }
-    t.font_default = TTF_OpenFont("ProjektProgramowanie/fonts/ProggyVector Regular.ttf", 12);
+    t.font_default = TTF_OpenFont("fonts/ProggyVector Regular.ttf", 12);
     t.font_default_color = {0, 0, 0, 0};
 
     if(t.font_default==nullptr)
@@ -148,7 +148,7 @@ bool media(Technical& t)
             success = false;
             SDL_Log("Couldnt load 'ProggyVector Regular.ttf'! %s", SDL_GetError());
        }
-    t.font_banner_bottom = TTF_OpenFont("ProjektProgramowanie/fonts/ProggyVector Regular.ttf", 14);
+    t.font_banner_bottom = TTF_OpenFont("fonts/ProggyVector Regular.ttf", 14);
     t.font_banner_bottom_color = {255, 255, 255, 0};
 
     if(t.font_banner_bottom==nullptr)

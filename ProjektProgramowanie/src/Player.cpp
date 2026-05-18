@@ -245,8 +245,63 @@ void Player::player_move_handler()
         active_bullets[i].x += active_bullets[i].dx;
         active_bullets[i].y += active_bullets[i].dy;
 
-        if (active_bullets[i].x < -800 || active_bullets[i].x > arena.map_width + 800 ||
-            active_bullets[i].y < -800 || active_bullets[i].y > arena.map_height + 800) {
+        bool bullet_out_of_bounds = (active_bullets[i].x < -800 || active_bullets[i].x > arena.map_width + 800 ||
+                                      active_bullets[i].y < -800 || active_bullets[i].y > arena.map_height + 800);
+
+        bool bullet_hit_wall = false;
+
+        // Check collision with walls
+        for (const auto& wall : arena.get_walls())
+        {
+            float bullet_half_w = bullet.width_get() * 0.5f;
+            float bullet_half_h = bullet.height_get() * 0.5f;
+
+            float bullet_left = active_bullets[i].x - bullet_half_w;
+            float bullet_right = active_bullets[i].x + bullet_half_w;
+            float bullet_top = active_bullets[i].y - bullet_half_h;
+            float bullet_bottom = active_bullets[i].y + bullet_half_h;
+
+            float wall_left = wall.position_get().x;
+            float wall_right = wall.position_get().x + wall.width_get();
+            float wall_top = wall.position_get().y;
+            float wall_bottom = wall.position_get().y + wall.height_get();
+
+            if (!(bullet_right < wall_left || bullet_left > wall_right ||
+                  bullet_bottom < wall_top || bullet_top > wall_bottom))
+            {
+                bullet_hit_wall = true;
+                break;
+            }
+        }
+
+        // Check collision with doors
+        if (!bullet_hit_wall)
+        {
+            for (const auto& drzwi : arena.get_doors())
+            {
+                float bullet_half_w = bullet.width_get() * 0.5f;
+                float bullet_half_h = bullet.height_get() * 0.5f;
+
+                float bullet_left = active_bullets[i].x - bullet_half_w;
+                float bullet_right = active_bullets[i].x + bullet_half_w;
+                float bullet_top = active_bullets[i].y - bullet_half_h;
+                float bullet_bottom = active_bullets[i].y + bullet_half_h;
+
+                float door_left = drzwi.drzwi.position_get().x;
+                float door_right = drzwi.drzwi.position_get().x + drzwi.drzwi.width_get();
+                float door_top = drzwi.drzwi.position_get().y;
+                float door_bottom = drzwi.drzwi.position_get().y + drzwi.drzwi.height_get();
+
+                if (!(bullet_right < door_left || bullet_left > door_right ||
+                      bullet_bottom < door_top || bullet_top > door_bottom))
+                {
+                    bullet_hit_wall = true;
+                    break;
+                }
+            }
+        }
+
+        if (bullet_out_of_bounds || bullet_hit_wall) {
             active_bullets.erase(active_bullets.begin() + static_cast<std::ptrdiff_t>(i));
         } else {
             ++i;
@@ -293,8 +348,8 @@ void Player::start_reload()
     if (reloading) return;
     if (spare_mags <= 0) return;
     reloading = true;
-    // reload time 5s
-    reload_timer_frames = static_cast<int>(5.0f * static_cast<float>(t1.fps_target_get()));
+    // reload time 4s
+    reload_timer_frames = static_cast<int>(4.0f * static_cast<float>(t1.fps_target_get()));
     SDL_Log("Player: start reload, will take %d frames", reload_timer_frames);
 }
 
