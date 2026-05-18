@@ -397,7 +397,7 @@ void Bot::updateAI(Player& enemy)
         it->x += it->dx;
         it->y += it->dy;
 
-        bool bullet_out_of_bounds = (it->x < -800 || it->x > arena.map_width + 800 || 
+        bool bullet_out_of_bounds = (it->x < -800 || it->x > arena.map_width + 800 ||
                                       it->y < -800 || it->y > arena.map_height + 800);
 
         bool bullet_hit_wall = false;
@@ -472,7 +472,7 @@ void Bot::render()
     float screen_y = getY() - view_y;
 
     SDL_FPoint player_center = { static_cast<float>(sprite.width_get())/2.0f, static_cast<float>(sprite.height_get())/2.0f };
-    sprite.render(screen_x, screen_y, bot_angle, &player_center);
+    sprite.render(screen_x, screen_y, bot_angle - 90, &player_center);
 
     SDL_FPoint gun_center = { -static_cast<float>(sprite.width_get())/2.0f, static_cast<float>(gun.height_get())/2.0f };
     gun.render(screen_x + sprite.width_get(), screen_y + sprite.height_get()*0.5f - gun.height_get()*0.5f, bot_angle, &gun_center);

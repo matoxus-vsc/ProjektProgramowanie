@@ -85,7 +85,7 @@ void Player::render() { // Polaczenie gracza z bronia i pociskiem
     float screen_y = y - view_y;
 
     SDL_FPoint player_center = { static_cast<float>(sprite.width_get()) / 2.0f, static_cast<float>(sprite.height_get()) / 2.0f };
-    sprite.render(screen_x, screen_y, angle, &player_center);
+    sprite.render(screen_x, screen_y, angle - 90, &player_center);
 
     SDL_FPoint gun_center = { -static_cast<float>(sprite.width_get()) / 2.0f, static_cast<float>(gun.height_get()) / 2.0f };
     gun.render(screen_x + sprite.width_get(), screen_y + sprite.height_get()/2.0f - gun.height_get()/2.0f, angle, &gun_center);
@@ -375,4 +375,9 @@ int Player::spare_mags_get() const { return spare_mags; }
 void Player::consume_one_ammo()
 {
     if (ammo_in_mag > 0) ammo_in_mag--;
+}
+void Player::respawn_reload()
+{
+    ammo_in_mag = 30;
+    spare_mags = 2;
 }

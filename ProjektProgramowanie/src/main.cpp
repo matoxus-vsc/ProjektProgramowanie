@@ -27,11 +27,14 @@ int main(int argc, char** argv)
     }
     else
     {
-        arena.wczytaj_z_pliku("Prowizorycznetekstury/uklad_mapy.txt", 78.0f);
+        arena.wczytaj_z_pliku("ProjektProgramowanie/Prowizorycznetekstury/uklad_mapy.txt", 78.0f);
         player.setPosition(150.0f, 150.0f);
         tab_name_column_text.text_load("NAME", t1.font_banner_bottom_get(), t1.font_banner_bottom_color_get());
         tab_kill_column_text.text_load("KILLS", t1.font_banner_bottom_get(), t1.font_banner_bottom_color_get());
         tab_death_column_text.text_load("DEATHS", t1.font_banner_bottom_get(), t1.font_banner_bottom_color_get());
+
+        respawn_screen1_text.text_load("YOU DIED!", t1.font_respawn_screen_get(), t1.font_respawn_screen_color_get());
+        respawn_screen2_text.text_load("CLICK PPM TO RESPAWN", t1.font_respawn_screen_get(), t1.font_respawn_screen_color_get());
 
 
 
@@ -65,7 +68,7 @@ int main(int argc, char** argv)
                     break;
                 case SDL_EVENT_MOUSE_BUTTON_DOWN:
                     {
-                        if (game_state == DEAD && e.button.button == SDL_BUTTON_LEFT)
+                        if (game_state == DEAD && e.button.button == SDL_BUTTON_RIGHT)
                         {
                             player.restoreHealth();
                             player.setPosition(150.0f, 150.0f);
@@ -128,7 +131,7 @@ int main(int argc, char** argv)
                                         bot.death_stat++;
                                         h1.tab_sort();
                                         h1.kill_feed_push(-1, index);
-
+                                        bot.respawn_reload();
                                         bot.respawn();
                                     }
 
@@ -270,7 +273,7 @@ int main(int argc, char** argv)
                                              target.death_stat++;
                                              h1.kill_feed_push(i, j);
                                              h1.tab_sort();
-
+                                             target.respawn_reload();
                                              SDL_Log("Bot %d killed Bot %d!", (int)i, (int)j);
                                              target.respawn();
                                          }
@@ -321,7 +324,12 @@ int main(int argc, char** argv)
                         };
                     SDL_SetRenderDrawColor(t1.renderer_get(), 0, 0, 0, 160);
                     SDL_RenderFillRect(t1.renderer_get(), &overlay);
-                    fps_text.render(t1.window_width_get() * 0.5f - fps_text.width_get() * 0.5f, t1.window_height_get() * 0.5f - 60.0f);
+
+                    respawn_screen1_text.render(t1.window_width_get() * 0.5f - respawn_screen1_text.width_get() * 0.5f, t1.window_height_get() * 0.4f - respawn_screen1_text.height_get() * 0.5f);
+                    respawn_screen2_text.render(t1.window_width_get() * 0.5f - respawn_screen2_text.width_get() * 0.5f, t1.window_height_get() * 0.5f - respawn_screen2_text.height_get() * 0.5f);
+
+                    player.respawn_reload();
+
                         break;
                     }
                 }
