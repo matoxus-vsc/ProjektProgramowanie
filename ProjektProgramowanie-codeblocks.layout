@@ -2,74 +2,110 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="ProjektProgramowanie/src/Map.cpp" open="1" top="1" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="ProjektProgramowanie/include/Timer.h" open="1" top="1" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="9834" topLine="280" />
+			<Cursor1 position="1238" topLine="66" />
 		</Cursor>
 	</File>
-	<File name="ProjektProgramowanie/include/object_init.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="ProjektProgramowanie/include/Technical.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="236" topLine="0" />
+			<Cursor1 position="2097" topLine="124" />
 		</Cursor>
 	</File>
-	<File name="ProjektProgramowanie/src/HUD.cpp" open="1" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="ProjektProgramowanie/src/main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="5327" topLine="132" />
+			<Cursor1 position="1462" topLine="324" />
 		</Cursor>
 	</File>
-	<File name="ProjektProgramowanie/src/Timer.cpp" open="1" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="ProjektProgramowanie/include/structs.h" open="1" top="0" tabpos="21" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1187" topLine="35" />
+			<Cursor1 position="0" topLine="117" />
 		</Cursor>
 	</File>
-	<File name="ProjektProgramowanie/include/Map.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="ProjektProgramowanie/include/Bot.h" open="1" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1383" topLine="37" />
+			<Cursor1 position="328" topLine="49" />
 		</Cursor>
 	</File>
-	<File name="ProjektProgramowanie/include/Timer.h" open="1" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="ProjektProgramowanie/include/Player.h" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1238" topLine="53" />
+			<Cursor1 position="1580" topLine="80" />
 		</Cursor>
 	</File>
-	<File name="ProjektProgramowanie/src/Object.cpp" open="1" top="0" tabpos="19" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="ProjektProgramowanie/include/Controls.h" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="547" topLine="18" />
+			<Cursor1 position="0" topLine="41" />
 		</Cursor>
 	</File>
-	<File name="ProjektProgramowanie/src/Controls.cpp" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="ProjektProgramowanie/include/HUD.h" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
+			<Cursor1 position="1714" topLine="80" />
+		</Cursor>
+	</File>
+	<File name="ProjektProgramowanie/src/Bot.cpp" open="1" top="0" tabpos="19" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="14254" topLine="554" />
+		</Cursor>
+	</File>
+	<File name="ProjektProgramowanie/src/Object.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1230" topLine="123" />
 			<Cursor1 position="363" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="ProjektProgramowanie/src/Technical.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3733" topLine="103" />
+			<Cursor1 position="6196" topLine="224" />
 		</Cursor>
 	</File>
-	<File name="ProjektProgramowanie/src/main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+	<File name="ProjektProgramowanie/src/Player.cpp" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2837" topLine="46" />
+			<Cursor1 position="12154" topLine="352" />
 		</Cursor>
 	</File>
-	<File name="ProjektProgramowanie/include/Technical.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="ProjektProgramowanie/src/Timer.cpp" open="1" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2655" topLine="107" />
+			<Cursor1 position="1187" topLine="48" />
 		</Cursor>
 	</File>
-	<File name="ProjektProgramowanie/include/Bot.h" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="ProjektProgramowanie/include/Object.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1872" topLine="0" />
+			<Cursor1 position="3014" topLine="112" />
 		</Cursor>
 	</File>
-	<File name="ProjektProgramowanie/include/Controls.h" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="ProjektProgramowanie/src/Camera.cpp" open="1" top="0" tabpos="20" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="0" topLine="21" />
+			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="ProjektProgramowanie/include/HUD.h" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="ProjektProgramowanie/src/Controls.cpp" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1714" topLine="62" />
+			<Cursor1 position="363" topLine="5" />
+		</Cursor>
+	</File>
+	<File name="ProjektProgramowanie/include/Camera.h" open="1" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="ProjektProgramowanie/src/Map.cpp" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="733" topLine="269" />
+		</Cursor>
+	</File>
+	<File name="ProjektProgramowanie/include/object_init.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="912" topLine="3" />
+		</Cursor>
+	</File>
+	<File name="ProjektProgramowanie/include/Map.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1051" topLine="48" />
+		</Cursor>
+	</File>
+	<File name="ProjektProgramowanie/src/HUD.cpp" open="1" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5685" topLine="168" />
 		</Cursor>
 	</File>
 	<File name="ProjektProgramowanie/src/Player.cpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">

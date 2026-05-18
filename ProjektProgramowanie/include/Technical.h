@@ -100,7 +100,8 @@ class Technical
         SDL_Color font_default_color_get();
         TTF_Font* font_banner_bottom_get();
         SDL_Color font_banner_bottom_color_get();
-
+        TTF_Font* font_respawn_screen_get();
+        SDL_Color font_respawn_screen_color_get();
         int fps_target_get();
 
     protected:
@@ -119,6 +120,9 @@ class Technical
 
         TTF_Font* font_banner_bottom;
         SDL_Color font_banner_bottom_color;
+
+        TTF_Font* font_respawn_screen;
+        SDL_Color font_respawn_screen_color;
 
         int fps_target;
 

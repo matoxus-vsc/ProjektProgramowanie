@@ -66,6 +66,7 @@ public:
     int ammo_in_mag_get() const;
     int spare_mags_get() const;
     void consume_one_ammo();
+    void respawn_reload();
 
 protected:
     int health;

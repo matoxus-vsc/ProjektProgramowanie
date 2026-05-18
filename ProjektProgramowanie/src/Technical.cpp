@@ -79,7 +79,7 @@ bool media(Technical& t)
 {
     bool success = true;
 
-    if(!player.sprite.texture_load("ProjektProgramowanie/tex/gracz.png")) // ProjektProgramowanie/ProjektProgramowanie/tex/gracz.png
+    if(!player.sprite.texture_load("ProjektProgramowanie/tex/gracz.png")) // ProjektProgramowanie/tex/gracz.png
     {
         success = false;
         SDL_Log("Couldnt load 'gracz.png'! %s", SDL_GetError());
@@ -152,6 +152,14 @@ bool media(Technical& t)
     t.font_banner_bottom_color = {255, 255, 255, 0};
 
     if(t.font_banner_bottom==nullptr)
+       {
+            success = false;
+            SDL_Log("Couldnt load 'ProggyVector Regular.ttf'! %s", SDL_GetError());
+       }
+    t.font_respawn_screen = TTF_OpenFont("ProjektProgramowanie/fonts/ProggyVector Regular.ttf", 26);
+    t.font_respawn_screen_color = {255, 255, 255, 0};
+
+    if(t.font_respawn_screen==nullptr)
        {
             success = false;
             SDL_Log("Couldnt load 'ProggyVector Regular.ttf'! %s", SDL_GetError());
@@ -231,6 +239,14 @@ TTF_Font* Technical::font_banner_bottom_get()
 SDL_Color Technical::font_banner_bottom_color_get()
 {
     return font_banner_bottom_color;
+}
+TTF_Font* Technical::font_respawn_screen_get()
+{
+    return font_respawn_screen;
+}
+SDL_Color Technical::font_respawn_screen_color_get()
+{
+    return font_respawn_screen_color;
 }
 int Technical::fps_target_get()
 {
