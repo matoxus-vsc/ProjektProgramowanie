@@ -19,11 +19,11 @@ Map::~Map() {
 }
 
 void Map::dodaj_sciane(float x, float y) {
-    lista_scian.push_back(Object(x, y, "ProjektProgramowanie/Prowizorycznetekstury/sciana.png"));
+    lista_scian.push_back(Object(x, y, "ProjektProgramowanie/tex/sciana.png"));
 }
 
 void Map::dodaj_drzwi(float x, float y) {
-    lista_drzwi.push_back({Object(x, y, "ProjektProgramowanie/Prowizorycznetekstury/drzwi.png"),false});
+    lista_drzwi.push_back({Object(x, y, "ProjektProgramowanie/tex/drzwi.png"),false});
 }
 
 bool Map::get_random_free_position(float width, float height, float& outX, float& outY, int maxAttempts, float margin)
@@ -155,12 +155,13 @@ bool Map::collision_objects_check()
     }
      for(auto& drzwi : lista_drzwi)
     {
-        if(player.collision_check_player(drzwi.drzwi))
-        return true;
+        if(!drzwi.otwarte) {
+            if(player.collision_check_player(drzwi.drzwi))
+            return true;
     }
     return false;
 }
-
+}
 bool Map::collision_check_object(Object& obj)
 {
     // Sprawdzenie kolizji obiektu ze ścianami i drzwiami
@@ -174,8 +175,8 @@ bool Map::collision_check_object(Object& obj)
     for(const auto& sciana : lista_scian)
     {
         Vec2f wall_pos = sciana.position_get();
-        float wall_w = sciana.width_get();
-        float wall_h = sciana.height_get();
+        float wall_w = cell_size;
+        float wall_h = cell_size;
 
         // AABB collision check (nie używaj radius)
         if (obj_pos.x < wall_pos.x + wall_w &&
@@ -190,16 +191,18 @@ bool Map::collision_check_object(Object& obj)
     // Sprawdzenie ze drzwiami
     for(const auto& drzwi : lista_drzwi)
     {
-        Vec2f door_pos = drzwi.drzwi.position_get();
-        float door_w = drzwi.drzwi.width_get();
-        float door_h = drzwi.drzwi.height_get();
+        if(!drzwi.otwarte) {
+            Vec2f door_pos = drzwi.drzwi.position_get();
+            float door_w = cell_size;
+            float door_h = cell_size;
 
-        if (obj_pos.x < door_pos.x + door_w &&
-            obj_pos.x + obj_w > door_pos.x &&
-            obj_pos.y < door_pos.y + door_h &&
-            obj_pos.y + obj_h > door_pos.y)
-        {
-            return true;
+            if (obj_pos.x < door_pos.x + door_w &&
+                obj_pos.x + obj_w > door_pos.x &&
+                obj_pos.y < door_pos.y + door_h &&
+                obj_pos.y + obj_h > door_pos.y)
+            {
+                return true;
+            }
         }
     }
 
@@ -237,14 +240,14 @@ void Map::map_render(SDL_Renderer* renderer, float camera_x, float camera_y, int
 
     SDL_FRect src_bg = { camera.view_x_get(), camera.view_y_get(), (float)window_w, (float)window_h };
     SDL_FRect dst_bg = { 0.0f, 0.0f, (float)window_w, (float)window_h };
-    SDL_RenderTexture(renderer, map_obj.texture_get(), &src_bg, &dst_bg);
+    SDL_RenderTexture(renderer, map_obj.texture_get(), NULL, &dst_bg);
 
     for (auto& sciana : lista_scian) {
         SDL_FRect dst_sciana;
         dst_sciana.x = sciana.position_get().x - camera.view_x_get();
         dst_sciana.y = sciana.position_get().y - camera.view_y_get();
-        dst_sciana.w = sciana.width_get();
-        dst_sciana.h = sciana.height_get();
+        dst_sciana.w = cell_size;
+        dst_sciana.h = cell_size;
 
         if (dst_sciana.x + dst_sciana.w > 0 && dst_sciana.x < window_w &&
             dst_sciana.y + dst_sciana.h > 0 && dst_sciana.y < window_h) {
@@ -253,7 +256,7 @@ void Map::map_render(SDL_Renderer* renderer, float camera_x, float camera_y, int
     }
 
     for (auto& drzwi : lista_drzwi) {
-        SDL_FRect dst_drzwi = { drzwi.drzwi.position_get().x - camera.view_x_get(), drzwi.drzwi.position_get().y - camera.view_y_get(), drzwi.drzwi.width_get(), drzwi.drzwi.height_get() };
+        SDL_FRect dst_drzwi = { drzwi.drzwi.position_get().x - camera.view_x_get(), drzwi.drzwi.position_get().y - camera.view_y_get(), cell_size, cell_size };
         if (dst_drzwi.x + dst_drzwi.w > 0 && dst_drzwi.x < window_w &&
             dst_drzwi.y + dst_drzwi.h > 0 && dst_drzwi.y < window_h) {
 
@@ -296,5 +299,26 @@ void Map::wczytaj_z_pliku(const string& sciezka, float rozmiar_kratki) {
     if (map_cols>0 && map_rows>0) {
         map_width = map_cols * static_cast<int>(cell_size);
         map_height = map_rows * static_cast<int>(cell_size);
+    }
+}
+void Map::interakcja_z_drzwiami(float gracz_x, float gracz_y, float gracz_w, float gracz_h) {
+    float zasieg = 120.0f;
+    float pole_x = gracz_x - zasieg;
+    float pole_y = gracz_y - zasieg;
+    float pole_w = gracz_w + (zasieg * 2);
+    float pole_h = gracz_h + (zasieg * 2);
+
+    for (auto& d : lista_drzwi) {
+        Vec2f pos = d.drzwi.position_get();
+        float door_x = pos.x;
+        float door_y = pos.y;
+        float door_w = cell_size;
+        float door_h = cell_size;
+
+        if (pole_x < door_x + door_w && pole_x + pole_w > door_x &&
+            pole_y < door_y + door_h && pole_y + pole_h > door_y) {
+
+            d.otwarte = !d.otwarte;
+        }
     }
 }

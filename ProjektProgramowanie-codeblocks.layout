@@ -50,6 +50,7 @@
 	<File name="ProjektProgramowanie/src/Object.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="1230" topLine="123" />
+			<Cursor1 position="363" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="ProjektProgramowanie/src/Technical.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -105,6 +106,31 @@
 	<File name="ProjektProgramowanie/src/HUD.cpp" open="1" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="5685" topLine="168" />
+		</Cursor>
+	</File>
+	<File name="ProjektProgramowanie/src/Player.cpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4499" topLine="139" />
+		</Cursor>
+	</File>
+	<File name="ProjektProgramowanie/include/Player.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="943" topLine="18" />
+		</Cursor>
+	</File>
+	<File name="ProjektProgramowanie/include/Camera.h" open="1" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="ProjektProgramowanie/src/Bot.cpp" open="1" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1261" topLine="432" />
+		</Cursor>
+	</File>
+	<File name="ProjektProgramowanie/include/Object.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3014" topLine="99" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>
