@@ -51,6 +51,8 @@ public:
      *
      */
     bool collision_check_object(Object& obj);
+    /** \brief Próba otwarcia/zamknięcia drzwi w pobliżu gracza */
+    void interakcja_z_drzwiami(float gracz_x, float gracz_y, float gracz_w, float gracz_h);
 
     // Gettery dla botów aby sprawdzały kolizje
     const std::vector<Object>& get_walls() const;

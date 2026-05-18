@@ -37,7 +37,7 @@ bool Object::texture_load(const char* path)
         }
         else
         {
-
+            SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
             texture_width = surface->w;
             texture_height = surface->h;
         }
