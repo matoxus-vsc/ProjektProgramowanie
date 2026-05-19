@@ -65,7 +65,7 @@ class Mouse
     protected:
 
     private:
-        Vec2f position;
+        Vec2f position;/**< aktualna pozycja myszki */
 };
 
 

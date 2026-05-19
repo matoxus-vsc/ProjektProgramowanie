@@ -25,6 +25,10 @@ class Timer
          */
         Timer();
 
+        /** \brief Destruktor
+         *
+         *
+         */
         ~Timer();
 
         /** \brief start stopera
@@ -76,6 +80,11 @@ class Timer
          */
         void ticks_set(Uint64 ticks);
 
+        /** \brief getter
+         *
+         * \return bool - czy wystartowano stoper
+         *
+         */
         bool start_check_get();
 
         /** \brief getter

@@ -3,7 +3,7 @@
 #include <random>
 #include <cmath>
 #include <iostream>
-#include "object_init.h" // Zakladam ze to Wasz plik startowy
+#include "object_init.h"
 
 using namespace std;
 
@@ -59,7 +59,6 @@ void Map::wczytaj_z_pliku(const string& sciezka, float rozmiar_kratki) {
     while (getline(plik, linia)) {
         tile_map.push_back(linia);
 
-        // Analiza kazdego znaku w rzedzie
         for (int kolumna = 0; kolumna < linia.length(); ++kolumna) {
             char znak = linia[kolumna];
 
