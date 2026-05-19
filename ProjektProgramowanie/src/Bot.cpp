@@ -26,7 +26,6 @@ Bot::Bot(int health, int attack) : Player(health, attack),
 
     if (!seeded) { std::srand(static_cast<unsigned int>(std::time(nullptr))); seeded = true; }
 
-    // Każdy bot dostaje unikalny seed na bazie licznika + losowość
     goal_seed = (bot_counter * 16807U) ^ static_cast<unsigned int>(std::time(nullptr));
 
     std::stringstream s;
@@ -274,12 +273,10 @@ void Bot::updateAI(Player& enemy)
 
     update_reload();
 
-    // Zmniejsz cooldown
     if (fire_cooldown > 0) fire_cooldown--;
     if (burst_pause_timer > 0) burst_pause_timer--;
     if (movement_timer > 0) movement_timer--;
 
-    //timer zmiany celu i zmień cel co 300 frames
     goal_change_timer++;
     if (goal_change_timer > 300)
     {
@@ -315,7 +312,7 @@ void Bot::updateAI(Player& enemy)
         bot_angle = atan2(toEnemyY, toEnemyX) * 180.0 / M_PI;
 
         // Ruch w zależności od osobowości
-        if (bot_personality == 0)  // AGGRESSIVE - bezpośredni atak
+        if (bot_personality == 0)  // AGGRESSIVE 
         {
             // Atak
             if (distance > 300.0f)
@@ -332,30 +329,26 @@ void Bot::updateAI(Player& enemy)
             {
                 strafe_dir_x = (std::rand() % 2 == 0) ? 1.0f : -1.0f;
                 strafe_dir_y = (std::rand() % 2 == 0) ? 1.0f : -1.0f;
-                movement_timer = 20 + std::rand() % 20;  // Random duration
+                movement_timer = 20 + std::rand() % 20;
             }
 
-            // Strafe
             float perpX = -toEnemyY / distance;
             float perpY = toEnemyX / distance;
             moveWithBounds(perpX * strafe_dir_x * bot_speed * 0.7f, perpY * strafe_dir_y * bot_speed * 0.7f);
 
-            // Dystans
             if (distance < 250.0f)
             {
                 moveWithBounds(-toEnemyX / distance * bot_speed, -toEnemyY / distance * bot_speed);
             }
         }
-        else  // DEFENSIVE - uciekaj i strzelaj
+        else //DEFENSIVE
         {
-            // Uciekaj jeśli gracz jest blisko
             if (distance < 400.0f)
             {
                 moveWithBounds(-toEnemyX / distance * bot_speed * 1.2f, -toEnemyY / distance * bot_speed * 1.2f);
             }
             else if (distance > 300.0f)
             {
-                // Zbliż się jeśli gracz jest daleko
                 moveWithBounds(toEnemyX / distance * bot_speed * 0.8f, toEnemyY / distance * bot_speed * 0.8f);
             }
         }
@@ -364,7 +357,6 @@ void Bot::updateAI(Player& enemy)
     }
     else
     {
-        // Gracz nie widoczny - patrol
         float toGoalX = goal_x - centerX;
         float toGoalY = goal_y - centerY;
         float goalDistSq = toGoalX*toGoalX + toGoalY*toGoalY;
@@ -379,7 +371,6 @@ void Bot::updateAI(Player& enemy)
         }
         else
         {
-            // Patrol w celu
             patrol_timer++;
             if (patrol_timer > 20)
             {
@@ -391,7 +382,6 @@ void Bot::updateAI(Player& enemy)
         }
     }
 
-    // Update all active bullets
     for (auto it = active_bullets.begin(); it != active_bullets.end(); )
     {
         it->x += it->dx;
@@ -402,7 +392,6 @@ void Bot::updateAI(Player& enemy)
 
         bool bullet_hit_wall = false;
 
-        // Check collision with walls
         for (const auto& wall : arena.get_walls())
         {
             float bullet_half_w = bullet.width_get() * 0.5f;
@@ -426,11 +415,12 @@ void Bot::updateAI(Player& enemy)
             }
         }
 
-        // Check collision with doors
         if (!bullet_hit_wall)
         {
             for (const auto& drzwi : arena.get_doors())
             {
+                if (drzwi.otwarte) continue;
+
                 float bullet_half_w = bullet.width_get() * 0.5f;
                 float bullet_half_h = bullet.height_get() * 0.5f;
 
@@ -482,9 +472,6 @@ void Bot::render()
         {
             bullet.render(b.x - view_x, b.y - view_y, b.angle, nullptr);
         }
-    } else {
-        SDL_FPoint bullet_center = { -static_cast<float>(sprite.width_get())*0.5f - static_cast<float>(gun.width_get()), static_cast<float>(bullet.height_get())*0.5f };
-        bullet.render(screen_x + sprite.width_get() + gun.width_get(), screen_y + sprite.height_get()*0.5f - bullet.height_get()*0.5f, bot_angle, &bullet_center);
     }
 }
 
@@ -552,20 +539,14 @@ int Bot::fire_cooldown_get() const
 
 void Bot::bullet_set_position(float x, float y)
 {
-    // Deprecated - bullets are now managed by active_bullets vector
-    // This is kept for backward compatibility
 }
 
 void Bot::bullet_set_velocity(float dx, float dy)
 {
-    // Deprecated - bullets are now managed by active_bullets vector
-    // This is kept for backward compatibility
 }
 
 void Bot::bullet_start_shooting()
-{
-    // Deprecated - bullets are now managed by active_bullets vector
-    // This is kept for backward compatibility
+{  
 }
 
 void Bot::change_goal()
@@ -577,7 +558,6 @@ void Bot::change_goal()
     goal_seed = goal_seed * 1103515245U + 12345U;
     unsigned int rand2 = (goal_seed / 65536U) % 32768U;
 
-    // Losowy punkt na mapie
     goal_x = 100.0f + (rand1 % static_cast<unsigned int>(arena.map_width - 200)) * 1.0f;
     goal_y = 100.0f + (rand2 % static_cast<unsigned int>(arena.map_height - 200)) * 1.0f;
 

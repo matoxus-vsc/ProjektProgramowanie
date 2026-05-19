@@ -27,7 +27,7 @@ int main(int argc, char** argv)
     }
     else
     {
-        arena.wczytaj_z_pliku("ProjektProgramowanie/tex/uklad_mapy.txt", 78.0f);
+        arena.wczytaj_z_pliku("tex/uklad_mapy.txt", 78.0f);
         player.setPosition(150.0f, 150.0f);
         tab_name_column_text.text_load("NAME", t1.font_banner_bottom_get(), t1.font_banner_bottom_color_get());
         tab_kill_column_text.text_load("KILLS", t1.font_banner_bottom_get(), t1.font_banner_bottom_color_get());

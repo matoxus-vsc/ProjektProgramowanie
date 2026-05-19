@@ -95,9 +95,6 @@ void Player::render() { // Polaczenie gracza z bronia i pociskiem
         {
             bullet.render(b.x - view_x, b.y - view_y, b.angle, nullptr);
         }
-    } else {
-        SDL_FPoint bullet_center = { -static_cast<float>(sprite.width_get()) / 2.0f - static_cast<float>(gun.width_get()), static_cast<float>(bullet.height_get()) / 2.0f };
-        bullet.render(screen_x + sprite.width_get() + gun.width_get(), screen_y + sprite.height_get()/2.0f - bullet.height_get()/2.0f, angle, &bullet_center);
     }
 }
 
@@ -274,11 +271,14 @@ void Player::player_move_handler()
             }
         }
 
-        // Check collision with doors
+        // Check collision with doors (only if they are closed)
         if (!bullet_hit_wall)
         {
             for (const auto& drzwi : arena.get_doors())
             {
+                // Only treat doors as obstacles if they are closed
+                if (drzwi.otwarte) continue;
+
                 float bullet_half_w = bullet.width_get() * 0.5f;
                 float bullet_half_h = bullet.height_get() * 0.5f;
 

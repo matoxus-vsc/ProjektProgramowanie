@@ -19,11 +19,11 @@ Map::~Map() {
 }
 
 void Map::dodaj_sciane(float x, float y) {
-    lista_scian.push_back(Object(x, y, "ProjektProgramowanie/tex/sciana.png"));
+    lista_scian.push_back(Object(x, y, "tex/sciana.png"));
 }
 
 void Map::dodaj_drzwi(float x, float y) {
-    lista_drzwi.push_back({Object(x, y, "ProjektProgramowanie/tex/drzwi.png"),false});
+    lista_drzwi.push_back({Object(x, y, "tex/drzwi.png"),false});
 }
 
 bool Map::get_random_free_position(float width, float height, float& outX, float& outY, int maxAttempts, float margin)
