@@ -1,0 +1,28 @@
+var object__init_8h =
+[
+    [ "player", "object__init_8h.html#ae4c5adc1509eace81a9216e7a219d121", null ],
+    [ "ammo_stat_text", "object__init_8h.html#af7e2e2cbf5789ec274c9aa2264889282", null ],
+    [ "arena", "object__init_8h.html#ae7908f172d9af17852038b28e770d8e7", null ],
+    [ "bots", "object__init_8h.html#a98144d0c474c8a277514b677416c38ff", null ],
+    [ "camera", "object__init_8h.html#a2008f4ab70b5e4104c2ca43932536ddf", null ],
+    [ "door_obj", "object__init_8h.html#a181967a1fb6d079e7c5b66adbfe8c05a", null ],
+    [ "fps_text", "object__init_8h.html#a601d39c87b006f7d5f69099f3f71f31f", null ],
+    [ "fps_timer", "object__init_8h.html#a1f25ffb709f8c2da1b01089cde8754c1", null ],
+    [ "h1", "object__init_8h.html#af3e635ff0e9a0d2a4cfece394d09e699", null ],
+    [ "hp_stat_text", "object__init_8h.html#a544a23a165f279acf0f30ac8849da8c1", null ],
+    [ "kill_feed_disperse", "object__init_8h.html#a85dad429d0712e99a6c23d81fdb0809a", null ],
+    [ "kill_feed_text", "object__init_8h.html#a63a5bd30bd46deae5416b226a30ea944", null ],
+    [ "m1", "object__init_8h.html#ad3447775c72feb4cfa84192b0d78ee2b", null ],
+    [ "map_obj", "object__init_8h.html#ad8ab8e67609daf40c67481881444b72a", null ],
+    [ "respawn_screen1_text", "object__init_8h.html#a632f547cab1f15604dc0cd5612de05e3", null ],
+    [ "respawn_screen2_text", "object__init_8h.html#a25fe4798ac6c23bb160ef9adba0753e9", null ],
+    [ "t1", "object__init_8h.html#a31e555395ac1b6cbf6d5dcc3cebf1206", null ],
+    [ "tab_death", "object__init_8h.html#a53a23e79157b41a7e50a3a1f8a130605", null ],
+    [ "tab_death_column_text", "object__init_8h.html#ac01082b5a6577c77f11802f03337d34b", null ],
+    [ "tab_kill", "object__init_8h.html#a730b2d9cf39322daa4f6398efd33c379", null ],
+    [ "tab_kill_column_text", "object__init_8h.html#afaeb838316b8255e5702452169cebd94", null ],
+    [ "tab_name", "object__init_8h.html#ac1452593f3e0788ebaf15288bafc8496", null ],
+    [ "tab_name_column_text", "object__init_8h.html#a5a754a724b231323a21c327ee64cb851", null ],
+    [ "wall_obj", "object__init_8h.html#a83bf556c00efc8e5743b3386d79d259c", null ],
+    [ "weapon_stat_text", "object__init_8h.html#a0ef377937640dcf5a8e54b9afaf4a3ff", null ]
+];

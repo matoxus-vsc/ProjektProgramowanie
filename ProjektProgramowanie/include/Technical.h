@@ -40,25 +40,20 @@ class Technical
          */
         Technical();
 
+        /** \brief Destruktor
+         *
+         *
+         */
         ~Technical();
 
 
-        /** \brief Inicjacja SDL
-         *
-         * \param t Technical&
-         * \return friend bool
-         *
-         */
+
         friend bool init(Technical& t);
+
 
         friend bool media(Technical& t);
 
-        /** \brief Dealokacja po skończonej grze
-         *
-         * \param t Technical&
-         * \return friend void
-         *
-         */
+
         friend void close(Technical& t);
 
         /** \brief getter
@@ -96,12 +91,46 @@ class Technical
          */
         Errors_technical err_code_get();
 
+        /** \brief getter
+         *
+         * \return TTF_Font* - wskaźnik do czcionki
+         *
+         */
         TTF_Font* font_default_get();
+
+        /** \brief getter
+         *
+         * \return SDL_Color - kolor czcionki
+         *
+         */
         SDL_Color font_default_color_get();
+
+        /** \brief getter
+         *
+         * \return TTF_Font* - wskaźnik do czcionki
+         *
+         */
         TTF_Font* font_banner_bottom_get();
-        SDL_Color font_banner_bottom_color_get();
+
+         /** \brief getter
+         *
+         * \return SDL_Color - kolor czcionki
+         *
+         */
+         SDL_Color font_banner_bottom_color_get();
+
+        /** \brief getter
+         *
+         * \return TTF_Font* - wskaźnik do czcionki
+         *
+         */
         TTF_Font* font_respawn_screen_get();
-        SDL_Color font_respawn_screen_color_get();
+         /** \brief getter
+         *
+         * \return SDL_Color - kolor czcionki
+         *
+         */
+         SDL_Color font_respawn_screen_color_get();
         int fps_target_get();
 
     protected:
@@ -115,16 +144,16 @@ class Technical
 
         Errors_technical err_code;/**< Błąd przy inicjacji */
 
-        TTF_Font* font_default;
-        SDL_Color font_default_color;
+        TTF_Font* font_default;/**< czcionka standardowa */
+        SDL_Color font_default_color;/**< kolor czcionki standardowej */
 
-        TTF_Font* font_banner_bottom;
+        TTF_Font* font_banner_bottom;/**< czcionka banneru dolnego */
         SDL_Color font_banner_bottom_color;
 
-        TTF_Font* font_respawn_screen;
-        SDL_Color font_respawn_screen_color;
+        TTF_Font* font_respawn_screen;/**< czcionka respawn screen */
+        SDL_Color font_respawn_screen_color;/**< kolor czcionki respawn screen */
 
-        int fps_target;
+        int fps_target;/**< docelowa liczba fpsów */
 
 };
 

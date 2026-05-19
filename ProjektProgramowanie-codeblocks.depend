@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1779125486 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/Bot.cpp
+1779129720 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/Bot.cpp
 	"Bot.h"
 	<math.h>
 	<cstdlib>
@@ -13,7 +13,7 @@
 	"Player.h"
 	<vector>
 
-1779126660 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/Player.h
+1779129720 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/Player.h
 	<string>
 	<vector>
 	<cstddef>
@@ -516,7 +516,7 @@
 
 1779097218 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/structs.h
 
-1779125751 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/object_init.h
+1779129720 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/object_init.h
 	"Technical.h"
 	"Object.h"
 	"Player.h"
@@ -528,7 +528,7 @@
 	"Camera.h"
 	<vector>
 
-1779126018 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/Technical.h
+1779129720 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/Technical.h
 	"../include/SDL3/SDL.h"
 	"../include/SDL3_ttf/SDL_ttf.h"
 
@@ -545,7 +545,7 @@
 	<string>
 	<vector>
 
-1778615647 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/Map.h
+1779128770 /home/temper/ProjektProgramowanie/ProjektProgramowanie/include/Map.h
 	<SDL3/SDL.h>
 	<SDL3_image/SDL_image.h>
 	<string>
@@ -567,7 +567,7 @@
 1778525156 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/Controls.cpp
 	"Controls.h"
 
-1779127460 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/main.cpp
+1779129720 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/main.cpp
 	<iostream>
 	<sstream>
 	<math.h>
@@ -598,18 +598,18 @@
 	<cmath>
 	"object_init.h"
 
-1778696999 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/Object.cpp
+1779128770 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/Object.cpp
 	"../include/SDL3_image/SDL_image.h"
 	"Object.h"
 	"object_init.h"
 
-1779126707 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/Player.cpp
+1779129720 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/Player.cpp
 	"Player.h"
 	<iostream>
 	<math.h>
 	"object_init.h"
 
-1779126018 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/Technical.cpp
+1779129720 source:/home/temper/ProjektProgramowanie/ProjektProgramowanie/src/Technical.cpp
 	"Technical.h"
 	"object_init.h"
 	<iostream>

@@ -28,6 +28,13 @@ public:
      */
     Object();
 
+    /** \brief Konstruktor z inicjacją tekstury i pozycji
+     *
+     * \param x float - pozycja x obiektu
+     * \param y float - pozycja y obiektu
+     * \param p const char* - ścieżka do tekstury obiektu
+     *
+     */
     Object(float x, float y, const char* p);
 
     /** \brief Destruktor - dealokacja zasobów + wyzerowanie właściwości
@@ -62,6 +69,11 @@ public:
      */
     void render( float x, float y, double angle = 0.0, SDL_FPoint* center = nullptr);
 
+    /** \brief getter
+     *
+     * \return SDL_Texture* - wskaźnik do tekstury
+     *
+     */
     SDL_Texture* texture_get() const;
 
     /** \brief getter
